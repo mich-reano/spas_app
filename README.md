@@ -116,6 +116,6 @@ streamlit run app.py
 
 ## **📞 Support / Contact**
 
-For improvements or support:
-Developed by: Michael Reagan
-Email: youremail@example.com
+- For improvements or support:
+- Developed by: Michael Reagan
+- Email: michaelreagan94@gmail.com
