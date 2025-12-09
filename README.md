@@ -2,13 +2,13 @@
   <img src="images/lumetra_scholar.png" alt="Lumetra Scholar Logo" width="180"/>
 </p>
 
-<h1 align="center"> Student Performance Analysis System (SPAS)</h1>
+<h1 align="center"> LumrtraScholar</h1>
 <h3 align="center">A Streamlit-Powered Academic Reporting & Insights Platform</h3>
 
 ---
 
 ##  Overview
-The **Student Performance Analysis System (SPAS)** is a professional, data-driven platform developed using **Streamlit** to support academic reporting, performance monitoring, and decision-making within schools.
+The **LumetraScholar** is a professional, data-driven platform developed using **Streamlit** to support academic reporting, performance monitoring, and decision-making within schools.
 
 It transforms raw CSV exam data into **interactive dashboards**, **individual student reports**, **subject analytics**, **stream comparisons**, and **exportable PDFs**, making it a powerful tool for teachers, administrators, and academic heads.
 
@@ -53,7 +53,7 @@ It transforms raw CSV exam data into **interactive dashboards**, **individual st
 
 ##  Data Requirements
 
-Upload a CSV containing:
+Upload a CSV containing:(optional)
 
 - **ADM NO.**  
 - **NAME OF STUDENTS**  
@@ -68,7 +68,7 @@ The system will automatically:
 
 ---
 
-## 🚀 How to Use the System
+##  How to Use the System
 
 ### **Step 1 – Upload Data**
 1. Open the app  
@@ -112,3 +112,6 @@ cd SPAS
 pip install -r requirements.txt
 streamlit run app.py
 
+### **Contact**
+Magollo Michael Reagan O.
+michaelreagan94@gmail.com
