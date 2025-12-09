@@ -114,6 +114,8 @@ streamlit run app.py
 ```
 ---
 
-### **Contact**
-**Magollo Michael Reagan O.**
-**michaelreagan94@gmail.com**
+## **📞 Support / Contact**
+
+For improvements or support:
+Developed by: Michael Reagan
+Email: youremail@example.com
