@@ -304,7 +304,7 @@ def create_class_list_pdf(df, school_name, grade, term, year, exam_type, class_t
     elements.append(Spacer(1, 15))
 
     summary_sig_data = [[
-        f"CLASS SUMMARY: Total Students: {len(df)} | Class Average: {df['AVERAGE'].mean():.2f} | Highest: {df['TOTAL'].max():.0f} | Lowest: {df['TOTAL'].min():.0f}",
+        f"CLASS SUMMARY: Total Students: {len(df)} | Class Average: {df['TOTAL'].mean():.2f} | Highest: {df['TOTAL'].max():.0f} | Lowest: {df['TOTAL'].min():.0f}",
         f"Class Teacher: {class_teacher}     Signature: ______________     Date: ______________"
     ]]
     summary_table = Table(summary_sig_data, colWidths=[5*inch, 5.5*inch])
@@ -465,7 +465,7 @@ def show_student_reports(df, grade, subject_cols):
     with st.expander("🔧 Report Configuration", expanded=True):
         col1, col2, col3 = st.columns(3)
         with col1:
-            school_name = st.text_input("School Name", "ABC SECONDARY SCHOOL")
+            school_name = st.text_input("School Name", "ABC SCHOOL")
             grade_text = st.text_input("Grade/Class", grade)
         with col2:
             term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"])
@@ -662,7 +662,7 @@ def show_class_analysis(df, grade, subject_cols):
     with st.expander("🔧 Class List Configuration", expanded=True):
         col1, col2, col3 = st.columns(3)
         with col1:
-            school_name_cl = st.text_input("School Name", "ABC SECONDARY SCHOOL", key="cl_school")
+            school_name_cl = st.text_input("School Name", "ABC SCHOOL", key="cl_school")
             grade_cl = st.text_input("Grade/Class", grade, key="cl_grade")
         with col2:
             term_cl = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"], key="cl_term")
@@ -1057,3 +1057,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
