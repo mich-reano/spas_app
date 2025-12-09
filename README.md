@@ -2,7 +2,7 @@
   <img src="images/lumetra_scholar.png" alt="Lumetra Scholar Logo" width="180"/>
 </p>
 
-<h1 align="center"> LumrtraScholar</h1>
+<h1 align="center"> LumetraScholar</h1>
 <h3 align="center">A Streamlit-Powered Academic Reporting & Insights Platform</h3>
 
 ---
