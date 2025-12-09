@@ -5,3 +5,4 @@ plotly
 matplotlib
 altair
 fpdf
+reportlab
