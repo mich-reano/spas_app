@@ -111,7 +111,9 @@ git clone https://github.com/yourusername/SPAS.git
 cd SPAS
 pip install -r requirements.txt
 streamlit run app.py
+```
+---
 
 ### **Contact**
-Magollo Michael Reagan O.
-michaelreagan94@gmail.com
+**Magollo Michael Reagan O.**
+**michaelreagan94@gmail.com**
