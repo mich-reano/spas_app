@@ -1,8 +1,23 @@
-streamlit
-pandas
-numpy
-plotly
-matplotlib
-altair
-fpdf
-reportlab
+# LumetraScholar - Requirements for Render Deployment
+# Python 3.9+ recommended
+
+# Core Framework
+streamlit==1.31.1
+
+# Data Processing
+pandas==2.1.4
+numpy==1.26.3
+
+# Visualization
+plotly==5.18.0
+
+# PDF Generation
+reportlab==4.0.9
+
+# Additional Required Dependencies
+python-dateutil==2.8.2
+pytz==2024.1
+six==1.16.0
+
+# Pillow for image handling in PDFs (reportlab dependency)
+Pillow==10.2.0
