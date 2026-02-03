@@ -1,7 +1,8 @@
-# lumetra_scholar_final.py
 import os
 from io import BytesIO
 import base64
+import json
+from datetime import datetime
 
 import pandas as pd
 import streamlit as st
@@ -14,6 +15,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.graphics.shapes import Drawing, Line
 
 # ---------------------------
 # Page config
@@ -21,8 +23,8 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 st.set_page_config(page_title="LumetraScholar", page_icon="./images/lumetra_scholar.png", layout="wide")
 
 # ---------------------------
-# Your grade map (exact)
-# ----------------------------
+# Grade and Subject Configuration
+# ---------------------------
 GRADES = {
     'Grade 4': ['MAT', 'ENG', 'KIS', 'SCI', 'SST', 'C/ARTS'],
     'Grade 5': ['MAT', 'ENG', 'KIS', 'SCI', 'SST', 'C/ARTS'],
@@ -33,26 +35,339 @@ GRADES = {
 }
 
 DATA_PATH = "data"
+USERS_FILE = os.path.join(DATA_PATH, "users.json")
+STUDENTS_FILE = os.path.join(DATA_PATH, "students.json")
+MARKS_FILE = os.path.join(DATA_PATH, "marks.json")
 
 # ---------------------------
-# Utility functions
+# User Management Functions
 # ---------------------------
-def get_performance_level(score):
+def load_users():
+    """Load users from JSON file"""
+    if os.path.exists(USERS_FILE):
+        try:
+            with open(USERS_FILE, 'r') as f:
+                content = f.read().strip()
+                if not content:  # Empty file
+                    raise ValueError("Empty file")
+                return json.loads(content)
+        except (json.JSONDecodeError, ValueError) as e:
+            # File is corrupted or empty, create default
+            st.warning(f"⚠️ users.json file was corrupted or empty. Creating new default admin user.")
+            default_users = {
+                "admin": {
+                    "password": "admin123",
+                    "role": "admin",
+                    "name": "System Administrator"
+                }
+            }
+            save_users(default_users)
+            return default_users
+    else:
+        # Default admin user
+        default_users = {
+            "admin": {
+                "password": "admin123",
+                "role": "admin",
+                "name": "System Administrator"
+            }
+        }
+        save_users(default_users)
+        return default_users
+
+def save_users(users):
+    """Save users to JSON file"""
+    os.makedirs(DATA_PATH, exist_ok=True)
+    with open(USERS_FILE, 'w') as f:
+        json.dump(users, f, indent=2)
+
+def authenticate_user(username, password):
+    """Authenticate user credentials"""
+    users = load_users()
+    if username in users and users[username]['password'] == password:
+        return users[username]
+    return None
+
+def add_teacher(username, password, name, assignments):
+    """
+    Add a new teacher to the system with specific grade-subject-stream assignments
+    assignments: list of dicts like [{"grade": "Grade 4", "subject": "MAT", "stream": "H"}, ...]
+    """
+    users = load_users()
+    if username in users:
+        return False, "Username already exists"
+    
+    # Extract unique subjects and grades from assignments
+    subjects = list(set([a['subject'] for a in assignments]))
+    grades = list(set([a['grade'] for a in assignments]))
+    
+    users[username] = {
+        "password": password,
+        "role": "teacher",
+        "name": name,
+        "subjects": subjects,  # For backward compatibility
+        "grades": grades,  # For backward compatibility
+        "assignments": assignments  # New detailed assignment structure
+    }
+    save_users(users)
+    return True, "Teacher added successfully"
+
+# ---------------------------
+# Student Management Functions
+# ---------------------------
+def load_students():
+    """Load students from JSON file"""
+    if os.path.exists(STUDENTS_FILE):
+        try:
+            with open(STUDENTS_FILE, 'r') as f:
+                content = f.read().strip()
+                if not content:  # Empty file
+                    return {}
+                return json.loads(content)
+        except json.JSONDecodeError as e:
+            # File is corrupted, return empty and show warning
+            st.warning(f"⚠️ students.json file was corrupted. Starting with empty student list. Error: {str(e)}")
+            return {}
+    return {}
+
+def save_students(students):
+    """Save students to JSON file"""
+    os.makedirs(DATA_PATH, exist_ok=True)
+    with open(STUDENTS_FILE, 'w') as f:
+        json.dump(students, f, indent=2)
+
+def add_student(adm_no, name, gender, grade, stream):
+    """Add a new student to the system"""
+    students = load_students()
+    
+    # For grades 4-6, use initials as admission number if not provided
+    if grade in ['Grade 4', 'Grade 5', 'Grade 6']:
+        if not adm_no:
+            # Generate admission number from name initials
+            words = name.strip().split()
+            initials = ''.join([word[0].upper() for word in words if word])
+            
+            # Make unique by adding stream and number if needed
+            base_adm = f"{initials}-{stream}"
+            adm_no = base_adm
+            counter = 1
+            
+            # Check for duplicates and add number if needed
+            while adm_no in students:
+                adm_no = f"{base_adm}{counter}"
+                counter += 1
+        
+        # Check if student with same name and grade exists
+        for existing_adm, existing_data in students.items():
+            if (existing_data['name'].lower() == name.lower() and 
+                existing_data['grade'] == grade and 
+                existing_data['stream'] == stream and
+                existing_adm != adm_no):
+                return False, "A student with this name already exists in this grade and stream"
+    else:  # Grades 7-9 require admission number
+        if not adm_no:
+            return False, "Admission number is required for Junior Secondary (Grades 7-9)"
+        
+        if adm_no in students:
+            return False, "Admission number already exists"
+    
+    students[adm_no] = {
+        "name": name,
+        "gender": gender,
+        "grade": grade,
+        "stream": stream,
+        "created_at": datetime.now().isoformat()
+    }
+    save_students(students)
+    return True, f"Student added successfully with admission number: {adm_no}"
+
+# ---------------------------
+# Marks Management Functions
+# ---------------------------
+def load_marks():
+    """Load marks from JSON file"""
+    if os.path.exists(MARKS_FILE):
+        try:
+            with open(MARKS_FILE, 'r') as f:
+                content = f.read().strip()
+                if not content:  # Empty file
+                    return {}
+                return json.loads(content)
+        except json.JSONDecodeError as e:
+            # File is corrupted, return empty and show warning
+            st.warning(f"⚠️ marks.json file was corrupted. Starting with empty marks. Error: {str(e)}")
+            return {}
+    return {}
+
+def save_marks(marks):
+    """Save marks to JSON file"""
+    os.makedirs(DATA_PATH, exist_ok=True)
+    with open(MARKS_FILE, 'w') as f:
+        json.dump(marks, f, indent=2)
+
+def enter_marks(adm_no, subject, grade, term, year, exam_type, score, teacher_username):
+    """Enter marks for a student"""
+    marks = load_marks()
+    
+    # Create unique key for this exam instance
+    exam_key = f"{grade}_{term}_{year}_{exam_type}"
+    
+    if exam_key not in marks:
+        marks[exam_key] = {}
+    
+    if adm_no not in marks[exam_key]:
+        marks[exam_key][adm_no] = {}
+    
+    marks[exam_key][adm_no][subject] = {
+        "score": score,
+        "entered_by": teacher_username,
+        "entered_at": datetime.now().isoformat()
+    }
+    
+    save_marks(marks)
+    return True, "Marks entered successfully"
+
+def get_exam_marks(grade, term, year, exam_type):
+    """Get all marks for a specific exam"""
+    marks = load_marks()
+    exam_key = f"{grade}_{term}_{year}_{exam_type}"
+    return marks.get(exam_key, {})
+
+def get_marks_entry_progress(grade, term, year, exam_type):
+    """Get progress of marks entry by teachers"""
+    students = load_students()
+    marks = load_marks()
+    users = load_users()
+    
+    exam_key = f"{grade}_{term}_{year}_{exam_type}"
+    exam_marks = marks.get(exam_key, {})
+    
+    # Get all students in this grade
+    grade_students = {adm: data for adm, data in students.items() if data['grade'] == grade}
+    
+    # Get all teachers
+    teachers = {username: data for username, data in users.items() if data['role'] == 'teacher' and grade in data.get('grades', [])}
+    
+    progress = {}
+    for teacher_username, teacher_data in teachers.items():
+        teacher_subjects = teacher_data.get('subjects', [])
+        total_entries_needed = len(grade_students) * len([s for s in teacher_subjects if s in GRADES[grade]])
+        entries_made = 0
+        
+        for adm_no in grade_students.keys():
+            if adm_no in exam_marks:
+                for subject in teacher_subjects:
+                    if subject in exam_marks[adm_no]:
+                        entries_made += 1
+        
+        progress[teacher_username] = {
+            "name": teacher_data['name'],
+            "subjects": teacher_subjects,
+            "total_needed": total_entries_needed,
+            "completed": entries_made,
+            "percentage": (entries_made / total_entries_needed * 100) if total_entries_needed > 0 else 0
+        }
+    
+    return progress
+
+# ---------------------------
+# Data Preparation Functions
+# ---------------------------
+def get_subject_performance_level(score):
+    """Get performance level and points for individual subject (0-100 marks)"""
     try:
         s = float(score)
     except Exception:
-        return 'BE'
-    if s >= 75:
-        return 'EE'
-    if s >= 60:
-        return 'ME'
-    if s >= 40:
-        return 'AE'
-    return 'BE'
+        return 'BE2', 1
+    
+    if s >= 90:
+        return 'EE1', 8
+    elif s >= 78:
+        return 'EE2', 7
+    elif s >= 65:
+        return 'ME1', 6
+    elif s >= 52:
+        return 'ME2', 5
+    elif s >= 39:
+        return 'AE1', 4
+    elif s >= 26:
+        return 'AE2', 3
+    elif s >= 13:
+        return 'BE1', 2
+    else:
+        return 'BE2', 1
 
+def get_primary_performance_level(total_score):
+    """Get performance level and points for Primary (Grade 4-6) - 6 subjects, max 600"""
+    try:
+        s = float(total_score)
+    except Exception:
+        return 'BE2', 1
+    
+    if s >= 532:
+        return 'EE1', 8
+    elif s >= 456:
+        return 'EE2', 7
+    elif s >= 380:
+        return 'ME1', 6
+    elif s >= 304:
+        return 'ME2', 5
+    elif s >= 228:
+        return 'AE1', 4
+    elif s >= 152:
+        return 'AE2', 3
+    elif s >= 76:
+        return 'BE1', 2
+    else:
+        return 'BE2', 1
+
+def get_junior_performance_level(total_score):
+    """Get performance level and points for Junior Secondary (Grade 7-9) - 9 subjects, max 900"""
+    try:
+        s = float(total_score)
+    except Exception:
+        return 'BE2', 1
+    
+    if s >= 798:
+        return 'EE1', 8
+    elif s >= 684:
+        return 'EE2', 7
+    elif s >= 570:
+        return 'ME1', 6
+    elif s >= 456:
+        return 'ME2', 5
+    elif s >= 342:
+        return 'AE1', 4
+    elif s >= 228:
+        return 'AE2', 3
+    elif s >= 114:
+        return 'BE1', 2
+    else:
+        return 'BE2', 1
+
+def get_performance_level_for_grade(total_score, grade):
+    """Get appropriate performance level based on grade"""
+    if grade in ['Grade 4', 'Grade 5', 'Grade 6']:
+        return get_primary_performance_level(total_score)
+    else:  # Grade 7, 8, 9
+        return get_junior_performance_level(total_score)
+
+def get_performance_level(score):
+    """Legacy function for backwards compatibility - uses subject-level grading"""
+    level, _ = get_subject_performance_level(score)
+    return level
 
 def get_performance_label(level):
     labels = {
+        'EE1': 'Exceeding Expectation 1',
+        'EE2': 'Exceeding Expectation 2',
+        'ME1': 'Meeting Expectation 1',
+        'ME2': 'Meeting Expectation 2',
+        'AE1': 'Approaching Expectation 1',
+        'AE2': 'Approaching Expectation 2',
+        'BE1': 'Below Expectation 1',
+        'BE2': 'Below Expectation 2',
+        # Legacy support
         'EE': 'Exceeding Expectation',
         'ME': 'Meeting Expectation',
         'AE': 'Approaching Expectation',
@@ -60,336 +375,1343 @@ def get_performance_label(level):
     }
     return labels.get(level, level)
 
-
-def prepare_grade_data(df, subject_cols):
-    """Compute totals, average (0-100), rank, AV/LVL — only in memory."""
-    df = df.copy()
-
-    missing = [c for c in subject_cols if c not in df.columns]
-    if missing:
-        raise KeyError(f"Missing subject columns: {missing}")
-
-    # Ensure subject columns numeric
-    df[subject_cols] = df[subject_cols].apply(pd.to_numeric, errors='coerce').fillna(0)
-
-    # Compute TOTAL (in-memory) — won't overwrite CSV on disk
+def prepare_grade_data(grade, term, year, exam_type):
+    """Prepare DataFrame from students and marks data"""
+    students = load_students()
+    marks = load_marks()
+    
+    exam_key = f"{grade}_{term}_{year}_{exam_type}"
+    exam_marks = marks.get(exam_key, {})
+    
+    # Filter students for this grade
+    grade_students = {adm: data for adm, data in students.items() if data['grade'] == grade}
+    
+    if not grade_students:
+        return pd.DataFrame()
+    
+    subject_cols = GRADES[grade]
+    
+    # Build DataFrame
+    rows = []
+    for adm_no, student_data in grade_students.items():
+        row = {
+            'ADM NO.': adm_no,
+            'NAME OF STUDENTS': student_data['name'],
+            'GENDER': student_data['gender'],
+            'STRM': student_data['stream']
+        }
+        
+        # Add subject marks and calculate subject points
+        subject_points_total = 0
+        for subject in subject_cols:
+            if adm_no in exam_marks and subject in exam_marks[adm_no]:
+                score = float(exam_marks[adm_no][subject]['score'])
+                row[subject] = score
+                # Get subject-level points
+                _, points = get_subject_performance_level(score)
+                subject_points_total += points
+            else:
+                row[subject] = 0.0
+                subject_points_total += 1  # BE2 default
+        
+        rows.append(row)
+    
+    df = pd.DataFrame(rows)
+    
+    if df.empty:
+        return df
+    
+    # Calculate totals and rankings
     df['TOTAL'] = df[subject_cols].sum(axis=1)
-
-    # AVERAGE as mean per subject (0-100)
-    n_sub = len(subject_cols)
-    df['AVERAGE'] = df['TOTAL'] / n_sub  # each subject assumed out of 100
-
-    # Performance label short and long
-    df['AV/LVL'] = df['AVERAGE'].apply(get_performance_level)
-
-    # RANK (dense; best = 1)
+    df['AVERAGE'] = df['TOTAL'] / len(subject_cols)
+    
+    # Get performance level and points based on total score and grade
+    perf_data = df.apply(lambda row: get_performance_level_for_grade(row['TOTAL'], grade), axis=1)
+    df['P.LEVEL'] = perf_data.apply(lambda x: x[0])
+    df['POINTS'] = perf_data.apply(lambda x: x[1])
+    
+    # Legacy column for compatibility
+    df['AV/LVL'] = df['P.LEVEL']
+    
     df['RANK'] = df['TOTAL'].rank(ascending=False, method='dense').astype(int)
-
-    # Safe defaults
-    if 'GENDER' not in df.columns:
-        df['GENDER'] = ''
-    if 'NAME OF STUDENTS' not in df.columns:
-        raise KeyError("Missing required column 'NAME OF STUDENTS'")
-    if 'STRM' not in df.columns:
-        df['STRM'] = ''
-
+    
     return df
 
-
 # ---------------------------
-# PDF helpers (kept as in your original with fixes)
+# PDF Functions (same as original)
 # ---------------------------
 def create_pdf_report(student, school_name, grade, term, year, exam_type, df,
-                      class_teacher, dhoi, hoi, subject_cols):
+                                    class_teacher, dhoi, hoi, subject_cols):
+    """
+    Create a professional, CBC-compliant report card
+    Fits on one A4 page with proper formatting
+    """
     buffer = BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
-                           topMargin=72, bottomMargin=72)
-
+    doc = SimpleDocTemplate(
+        buffer, 
+        pagesize=A4,
+        rightMargin=40,
+        leftMargin=40,
+        topMargin=30,
+        bottomMargin=30
+    )
+    
     elements = []
     styles = getSampleStyleSheet()
-
-    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontSize=18,
-                                 textColor=colors.HexColor('#1f4788'), spaceAfter=6, alignment=TA_CENTER, fontName='Helvetica-Bold')
-    heading_style = ParagraphStyle('CustomHeading', parent=styles['Heading2'], fontSize=12,
-                                   textColor=colors.HexColor('#2c5aa0'), spaceAfter=12, spaceBefore=12, fontName='Helvetica-Bold')
-    normal_style = ParagraphStyle('CustomNormal', parent=styles['Normal'], fontSize=10, alignment=TA_CENTER)
-
-    elements.append(Paragraph(school_name.upper(), title_style))
-    elements.append(Spacer(1, 6))
-    elements.append(Paragraph(f"{grade.upper()}", normal_style))
-    elements.append(Paragraph(f"{term} - {year}", normal_style))
-    elements.append(Paragraph(f"{exam_type}", normal_style))
-    elements.append(Spacer(1, 12))
-    elements.append(Paragraph("STUDENT PERFORMANCE REPORT", heading_style))
-    elements.append(Spacer(1, 12))
-
+    
+    # ============================================
+    # CUSTOM STYLES
+    # ============================================
+    
+    school_name_style = ParagraphStyle(
+        'SchoolName',
+        parent=styles['Normal'],
+        fontSize=14,
+        fontName='Times-Bold',
+        textColor=colors.HexColor('#1a3a5c'),
+        alignment=TA_CENTER,
+        spaceAfter=2
+    )
+    
+    school_info_style = ParagraphStyle(
+        'SchoolInfo',
+        parent=styles['Normal'],
+        fontSize=8,
+        fontName='Helvetica',
+        textColor=colors.HexColor('#555555'),
+        alignment=TA_CENTER,
+        spaceAfter=6
+    )
+    
+    title_bar_style = ParagraphStyle(
+        'TitleBar',
+        parent=styles['Normal'],
+        fontSize=11,
+        fontName='Times-Bold',
+        textColor=colors.white,
+        alignment=TA_CENTER
+    )
+    
+    section_heading_style = ParagraphStyle(
+        'SectionHeading',
+        parent=styles['Normal'],
+        fontSize=9,
+        fontName='Times-Bold',
+        textColor=colors.HexColor('#1a3a5c'),
+        spaceAfter=4,
+        spaceBefore=6
+    )
+    
+    body_text_style = ParagraphStyle(
+        'BodyText',
+        parent=styles['Normal'],
+        fontSize=8,
+        fontName='Helvetica',
+        textColor=colors.black
+    )
+    
+    footer_style = ParagraphStyle(
+        'Footer',
+        parent=styles['Normal'],
+        fontSize=7,
+        fontName='Helvetica-Oblique',
+        textColor=colors.HexColor('#666666'),
+        alignment=TA_CENTER
+    )
+    
+    # ============================================
+    # SCHOOL HEADER
+    # ============================================
+    
+    elements.append(Spacer(1, 8))
+    elements.append(Paragraph(school_name.upper(), school_name_style))
+    elements.append(Paragraph("P.O. Box 3-40308, SINDO, KENYA", school_info_style))
+    elements.append(Paragraph("Tel: +254 710 302846 | Email: sindocomprehensive@gmail.com", school_info_style))
+    
+    # Blue title bar
+    title_data = [[Paragraph("STUDENT PERFORMANCE REPORT", title_bar_style)]]
+    title_table = Table(title_data, colWidths=[7.5*inch])
+    title_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#1a3a5c')),
+        ('TOPPADDING', (0, 0), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+    ]))
+    elements.append(title_table)
+    elements.append(Spacer(1, 8))
+    
+    # ============================================
+    # EXAM DETAILS & LEARNER INFO
+    # ============================================
+    
     info_data = [
-        ['Admission Number:', str(student.get('ADM NO.', '')), 'Stream:', str(student.get('STRM', ''))],
-        ['Student Name:', str(student.get('NAME OF STUDENTS', '')), 'Gender:', str(student.get('GENDER', ''))],
-        ['Class Rank:', f"{student.get('RANK', '')} / {len(df)}", 'Performance Level:', str(student.get('AV/LVL', ''))],
+        [Paragraph(f"<b>Term:</b> {term}", body_text_style),
+         Paragraph(f"<b>Year:</b> {year}", body_text_style),
+         Paragraph(f"<b>Examination:</b> {exam_type}", body_text_style)],
+        [Paragraph(f"<b>Grade/Class:</b> {grade}", body_text_style),
+         Paragraph(f"<b>Stream:</b> {'Heroes (H)' if student.get('STRM') == 'H' else 'Champions (C)'}", body_text_style),
+         ""]
     ]
-
-    info_table = Table(info_data, colWidths=[1.5*inch, 2*inch, 1.2*inch, 1.5*inch])
+    
+    info_table = Table(info_data, colWidths=[2.5*inch, 2.5*inch, 2.5*inch])
     info_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#e8f4f8')),
-        ('BACKGROUND', (2, 0), (2, -1), colors.HexColor('#e8f4f8')),
-        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-        ('FONTNAME', (2, 0), (2, -1), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
-        ('TOPPADDING', (0, 0), (-1, -1), 8),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+        ('FONTSIZE', (0, 0), (-1, -1), 8),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
     ]))
     elements.append(info_table)
-    elements.append(Spacer(1, 20))
-
-    elements.append(Paragraph("SUBJECT PERFORMANCE", heading_style))
     elements.append(Spacer(1, 6))
-
-    subject_data = [['Subject', 'Score', 'Class Average', 'Performance Level']]
+    
+    # Separator
+    sep1 = Drawing(7.5*inch, 1)
+    sep1.add(Line(0, 0, 7.5*inch, 0, strokeColor=colors.HexColor('#1a3a5c'), strokeWidth=0.8))
+    elements.append(sep1)
+    elements.append(Spacer(1, 6))
+    
+    # Learner details
+    learner_data = [
+        [Paragraph("<b>Learner Name:</b>", body_text_style), 
+         Paragraph(str(student.get('NAME OF STUDENTS', '')), body_text_style),
+         Paragraph("<b>Admission No:</b>", body_text_style),
+         Paragraph(str(student.get('ADM NO.', '')), body_text_style)],
+        [Paragraph("<b>Gender:</b>", body_text_style),
+         Paragraph(str(student.get('GENDER', '')), body_text_style),
+         Paragraph("<b>Class Rank:</b>", body_text_style),
+         Paragraph(f"{student.get('RANK', '')}/{len(df)}", body_text_style)]
+    ]
+    
+    learner_table = Table(learner_data, colWidths=[1.3*inch, 2.45*inch, 1.3*inch, 2.45*inch])
+    learner_table.setStyle(TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 8),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+    ]))
+    elements.append(learner_table)
+    elements.append(Spacer(1, 8))
+    
+    # ============================================
+    # LEARNING AREAS PERFORMANCE
+    # ============================================
+    
+    elements.append(Paragraph("LEARNING AREAS PERFORMANCE", section_heading_style))
+    
+    perf_header = ['Learning Area', 'Score (%)', 'P.Level', 'Points']
+    perf_data = [perf_header]
+    
     for subj in subject_cols:
         score = float(student.get(subj, 0))
-        class_avg = float(df[subj].mean())
-        perf_level = get_performance_level(score)
-        subject_data.append([subj, f"{score:.0f}", f"{class_avg:.1f}", perf_level])
-
-    subject_table = Table(subject_data, colWidths=[2*inch, 1*inch, 1.5*inch, 1.5*inch])
-    subject_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2c5aa0')),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 11),
-        ('FONTSIZE', (0, 1), (-1, -1), 10),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
-        ('TOPPADDING', (0, 0), (-1, -1), 8),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f5f5f5')]),
-    ]))
-    elements.append(subject_table)
-    elements.append(Spacer(1, 20))
-
-    elements.append(Paragraph("PERFORMANCE SUMMARY", heading_style))
-    elements.append(Spacer(1, 6))
-
-    summary_data = [
-        ['Total Marks:', f"{student.get('TOTAL', 0):.0f}", 'Average Marks:', f"{student.get('AVERAGE', 0):.1f}"],
-        ['Performance Level:', str(student.get('AV/LVL', '')), 'Class Average:', f"{df['TOTAL'].mean():.1f}"],
-    ]
-
-    summary_table = Table(summary_data, colWidths=[1.5*inch, 1.5*inch, 1.5*inch, 1.5*inch])
-    summary_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#e8f4f8')),
-        ('BACKGROUND', (2, 0), (2, -1), colors.HexColor('#e8f4f8')),
-        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-        ('FONTNAME', (2, 0), (2, -1), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
-        ('TOPPADDING', (0, 0), (-1, -1), 8),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-    ]))
-    elements.append(summary_table)
-    elements.append(Spacer(1, 20))
-
-    # Legend + remarks + signatures
-    elements.append(Paragraph("PERFORMANCE LEVEL KEY", heading_style))
-    elements.append(Spacer(1, 6))
-    legend_data = [
-        ['EE', 'Exceeding Expectation', '75-100'],
-        ['ME', 'Meeting Expectation', '60-74'],
-        ['AE', 'Approaching Expectation', '40-59'],
-        ['BE', 'Below Expectation', '0-39']
-    ]
-    legend_table = Table(legend_data, colWidths=[1*inch, 2.5*inch, 1.5*inch])
-    legend_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f9f9f9')),
-        ('FONTSIZE', (0, 0), (-1, -1), 9),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-        ('TOPPADDING', (0, 0), (-1, -1), 6),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-    ]))
-    elements.append(legend_table)
-    elements.append(Spacer(1, 20))
-
-    performance_level = "excellent" if student.get('AVERAGE', 0) >= 75 else "good" if student.get('AVERAGE', 0) >= 60 else "satisfactory" if student.get('AVERAGE', 0) >= 40 else "needs improvement"
-    remarks_text = f"The student has demonstrated {performance_level} performance this term with a performance level of {student.get('AV/LVL','')}."
-    elements.append(Paragraph("REMARKS", heading_style))
-    elements.append(Paragraph(remarks_text, styles['Normal']))
-    elements.append(Spacer(1, 30))
-
-    signature_data = [
-        ['Class Teacher:', class_teacher, 'Sign: _____________', 'Date: _____________'],
-        ['DHOI:', dhoi, 'Sign: _____________', 'Date: _____________'],
-        ['HOI:', hoi, 'Sign: _____________', 'Date: _____________']
-    ]
-    signature_table = Table(signature_data, colWidths=[1.2*inch, 2*inch, 1.5*inch, 1.3*inch])
-    signature_table.setStyle(TableStyle([
-        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
-        ('TOPPADDING', (0, 0), (-1, -1), 12),
-    ]))
-    elements.append(signature_table)
-
-    doc.build(elements)
-    buffer.seek(0)
-    return buffer
-
-
-def create_class_list_pdf(df, school_name, grade, term, year, exam_type, class_teacher, subject_cols):
-    buffer = BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=landscape(A4), rightMargin=30, leftMargin=30,
-                           topMargin=30, bottomMargin=30)
-
-    elements = []
-    styles = getSampleStyleSheet()
-
-    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontSize=16,
-                                 textColor=colors.HexColor('#1f4788'), spaceAfter=4, alignment=TA_CENTER, fontName='Helvetica-Bold')
-    normal_style = ParagraphStyle('CustomNormal', parent=styles['Normal'], fontSize=10, alignment=TA_CENTER)
-
-    elements.append(Paragraph(school_name.upper(), title_style))
-    elements.append(Spacer(1, 4))
-    elements.append(Paragraph(f"{grade}", normal_style))
-    elements.append(Paragraph(f"{term} - {year}", normal_style))
-    elements.append(Paragraph(f"{exam_type}", normal_style))
-    elements.append(Spacer(1, 10))
-    elements.append(Paragraph("CLASS PERFORMANCE LIST", title_style))
-    elements.append(Spacer(1, 15))
-
-    sorted_df = df.sort_values('RANK')
-
-    header = ['Rank', 'ADM NO.', 'Name', 'Gender', 'Strm'] + subject_cols + ['Total', 'Avg', 'Level']
-    table_data = [header]
-
-    for _, row in sorted_df.iterrows():
-        perf_level = get_performance_level(row['AVERAGE'])
-        row_data = [str(row['RANK']), str(row.get('ADM NO.', '')), str(row.get('NAME OF STUDENTS', ''))[:25],
-                   str(row.get('GENDER', '')), str(row.get('STRM', ''))]
-        for subj in subject_cols:
-            row_data.append(f"{row.get(subj, 0):.0f}")
-        row_data.extend([f"{row.get('TOTAL', 0):.0f}", f"{row.get('AVERAGE', 0):.1f}", perf_level])
-        table_data.append(row_data)
-
-    num_subjects = len(subject_cols)
-    base_widths = [0.4*inch, 0.6*inch, 1.8*inch, 0.3*inch, 0.4*inch]
-    subject_widths = [0.45*inch] * num_subjects
-    end_widths = [0.5*inch, 0.5*inch, 0.4*inch]
-    col_widths = base_widths + subject_widths + end_widths
-
-    class_table = Table(table_data, colWidths=col_widths, repeatRows=1)
-    class_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2c5aa0')),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        perf_level, points = get_subject_performance_level(score)
+        perf_data.append([subj, f"{score:.0f}", perf_level, str(points)])
+    
+    perf_table = Table(perf_data, colWidths=[3.2*inch, 1.4*inch, 1.4*inch, 1.5*inch])
+    perf_table.setStyle(TableStyle([
+        # Header
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1a3a5c')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('FONTSIZE', (0, 0), (-1, 0), 8),
-        ('FONTSIZE', (0, 1), (-1, -1), 7),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
-        ('TOPPADDING', (0, 0), (-1, -1), 4),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        # Data
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 8),
+        ('ALIGN', (0, 1), (0, -1), 'LEFT'),
+        ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
+        # Styling
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cccccc')),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f5f5f5')]),
+        ('TOPPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
     ]))
-
-    elements.append(class_table)
-    elements.append(Spacer(1, 15))
-
-    elements.append(Paragraph("PERFORMANCE LEVEL KEY", styles['Heading3']))
-    elements.append(Spacer(1, 6))
-    legend_data = [['EE - Exceeding Expectation (75-100)', 'ME - Meeting Expectation (60-74)',
-                    'AE - Approaching Expectation (40-59)', 'BE - Below Expectation (0-39)']]
-    legend_table = Table(legend_data, colWidths=[2.5*inch, 2.5*inch, 2.5*inch, 2.5*inch])
-    legend_table.setStyle(TableStyle([('FONTSIZE', (0, 0), (-1, -1), 9), ('BOTTOMPADDING', (0, 0), (-1, -1), 4)]))
-    elements.append(legend_table)
-    elements.append(Spacer(1, 15))
-
-    summary_sig_data = [[
-        f"CLASS SUMMARY: Total Students: {len(df)} | Class Average: {df['TOTAL'].mean():.2f} | Highest: {df['TOTAL'].max():.0f} | Lowest: {df['TOTAL'].min():.0f}",
-        f"Class Teacher: {class_teacher}     Signature: ______________     Date: ______________"
-    ]]
-    summary_table = Table(summary_sig_data, colWidths=[5*inch, 5.5*inch])
+    elements.append(perf_table)
+    elements.append(Spacer(1, 8))
+    
+    # ============================================
+    # OVERALL PERFORMANCE SUMMARY
+    # ============================================
+    
+    elements.append(Paragraph("OVERALL PERFORMANCE SUMMARY", section_heading_style))
+    
+    summary_data = [
+        [Paragraph("<b>Total Score:</b>", body_text_style), 
+         f"{student.get('TOTAL', 0):.0f}",
+         Paragraph("<b>Average Score:</b>", body_text_style),
+         f"{student.get('AVERAGE', 0):.1f}%"],
+        [Paragraph("<b>Overall P.Level:</b>", body_text_style),
+         student.get('P.LEVEL', 'N/A'),
+         Paragraph("<b>Points:</b>", body_text_style),
+         str(student.get('POINTS', 0))],
+        [Paragraph("<b>Class Position:</b>", body_text_style),
+         f"{student.get('RANK', '')}/{len(df)}",
+         Paragraph("<b>Class Average:</b>", body_text_style),
+         f"{df['AVERAGE'].mean():.1f}%"]
+    ]
+    
+    summary_table = Table(summary_data, colWidths=[1.9*inch, 1.85*inch, 1.9*inch, 1.85*inch])
     summary_table.setStyle(TableStyle([
-        ('FONTSIZE', (0, 0), (-1, -1), 9),
-        ('ALIGN', (0, 0), (0, 0), 'LEFT'),
-        ('ALIGN', (1, 0), (1, 0), 'RIGHT'),
+        ('FONTSIZE', (0, 0), (-1, -1), 8),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cccccc')),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f9f9f9')),
+        ('TOPPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+        ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+        ('ALIGN', (3, 0), (3, -1), 'CENTER'),
     ]))
     elements.append(summary_table)
+    elements.append(Spacer(1, 8))
+    
+    # ============================================
+    # CLASS TEACHER'S COMMENT
+    # ============================================
+    
+    elements.append(Paragraph("CLASS TEACHER'S COMMENT", section_heading_style))
+    
+    points_val = student.get('POINTS', 0)
+    if points_val >= 7:
+        comment = "Excellent performance! The learner demonstrates outstanding mastery of learning outcomes. Keep up the exceptional work."
+    elif points_val >= 5:
+        comment = "Good performance. The learner shows satisfactory understanding of key concepts. Continue working hard to excel further."
+    elif points_val >= 3:
+        comment = "Fair performance. The learner is making progress but needs more effort to fully grasp learning outcomes. Additional support recommended."
+    else:
+        comment = "The learner requires significant support to meet expected learning outcomes. Remedial assistance and closer monitoring advised."
+    
+    comment_para = Paragraph(comment, body_text_style)
+    comment_data = [[comment_para]]
+    comment_table = Table(comment_data, colWidths=[7.5*inch])
+    comment_table.setStyle(TableStyle([
+        ('BOX', (0, 0), (-1, -1), 0.5, colors.HexColor('#cccccc')),
+        ('TOPPADDING', (0, 0), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+        ('LEFTPADDING', (0, 0), (-1, -1), 6),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 6),
+    ]))
+    elements.append(comment_table)
+    elements.append(Spacer(1, 8))
+    
+    # ============================================
+    # AUTHENTICATION & SIGN-OFF
+    # ============================================
+    
+    elements.append(Paragraph("AUTHENTICATION", section_heading_style))
+    
+    auth_data = [
+        [Paragraph("<b>Class Teacher:</b>", body_text_style), class_teacher,
+         Paragraph("<b>Signature:</b>", body_text_style), "________________"],
+        [Paragraph("<b>DHOI:</b>", body_text_style), dhoi,
+         Paragraph("<b>Signature:</b>", body_text_style), "________________"],
+        [Paragraph("<b>HOI:</b>", body_text_style), hoi,
+         Paragraph("<b>Signature:</b>", body_text_style), "________________"],
+        [Paragraph("<b>School Stamp:</b>", body_text_style), "",
+         Paragraph("<b>Date:</b>", body_text_style), "________________"]
+    ]
+    
+    auth_table = Table(auth_data, colWidths=[1.5*inch, 2.4*inch, 1.4*inch, 2.2*inch])
+    auth_table.setStyle(TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 7),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cccccc')),
+        ('TOPPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+    ]))
+    elements.append(auth_table)
+    elements.append(Spacer(1, 8))
+    
+    # ============================================
+    # FOOTER
+    # ============================================
+    
+    sep2 = Drawing(7.5*inch, 1)
+    sep2.add(Line(0, 0, 7.5*inch, 0, strokeColor=colors.HexColor('#cccccc'), strokeWidth=0.5))
+    elements.append(sep2)
+    elements.append(Spacer(1, 3))
+    
+    elements.append(Paragraph(
+        "Powered by Lumetra Analytics • Crafting Clarity from Complexity.| +254 741 908009",
+        footer_style
+    ))
+    
+    # Build PDF
+    doc.build(elements)
+    buffer.seek(0)
+    return buffer
+    return buffer
+
+def create_class_list_pdf(df, school_name, grade, term, year, exam_type, class_teacher, subject_cols):
+    """Create professional class list PDF in landscape orientation with matching header"""
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(
+        buffer, 
+        pagesize=landscape(A4),
+        rightMargin=30,
+        leftMargin=30,
+        topMargin=25,
+        bottomMargin=25
+    )
+    
+    elements = []
+    styles = getSampleStyleSheet()
+    
+    # ============================================
+    # CUSTOM STYLES (matching student report)
+    # ============================================
+    
+    school_name_style = ParagraphStyle(
+        'SchoolName',
+        parent=styles['Normal'],
+        fontSize=14,
+        fontName='Times-Bold',
+        textColor=colors.HexColor('#1a3a5c'),
+        alignment=TA_CENTER,
+        spaceAfter=2
+    )
+    
+    school_info_style = ParagraphStyle(
+        'SchoolInfo',
+        parent=styles['Normal'],
+        fontSize=7,
+        fontName='Helvetica',
+        textColor=colors.HexColor('#555555'),
+        alignment=TA_CENTER,
+        spaceAfter=4
+    )
+    
+    title_bar_style = ParagraphStyle(
+        'TitleBar',
+        parent=styles['Normal'],
+        fontSize=11,
+        fontName='Times-Bold',
+        textColor=colors.white,
+        alignment=TA_CENTER
+    )
+    
+    body_text_style = ParagraphStyle(
+        'BodyText',
+        parent=styles['Normal'],
+        fontSize=8,
+        fontName='Helvetica',
+        textColor=colors.black
+    )
+    
+    footer_style = ParagraphStyle(
+        'Footer',
+        parent=styles['Normal'],
+        fontSize=6,
+        fontName='Helvetica-Oblique',
+        textColor=colors.HexColor('#666666'),
+        alignment=TA_CENTER
+    )
+    
+    # ============================================
+    # SCHOOL HEADER (matching student report)
+    # ============================================
+    
+    elements.append(Spacer(1, 5))
+    elements.append(Paragraph(school_name.upper(), school_name_style))
+    elements.append(Paragraph("P.O. Box 3-40308, SINDO, KENYA", school_info_style))
+    elements.append(Paragraph("Tel: +254 710 302846 | Email: sindocomprehensive@gmail.com", school_info_style))
+    
+    # Blue title bar
+    title_data = [[Paragraph("CLASS PERFORMANCE LIST", title_bar_style)]]
+    title_table = Table(title_data, colWidths=[10.7*inch])
+    title_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#1a3a5c')),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+    ]))
+    elements.append(title_table)
+    elements.append(Spacer(1, 6))
+    
+    # ============================================
+    # EXAM DETAILS
+    # ============================================
+    
+    info_data = [
+        [Paragraph(f"<b>Grade/Class:</b> {grade}", body_text_style),
+         Paragraph(f"<b>Term:</b> {term}", body_text_style),
+         Paragraph(f"<b>Year:</b> {year}", body_text_style),
+         Paragraph(f"<b>Examination:</b> {exam_type}", body_text_style)]
+    ]
+    
+    info_table = Table(info_data, colWidths=[2.7*inch, 2.7*inch, 2.7*inch, 2.6*inch])
+    info_table.setStyle(TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 7),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+    ]))
+    elements.append(info_table)
+    elements.append(Spacer(1, 4))
+    
+    # Separator
+    sep1 = Drawing(10.7*inch, 1)
+    sep1.add(Line(0, 0, 10.7*inch, 0, strokeColor=colors.HexColor('#1a3a5c'), strokeWidth=0.8))
+    elements.append(sep1)
+    elements.append(Spacer(1, 6))
+    
+    # ============================================
+    # CLASS PERFORMANCE TABLE
+    # ============================================
+    
+    sorted_df = df.sort_values('RANK')
+    
+    header = ['Rank', 'ADM NO.', 'Name', 'Gender', 'Strm'] + subject_cols + ['Total', 'Avg', 'P.Level', 'Pts']
+    table_data = [header]
+    
+    for _, row in sorted_df.iterrows():
+        perf_level = row.get('P.LEVEL', 'BE2')
+        points = row.get('POINTS', 1)
+        row_data = [
+            str(row['RANK']), 
+            str(row.get('ADM NO.', '')), 
+            str(row.get('NAME OF STUDENTS', ''))[:25],
+            str(row.get('GENDER', '')), 
+            str(row.get('STRM', ''))
+        ]
+        for subj in subject_cols:
+            row_data.append(f"{row.get(subj, 0):.0f}")
+        row_data.extend([
+            f"{row.get('TOTAL', 0):.0f}", 
+            f"{row.get('AVERAGE', 0):.1f}", 
+            perf_level, 
+            str(points)
+        ])
+        table_data.append(row_data)
+    
+    # Calculate column widths
+    num_subjects = len(subject_cols)
+    base_widths = [0.3*inch, 0.6*inch, 1.5*inch, 0.3*inch, 0.3*inch]
+    subject_widths = [0.4*inch] * num_subjects
+    end_widths = [0.45*inch, 0.4*inch, 0.45*inch, 0.3*inch]
+    col_widths = base_widths + subject_widths + end_widths
+    
+    class_table = Table(table_data, colWidths=col_widths, repeatRows=1)
+    class_table.setStyle(TableStyle([
+        # Header row (matching blue color)
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1a3a5c')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 7),
+        ('FONTSIZE', (0, 1), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        # Borders and alternating rows (matching student report)
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cccccc')),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f5f5f5')]),
+    ]))
+    
+    elements.append(class_table)
+    elements.append(Spacer(1, 8))
+    
+    # ============================================
+    # CBC GRADING KEY
+    # ============================================
+    
+    legend_title = Paragraph("<b> PERFORMANCE LEVEL KEY</b>", body_text_style)
+    elements.append(legend_title)
+    elements.append(Spacer(1, 3))
+    
+    legend_data = [
+        ['EE1 (8pts)', 'EE2 (7pts)', 'ME1 (6pts)', 'ME2 (5pts)'],
+        ['AE1 (4pts)', 'AE2 (3pts)', 'BE1 (2pts)', 'BE2 (1pt)']
+    ]
+    legend_table = Table(legend_data, colWidths=[2.7*inch, 2.7*inch, 2.7*inch, 2.6*inch])
+    legend_table.setStyle(TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 7), 
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cccccc')),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f9f9f9')),
+    ]))
+    elements.append(legend_table)
+    elements.append(Spacer(1, 8))
+    
+    # ============================================
+    # CLASS SUMMARY & AUTHENTICATION
+    # ============================================
+    
+    avg_points = df['POINTS'].mean() if 'POINTS' in df.columns else 0
+    
+    summary_data = [
+        [Paragraph("<b>CLASS SUMMARY</b>", body_text_style), ""],
+        [Paragraph(f"Total Students: {len(df)}", body_text_style), 
+         Paragraph(f"Class Average: {df['AVERAGE'].mean():.1f}%", body_text_style)],
+        [Paragraph(f"Average Points: {avg_points:.1f}", body_text_style),
+         Paragraph(f"Highest: {df['TOTAL'].max():.0f} | Lowest: {df['TOTAL'].min():.0f}", body_text_style)]
+    ]
+    
+    summary_table = Table(summary_data, colWidths=[5.35*inch, 5.35*inch])
+    summary_table.setStyle(TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 7),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cccccc')),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f9f9f9')),
+        ('SPAN', (0, 0), (-1, 0)),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+    ]))
+    elements.append(summary_table)
+    elements.append(Spacer(1, 8))
+    
+    # Authentication
+    auth_data = [
+        [Paragraph(f"<b>Class Teacher:</b> {class_teacher}", body_text_style),
+         Paragraph("<b>Signature:</b> _______________", body_text_style),
+         Paragraph("<b>Date:</b> _______________", body_text_style)]
+    ]
+    
+    auth_table = Table(auth_data, colWidths=[3.5*inch, 3.6*inch, 3.6*inch])
+    auth_table.setStyle(TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 7),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cccccc')),
+    ]))
+    elements.append(auth_table)
+    elements.append(Spacer(1, 6))
+    
+    # ============================================
+    # FOOTER
+    # ============================================
+    
+    sep2 = Drawing(10.7*inch, 1)
+    sep2.add(Line(0, 0, 10.7*inch, 0, strokeColor=colors.HexColor('#cccccc'), strokeWidth=0.5))
+    elements.append(sep2)
+    elements.append(Spacer(1, 2))
+    
+    elements.append(Paragraph(
+        "Powered by Lumetra Analytics • Crafting Crarity from Complexity. | +254 741 908009",
+        footer_style
+    ))
+    
+    # Build PDF
     doc.build(elements)
     buffer.seek(0)
     return buffer
 
-
 # ---------------------------
-# Load data (auto) into session
+# Login Page
 # ---------------------------
-def load_all_grade_data():
-    if 'grade_data' not in st.session_state:
-        st.session_state.grade_data = {}
-    for grade in GRADES.keys():
-        file_path = os.path.join(DATA_PATH, f"{grade}.csv")
-        if os.path.exists(file_path):
-            try:
-                df = pd.read_csv(file_path)
-                st.session_state.grade_data[grade] = df
-            except Exception as e:
-                st.warning(f"Failed to load {file_path}: {e}")
-
-
-def get_available_grades():
-    if 'grade_data' not in st.session_state:
-        return []
-    return list(st.session_state.grade_data.keys())
-
-
-def load_grade_data(grade):
-    return st.session_state.grade_data.get(grade, pd.DataFrame()).copy()
-
-
-def get_grade_df(grade):
-    """Return uploaded override if present in session, else autoloaded."""
-    key = f"uploaded_{grade}"
-    if key in st.session_state and isinstance(st.session_state[key], pd.DataFrame):
-        return st.session_state[key].copy()
-    return st.session_state.get('grade_data', {}).get(grade, pd.DataFrame()).copy()
-
-
-# ---------------------------
-# UI: Home & Pages (using original styling/layout)
-# ---------------------------
-def show_home_page():
-    st.markdown("## Your Trusted Academic Performance Intelligence Platform")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("### Primary Level")
-        st.markdown("**At this level, every score tells a story of growing curiosity, early skills taking shape, and learners discovering their potential**")
-        st.markdown("**LumetraScholar helps teachers follow these early progress patterns with clarity, ensuring that each child receives the encouragement and support they need as they build strong academic foundations.**")
-        st.markdown("##### Small Steps, Big Growth : Every Learner Matters.")
-
+def show_login():
+    st.markdown("## 🔐 Login to LumetraScholar")
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    
     with col2:
-        st.markdown("### Junior Secondary")
-        st.markdown("**As learners advance, their academic journey becomes deeper, more defined, and increasingly skill-driven.**")
-        st.markdown("**LumetraScholar provides thoughtful analytics that highlight strengths, track progress, and reveal areas needing targeted support.**")
-        st.markdown("**With clear dashboards and comprehensive reports, teachers can guide students with precision and help them prepare for the next stage with confidence.**")
-        st.markdown("##### Informed Teaching. Focused Support. Stronger Outcomes")
+        st.markdown("---")
+        username = st.text_input("Username", key="login_username")
+        password = st.text_input("Password", type="password", key="login_password")
+        
+        if st.button("Login", type="primary", use_container_width=True):
+            user = authenticate_user(username, password)
+            if user:
+                st.session_state.logged_in = True
+                st.session_state.username = username
+                st.session_state.user_role = user['role']
+                st.session_state.user_name = user['name']
+                st.session_state.user_data = user
+                st.success(f"Welcome, {user['name']}!")
+                st.rerun()
+            else:
+                st.error("Invalid username or password")
+        
+        st.markdown("---")
+        st.caption("Contact your system administrator if you need access")
 
+# ---------------------------
+# Admin Pages
+# ---------------------------
+def show_admin_dashboard():
+    st.header("🎯 Admin Dashboard")
+    st.markdown("*Complete system overview and management*")
     st.markdown("---")
+    
+    students = load_students()
+    users = load_users()
+    marks = load_marks()
+    
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("Total Students", len(students))
+    with col2:
+        teacher_count = sum(1 for u in users.values() if u['role'] == 'teacher')
+        st.metric("Total Teachers", teacher_count)
+    with col3:
+        st.metric("Total Exams", len(marks))
+    with col4:
+        total_entries = sum(len(exam_marks) for exam_marks in marks.values())
+        st.metric("Total Entries", total_entries)
+    
+    st.markdown("---")
+    
+    # Students by grade
+    st.subheader("📊 Students by Grade")
+    grade_counts = {}
+    for student in students.values():
+        grade = student['grade']
+        grade_counts[grade] = grade_counts.get(grade, 0) + 1
+    
+    if grade_counts:
+        fig = px.bar(x=list(grade_counts.keys()), y=list(grade_counts.values()),
+                     labels={'x': 'Grade', 'y': 'Number of Students'},
+                     title="Student Distribution by Grade")
+        fig.update_traces(marker_color='lightblue')
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info("📚 No students registered yet")
+        st.markdown("---")
+        st.markdown("### 🚀 Quick Start Guide")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("#### Option 1: Add Manually")
+            st.markdown("""
+            1. Go to **Manage Students** page
+            2. Click **Add Student** tab
+            3. Fill in student details
+            4. Repeat for each student
+            """)
+        
+        with col2:
+            st.markdown("#### Option 2: Use Sample Data")
+            st.markdown("""
+            Run these scripts to populate with test data:
+            
+            **Grade 5 (20 students):**
+            ```bash
+            python generate_grade5_data.py
+            ```
+            
+            **Grade 7 (40 students):**
+            ```bash
+            python generate_grade7_sample_data.py
+            ```
+            """)
+        
+        st.markdown("---")
+        st.info("💡 **Tip:** Sample data scripts create students, teachers, and marks automatically - perfect for testing!")
+
+def show_manage_students():
+    st.header("👥 Manage Students")
+    
+    tab1, tab2, tab3 = st.tabs(["➕ Add Student", "📋 View Students", "✏️ Edit Student"])
+    
+    with tab1:
+        st.subheader("Add New Student")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            grade = st.selectbox("Grade", list(GRADES.keys()), key="add_grade")
+            
+            # Admission number only required for grades 7-9
+            if grade in ['Grade 7', 'Grade 8', 'Grade 9']:
+                adm_no = st.text_input("Admission Number *", key="add_adm_junior", 
+                                      help="Required for Junior Secondary")
+            else:
+                adm_no = st.text_input("Admission Number (Optional)", key="add_adm_primary",
+                                      help="Leave blank to auto-generate from student's name initials (e.g., John Doe → JD-H)")
+            
+            name = st.text_input("Student Name *", key="add_name")
+        
+        with col2:
+            gender = st.selectbox("Gender", ["M", "F"], key="add_gender")
+            stream = st.selectbox("Stream", ["H", "C"], 
+                                 format_func=lambda x: "Heroes (H)" if x == "H" else "Champions (C)",
+                                 key="add_stream")
+        
+        if st.button("Add Student", type="primary"):
+            # For grades 4-6, admission number is optional
+            if grade in ['Grade 4', 'Grade 5', 'Grade 6']:
+                if name and grade:
+                    success, message = add_student(adm_no, name, gender, grade, stream)
+                    if success:
+                        st.success(message)
+                    else:
+                        st.error(message)
+                else:
+                    st.warning("Please fill in Student Name")
+            else:  # Grades 7-9 require admission number
+                if adm_no and name and grade:
+                    success, message = add_student(adm_no, name, gender, grade, stream)
+                    if success:
+                        st.success(message)
+                    else:
+                        st.error(message)
+                else:
+                    st.warning("Please fill in all required fields (Admission Number and Name)")
+    
+    with tab2:
+        st.subheader("All Students")
+        students = load_students()
+        
+        if students:
+            # Filter options
+            col1, col2 = st.columns(2)
+            with col1:
+                filter_grade = st.selectbox("Filter by Grade", ["All"] + list(GRADES.keys()), key="filter_grade")
+            with col2:
+                filter_stream = st.text_input("Filter by Stream", key="filter_stream")
+            
+            # Convert to DataFrame
+            students_list = []
+            for adm, data in students.items():
+                students_list.append({
+                    'ADM NO.': adm,
+                    'Name': data['name'],
+                    'Gender': data['gender'],
+                    'Grade': data['grade'],
+                    'Stream': data['stream']
+                })
+            
+            df = pd.DataFrame(students_list)
+            
+            # Apply filters
+            if filter_grade != "All":
+                df = df[df['Grade'] == filter_grade]
+            if filter_stream:
+                df = df[df['Stream'].str.contains(filter_stream, case=False)]
+            
+            st.dataframe(df, use_container_width=True, hide_index=True)
+            st.caption(f"Showing {len(df)} students")
+        else:
+            st.info("No students registered yet")
+    
+    with tab3:
+        st.subheader("Edit Student")
+        students = load_students()
+        
+        if students:
+            adm_select = st.selectbox("Select Student", list(students.keys()), key="edit_select")
+            
+            if adm_select:
+                student = students[adm_select]
+                
+                col1, col2 = st.columns(2)
+                with col1:
+                    edit_name = st.text_input("Student Name", value=student['name'], key="edit_name")
+                    edit_gender = st.selectbox("Gender", ["M", "F"], 
+                                              index=0 if student['gender'] == 'M' else 1, 
+                                              key="edit_gender")
+                
+                with col2:
+                    edit_grade = st.selectbox("Grade", list(GRADES.keys()),
+                                             index=list(GRADES.keys()).index(student['grade']),
+                                             key="edit_grade")
+                    current_stream = student['stream'] if student['stream'] in ['H', 'C'] else 'H'
+                    edit_stream = st.selectbox("Stream", ["H", "C"],
+                                              format_func=lambda x: "Heroes (H)" if x == "H" else "Champions (C)",
+                                              index=0 if current_stream == 'H' else 1,
+                                              key="edit_stream")
+                
+                if st.button("Update Student", type="primary"):
+                    students[adm_select] = {
+                        "name": edit_name,
+                        "gender": edit_gender,
+                        "grade": edit_grade,
+                        "stream": edit_stream,
+                        "created_at": student.get('created_at', datetime.now().isoformat())
+                    }
+                    save_students(students)
+                    st.success("Student updated successfully!")
+                    st.rerun()
+        else:
+            st.info("No students to edit")
+
+def show_manage_teachers():
+    st.header("👨‍🏫 Manage Teachers")
+    
+    tab1, tab2 = st.tabs(["➕ Add Teacher", "📋 View Teachers"])
+    
+    with tab1:
+        st.subheader("Add New Teacher")
+        
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            username = st.text_input("Username", key="teacher_username")
+        with col2:
+            password = st.text_input("Password", type="password", key="teacher_password")
+        with col3:
+            name = st.text_input("Full Name", key="teacher_name")
+        
+        st.markdown("---")
+        st.markdown("### 📋 Teaching Assignments")
+        st.info("**Important:** Assign specific Grade + Subject + Stream combinations. Each assignment is a complete teaching responsibility.")
+        
+        # Initialize session state for assignments
+        if 'teacher_assignments' not in st.session_state:
+            st.session_state.teacher_assignments = []
+        
+        # Add new assignment
+        st.markdown("#### ➕ Add New Assignment")
+        col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
+        
+        with col1:
+            new_grade = st.selectbox("Grade", list(GRADES.keys()), key="new_assignment_grade")
+        
+        with col2:
+            # Get subjects for selected grade
+            grade_subjects = GRADES[new_grade]
+            new_subject = st.selectbox("Subject", grade_subjects, key="new_assignment_subject")
+        
+        with col3:
+            new_stream = st.selectbox("Stream", 
+                                     ["H", "C", "BOTH"],
+                                     format_func=lambda x: "Heroes" if x == "H" else ("Champions" if x == "C" else "Both Streams"),
+                                     key="new_assignment_stream",
+                                     help="Select specific stream or BOTH")
+        
+        with col4:
+            st.write("")  # Spacing
+            st.write("")  # Spacing
+            if st.button("➕ Add", type="primary", use_container_width=True):
+                # Create assignment(s)
+                if new_stream == "BOTH":
+                    # Add two assignments (one for each stream)
+                    assignment_h = {
+                        "grade": new_grade,
+                        "subject": new_subject,
+                        "stream": "H"
+                    }
+                    assignment_c = {
+                        "grade": new_grade,
+                        "subject": new_subject,
+                        "stream": "C"
+                    }
+                    
+                    # Check for duplicates
+                    if assignment_h not in st.session_state.teacher_assignments:
+                        st.session_state.teacher_assignments.append(assignment_h)
+                    if assignment_c not in st.session_state.teacher_assignments:
+                        st.session_state.teacher_assignments.append(assignment_c)
+                    
+                    st.success(f"✓ Added: {new_grade} → {new_subject} → Both Streams")
+                else:
+                    assignment = {
+                        "grade": new_grade,
+                        "subject": new_subject,
+                        "stream": new_stream
+                    }
+                    
+                    if assignment not in st.session_state.teacher_assignments:
+                        st.session_state.teacher_assignments.append(assignment)
+                        stream_name = "Heroes" if new_stream == "H" else "Champions"
+                        st.success(f"✓ Added: {new_grade} → {new_subject} → {stream_name}")
+                    else:
+                        st.warning("This assignment already exists")
+                
+                st.rerun()
+        
+        # Display current assignments
+        if st.session_state.teacher_assignments:
+            st.markdown("---")
+            st.markdown("#### 📝 Current Assignments")
+            
+            # Group by grade for better display
+            assignments_by_grade = {}
+            for assignment in st.session_state.teacher_assignments:
+                grade = assignment['grade']
+                if grade not in assignments_by_grade:
+                    assignments_by_grade[grade] = []
+                assignments_by_grade[grade].append(assignment)
+            
+            for grade, assignments in sorted(assignments_by_grade.items()):
+                with st.expander(f"**{grade}** ({len(assignments)} assignments)", expanded=True):
+                    for idx, assignment in enumerate(assignments):
+                        col1, col2 = st.columns([4, 1])
+                        with col1:
+                            stream_name = "Heroes (H)" if assignment['stream'] == "H" else "Champions (C)"
+                            st.write(f"• {assignment['subject']} - {stream_name}")
+                        with col2:
+                            if st.button("🗑️", key=f"remove_{grade}_{idx}", help="Remove this assignment"):
+                                st.session_state.teacher_assignments.remove(assignment)
+                                st.rerun()
+            
+            st.markdown("---")
+            st.markdown(f"**Total Assignments:** {len(st.session_state.teacher_assignments)}")
+        else:
+            st.warning("⚠️ No assignments added yet. Please add at least one assignment.")
+        
+        # Save teacher button
+        st.markdown("---")
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            if st.button("💾 Save Teacher", type="primary", use_container_width=True):
+                if username and password and name:
+                    if st.session_state.teacher_assignments:
+                        success, message = add_teacher(username, password, name, st.session_state.teacher_assignments)
+                        if success:
+                            st.success(message)
+                            # Show summary
+                            st.markdown("**Assignment Summary:**")
+                            for assignment in st.session_state.teacher_assignments:
+                                stream_name = "Heroes" if assignment['stream'] == "H" else "Champions"
+                                st.write(f"• {assignment['grade']} - {assignment['subject']} - {stream_name}")
+                            # Clear assignments
+                            st.session_state.teacher_assignments = []
+                        else:
+                            st.error(message)
+                    else:
+                        st.error("Please add at least one teaching assignment")
+                else:
+                    st.warning("Please fill in Username, Password, and Full Name")
+        
+        with col2:
+            if st.button("🔄 Clear All", use_container_width=True):
+                st.session_state.teacher_assignments = []
+                st.rerun()
+    
+    with tab2:
+        st.subheader("All Teachers")
+        users = load_users()
+        teachers = {u: data for u, data in users.items() if data['role'] == 'teacher'}
+        
+        if teachers:
+            for username, teacher in teachers.items():
+                with st.expander(f"👨‍🏫 {teacher['name']} (@{username})", expanded=False):
+                    # Get assignments
+                    assignments = teacher.get('assignments', [])
+                    
+                    if assignments:
+                        # Group by grade
+                        assignments_by_grade = {}
+                        for assignment in assignments:
+                            grade = assignment['grade']
+                            if grade not in assignments_by_grade:
+                                assignments_by_grade[grade] = []
+                            assignments_by_grade[grade].append(assignment)
+                        
+                        st.markdown("**Teaching Assignments:**")
+                        for grade in sorted(assignments_by_grade.keys()):
+                            st.markdown(f"**{grade}:**")
+                            grade_assignments = assignments_by_grade[grade]
+                            
+                            # Group by subject within grade
+                            subject_streams = {}
+                            for assignment in grade_assignments:
+                                subj = assignment['subject']
+                                stream = assignment['stream']
+                                if subj not in subject_streams:
+                                    subject_streams[subj] = []
+                                subject_streams[subj].append(stream)
+                            
+                            for subj, streams in sorted(subject_streams.items()):
+                                streams_set = set(streams)
+                                if streams_set == {'H', 'C'}:
+                                    st.write(f"  • {subj}: **Both Streams** (Heroes & Champions)")
+                                elif 'H' in streams_set:
+                                    st.write(f"  • {subj}: **Heroes (H)** only")
+                                else:
+                                    st.write(f"  • {subj}: **Champions (C)** only")
+                        
+                        st.caption(f"Total: {len(assignments)} assignment(s)")
+                    else:
+                        # Legacy teacher without assignments structure
+                        st.markdown("**Subjects:**")
+                        st.write(", ".join(teacher.get('subjects', [])))
+                        st.markdown("**Grades:**")
+                        st.write(", ".join(teacher.get('grades', [])))
+                        st.warning("⚠️ Legacy teacher format - please re-add with specific assignments")
+        else:
+            st.info("No teachers registered yet")
+
+def show_marks_entry_progress():
+    st.header("📊 Marks Entry Progress")
+    st.markdown("*Track which teachers have completed their marks entry*")
+    st.markdown("---")
+    
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.write("")
+        grade = st.selectbox("Select Grade", list(GRADES.keys()), key="progress_grade")
     with col2:
-        st.markdown("**Empowering learners with excellence, integrity, and purpose.**")
-        st.image("./images/lumetra-logo.png", width=100)
-        st.markdown("**LumetraScholar v1.0 | © 2025 Lumetra Analytics**")
+        term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"], key="progress_term")
     with col3:
-        st.write("")
+        year = st.number_input("Year", min_value=2020, max_value=2030, value=2024, key="progress_year")
+    
+    exam_type = st.selectbox("Examination Type",
+                            ["Opener Examinations", "Mid-Term Examinations", "End Term Examinations"],
+                            key="progress_exam")
+    
+    if st.button("Check Progress", type="primary"):
+        progress = get_marks_entry_progress(grade, term, year, exam_type)
+        
+        if not progress:
+            st.info("No teachers assigned to this grade or no students in this grade")
+        else:
+            st.markdown("---")
+            st.subheader("📈 Progress Overview")
+            
+            # Summary metrics
+            total_needed = sum(p['total_needed'] for p in progress.values())
+            total_completed = sum(p['completed'] for p in progress.values())
+            overall_percentage = (total_completed / total_needed * 100) if total_needed > 0 else 0
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Total Entries Needed", total_needed)
+            with col2:
+                st.metric("Total Completed", total_completed)
+            with col3:
+                st.metric("Overall Progress", f"{overall_percentage:.1f}%")
+            
+            st.markdown("---")
+            
+            # Individual teacher progress
+            for teacher_username, data in progress.items():
+                percentage = data['percentage']
+                
+                # Color coding
+                if percentage == 100:
+                    status_color = "🟢"
+                    status = "Complete"
+                elif percentage >= 50:
+                    status_color = "🟡"
+                    status = "In Progress"
+                else:
+                    status_color = "🔴"
+                    status = "Not Started" if percentage == 0 else "Behind"
+                
+                with st.expander(f"{status_color} {data['name']} - {percentage:.1f}% ({status})"):
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.write(f"**Subjects:** {', '.join(data['subjects'])}")
+                        st.write(f"**Completed:** {data['completed']} / {data['total_needed']}")
+                    with col2:
+                        st.progress(percentage / 100)
+                        st.write(f"**Remaining:** {data['total_needed'] - data['completed']} entries")
 
-# Dashboard, Student Reports, Class Analysis, etc. — keep the layout/colors consistent with your original code
+# ---------------------------
+# Teacher Pages
+# ---------------------------
+def show_teacher_dashboard():
+    st.header("👨‍🏫 Teacher Dashboard")
+    st.markdown(f"*Welcome, {st.session_state.user_name}!*")
+    st.markdown("---")
+    
+    user_data = st.session_state.user_data
+    assignments = user_data.get('assignments', [])
+    
+    if assignments:
+        # Group assignments by grade
+        assignments_by_grade = {}
+        for assignment in assignments:
+            grade = assignment['grade']
+            if grade not in assignments_by_grade:
+                assignments_by_grade[grade] = []
+            assignments_by_grade[grade].append(assignment)
+        
+        st.subheader("📋 Your Teaching Assignments")
+        
+        for grade in sorted(assignments_by_grade.keys()):
+            with st.expander(f"**{grade}**", expanded=True):
+                grade_assignments = assignments_by_grade[grade]
+                
+                # Group by subject
+                subject_streams = {}
+                for assignment in grade_assignments:
+                    subj = assignment['subject']
+                    stream = assignment['stream']
+                    if subj not in subject_streams:
+                        subject_streams[subj] = []
+                    subject_streams[subj].append(stream)
+                
+                for subj, streams in sorted(subject_streams.items()):
+                    streams_set = set(streams)
+                    if streams_set == {'H', 'C'}:
+                        st.write(f"• {subj}: Both Streams")
+                    elif 'H' in streams_set:
+                        st.write(f"• {subj}: Heroes (H)")
+                    else:
+                        st.write(f"• {subj}: Champions (C)")
+        
+        st.markdown("---")
+        
+        # Quick stats
+        students = load_students()
+        grades = list(set([a['grade'] for a in assignments]))
+        subjects = list(set([a['subject'] for a in assignments]))
+        
+        # Count students in assigned grades and streams
+        assigned_students = 0
+        for assignment in assignments:
+            assigned_students += sum(1 for s in students.values() 
+                                   if s['grade'] == assignment['grade'] 
+                                   and s['stream'] == assignment['stream'])
+        
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Your Students", assigned_students)
+        with col2:
+            st.metric("Subjects", len(subjects))
+        with col3:
+            st.metric("Total Assignments", len(assignments))
+    else:
+        st.warning("No teaching assignments found. Please contact the administrator.")
+
+def show_enter_marks():
+    st.header("✏️ Enter Student Marks")
+    
+    user_data = st.session_state.user_data
+    assignments = user_data.get('assignments', [])
+    
+    if not assignments:
+        st.warning("No teaching assignments found. Please contact the administrator.")
+        return
+    
+    # Exam selection
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        # Get unique grades from assignments
+        teacher_grades = sorted(list(set([a['grade'] for a in assignments])))
+        grade = st.selectbox("Select Grade", teacher_grades, key="enter_grade")
+    with col2:
+        term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"], key="enter_term")
+    with col3:
+        year = st.number_input("Year", min_value=2020, max_value=2030, value=2024, key="enter_year")
+    
+    exam_type = st.selectbox("Examination Type",
+                            ["Opener Examinations", "Mid-Term Examinations", "End Term Examinations"],
+                            key="enter_exam")
+    
+    # Get assignments for selected grade
+    grade_assignments = [a for a in assignments if a['grade'] == grade]
+    
+    # Subject selection
+    col1, col2 = st.columns(2)
+    with col1:
+        # Get unique subjects for this grade
+        available_subjects = sorted(list(set([a['subject'] for a in grade_assignments])))
+        
+        if not available_subjects:
+            st.warning(f"No subjects assigned for {grade}")
+            return
+        
+        subject = st.selectbox("Select Subject", available_subjects, key="enter_subject")
+    
+    # Get allowed streams for this grade+subject combination
+    subject_assignments = [a for a in grade_assignments if a['subject'] == subject]
+    allowed_streams = [a['stream'] for a in subject_assignments]
+    
+    with col2:
+        # Get students in this grade filtered by allowed streams
+        students = load_students()
+        grade_students = {adm: data for adm, data in students.items() 
+                         if data['grade'] == grade and data['stream'] in allowed_streams}
+        
+        if not grade_students:
+            streams_text = "Heroes and Champions" if len(allowed_streams) == 2 else ("Heroes" if "H" in allowed_streams else "Champions")
+            st.warning(f"No students in {grade} - {streams_text} stream(s) for {subject}")
+            return
+        
+        # Show which streams are being displayed
+        if len(allowed_streams) == 1:
+            stream_name = "Heroes (H)" if "H" in allowed_streams else "Champions (C)"
+            st.caption(f"📍 Showing: {stream_name} stream only")
+        else:
+            st.caption(f"📍 Showing: Both streams (Heroes & Champions)")
+        
+        # Format student options with stream indicator
+        student_options = {}
+        for adm, data in grade_students.items():
+            stream_label = f"[{'H' if data['stream'] == 'H' else 'C'}]"
+            student_options[f"{adm} - {data['name']} {stream_label}"] = adm
+        
+        selected_student = st.selectbox("Select Student", list(student_options.keys()), key="enter_student")
+        adm_no = student_options[selected_student]
+    
+    # Score entry
+    st.markdown("---")
+    st.subheader("Enter Score")
+    
+    # Check if marks already exist
+    marks = load_marks()
+    exam_key = f"{grade}_{term}_{year}_{exam_type}"
+    existing_score = None
+    if exam_key in marks and adm_no in marks[exam_key] and subject in marks[exam_key][adm_no]:
+        existing_score = marks[exam_key][adm_no][subject]['score']
+        st.info(f"Current score: {existing_score} (You can update it below)")
+    
+    score = st.number_input("Score (0-100)", min_value=0.0, max_value=100.0, 
+                           value=float(existing_score) if existing_score else 0.0,
+                           step=0.5, key="enter_score")
+    
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if st.button("Submit Score", type="primary", use_container_width=True):
+            success, message = enter_marks(adm_no, subject, grade, term, year, exam_type, 
+                                          score, st.session_state.username)
+            if success:
+                st.success(message)
+                st.balloons()
+            else:
+                st.error(message)
+    
+    with col2:
+        if st.button("Clear Form", use_container_width=True):
+            st.rerun()
+
+def show_teacher_progress():
+    st.header("📊 My Progress")
+    st.markdown("*Track your marks entry progress*")
+    st.markdown("---")
+    
+    user_data = st.session_state.user_data
+    teacher_grades = user_data.get('grades', [])
+    
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        grade = st.selectbox("Select Grade", teacher_grades, key="my_progress_grade")
+    with col2:
+        term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"], key="my_progress_term")
+    with col3:
+        year = st.number_input("Year", min_value=2020, max_value=2030, value=2024, key="my_progress_year")
+    
+    exam_type = st.selectbox("Examination Type",
+                            ["Opener Examinations", "Mid-Term Examinations", "End Term Examinations"],
+                            key="my_progress_exam")
+    
+    if st.button("Check My Progress", type="primary"):
+        progress = get_marks_entry_progress(grade, term, year, exam_type)
+        
+        username = st.session_state.username
+        if username in progress:
+            data = progress[username]
+            percentage = data['percentage']
+            
+            st.markdown("---")
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Total Entries Needed", data['total_needed'])
+            with col2:
+                st.metric("Completed", data['completed'])
+            with col3:
+                st.metric("Progress", f"{percentage:.1f}%")
+            
+            st.progress(percentage / 100)
+            
+            if percentage == 100:
+                st.success("🎉 Congratulations! You have completed all entries for this exam!")
+            else:
+                remaining = data['total_needed'] - data['completed']
+                st.info(f"📝 You have {remaining} entries remaining")
+            
+            # Show subjects
+            st.markdown("---")
+            st.subheader("Your Subjects")
+            st.write(", ".join(data['subjects']))
+        else:
+            st.warning("No progress data available for this exam")
+
+# ---------------------------
+# Shared Analysis Pages (accessible by both admin and teachers)
+# ---------------------------
 def show_dashboard(df, grade, subject_cols):
-    st.header(f"Dashboard - {grade}")
+    st.header(f"📊 Dashboard - {grade}")
     st.markdown("*Real-time insights and analytics*")
     st.markdown("---")
+
+    if df.empty:
+        st.warning("No data available for analysis yet")
+        return
 
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
@@ -448,50 +1770,43 @@ def show_dashboard(df, grade, subject_cols):
                      color_discrete_map={'M': 'lightblue', 'F': 'lightpink'})
         st.plotly_chart(fig, use_container_width=True)
 
-    st.subheader("Subject Statistics Summary")
-    stats_df = pd.DataFrame({
-        'Mean': df[subject_cols].mean(),
-        'Max': df[subject_cols].max(),
-        'Min': df[subject_cols].min(),
-        'Std Dev': df[subject_cols].std()
-    }).round(2)
-    st.dataframe(stats_df, use_container_width=True)
-
-
 def show_student_reports(df, grade, subject_cols):
-    st.header("Student Reports")
+    st.header("📄 Student Reports")
+
+    if df.empty:
+        st.warning("No data available yet")
+        return
 
     # Report configuration
-    with st.expander("🔧 Report Configuration", expanded=True):
+    with st.expander("🔧 Report Configuration", expanded=False):
         col1, col2, col3 = st.columns(3)
         with col1:
-            school_name = st.text_input("School Name", "ABC SCHOOL")
-            grade_text = st.text_input("Grade/Class", grade)
+            school_name = st.text_input("School Name", "SINDO COMPREHENSIVE SCHOOL", key="report_school_name")
+            grade_text = st.text_input("Grade/Class", grade, key="report_grade_text")
         with col2:
-            term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"])
-            year = st.number_input("Year", min_value=2020, max_value=2030, value=2024)
+            term = st.text_input("Term", "Term 1", key="report_term")
+            year = st.number_input("Year", min_value=2020, max_value=2030, value=2024, key="report_year")
         with col3:
-            exam_type = st.selectbox("Examination Type",
-                                     ["Opener Examinations", "Mid-Term Examinations", "End Term Examinations"])
+            exam_type = st.text_input("Examination Type", "End Term Examinations", key="report_exam_type")
 
         st.markdown("**Staff Information**")
         col1, col2, col3 = st.columns(3)
         with col1:
-            class_teacher = st.text_input("Class Teacher Name", "Mr./Mrs. Teacher")
+            class_teacher = st.text_input("Class Teacher Name", "Mr./Mrs. Teacher", key="report_class_teacher")
         with col2:
-            dhoi = st.text_input("DHOI Name", "Mr./Mrs. DHOI")
+            dhoi = st.text_input("DHOI Name", "Mr./Mrs. DHOI", key="report_dhoi")
         with col3:
-            hoi = st.text_input("HOI Name", "Mr./Mrs. HOI")
+            hoi = st.text_input("HOI Name", "Mr./Mrs. HOI", key="report_hoi")
 
     st.markdown("---")
 
-    search_type = st.radio("Search by:", ["ADM NO.", "Student Name"])
+    search_type = st.radio("Search by:", ["ADM NO.", "Student Name"], key="report_search_type")
 
     if search_type == "ADM NO.":
-        adm_no = st.selectbox("Select Admission Number", df['ADM NO.'].unique())
+        adm_no = st.selectbox("Select Admission Number", df['ADM NO.'].unique(), key="report_select_adm")
         student = df[df['ADM NO.'] == adm_no].iloc[0]
     else:
-        name = st.selectbox("Select Student Name", df['NAME OF STUDENTS'].unique())
+        name = st.selectbox("Select Student Name", df['NAME OF STUDENTS'].unique(), key="report_select_name")
         student = df[df['NAME OF STUDENTS'] == name].iloc[0]
 
     # Student info
@@ -507,35 +1822,47 @@ def show_student_reports(df, grade, subject_cols):
     with col5:
         st.metric("Rank", f"{student['RANK']}/{len(df)}")
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.metric("Total Marks", f"{student['TOTAL']:.0f}")
     with col2:
         st.metric("Average", f"{student['AVERAGE']:.1f}")
     with col3:
-        st.metric("Level", student['AV/LVL'])
+        st.metric("P.Level", student.get('P.LEVEL', 'N/A'))
+    with col4:
+        st.metric("Points", student.get('POINTS', 'N/A'))
 
     st.markdown("---")
 
-    # Subject performance + radar side-by-side (restored original layout)
     col1, col2 = st.columns(2)
 
     with col1:
         st.subheader("Subject Marks")
         marks_data = []
         for subj in subject_cols:
+            score = student.get(subj, 0)
+            perf_level, points = get_subject_performance_level(score)
             marks_data.append({
                 'Subject': subj,
-                'Marks': student.get(subj, 0),
-                'Performance': get_performance_level(student.get(subj, 0))
+                'Marks': score,
+                'P.Level': perf_level,
+                'Points': points
             })
         marks_df = pd.DataFrame(marks_data)
 
+        # Create color mapping for CBC levels
+        cbc_color_map = {
+            'EE1': '#006400', 'EE2': '#00cc00',
+            'ME1': '#0066cc', 'ME2': '#3399ff',
+            'AE1': '#cc8800', 'AE2': '#ffcc00',
+            'BE1': '#cc0000', 'BE2': '#ff6666'
+        }
+
         fig = px.bar(marks_df, x='Subject', y='Marks',
                      title="Subject-wise Performance",
-                     color='Performance',
-                     color_discrete_map={'EE': '#00cc00', 'ME': '#3399ff',
-                                        'AE': '#ffcc00', 'BE': '#ff6666'})
+                     color='P.Level',
+                     color_discrete_map=cbc_color_map,
+                     hover_data=['Points'])
         st.plotly_chart(fig, use_container_width=True)
         st.dataframe(marks_df, use_container_width=True, hide_index=True)
 
@@ -558,112 +1885,244 @@ def show_student_reports(df, grade, subject_cols):
         st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("---")
-    # PDF
     st.subheader("📄 Generate PDF Report")
 
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.info("Click the button below to generate and preview the PDF report")
-
     if st.button("Generate PDF Report", type="primary"):
-        with st.spinner("Generating PDF report..."):
+        with st.spinner("Generating professional report card..."):
             pdf_buffer = create_pdf_report(student, school_name, grade_text, term, year,
                                            exam_type, df, class_teacher, dhoi, hoi, subject_cols)
 
-            st.success("Done! Report generated successfully!")
-
+            st.success("✅ Report card generated successfully!")
+            
+            # Preview section
+            st.markdown("---")
+            st.subheader("📄 Report Preview")
+            st.info("Preview the report card below before downloading")
+            
+            # Convert PDF to base64 for preview
+            import base64
+            pdf_bytes = pdf_buffer.read()
+            base64_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
+            pdf_buffer.seek(0)  # Reset buffer for download
+            
+            # Display PDF in iframe
+            pdf_display = f'''
+                <iframe 
+                    src="data:application/pdf;base64,{base64_pdf}" 
+                    width="100%" 
+                    height="800px" 
+                    type="application/pdf"
+                    style="border: 1px solid #ddd; border-radius: 4px;">
+                </iframe>
+            '''
+            st.markdown(pdf_display, unsafe_allow_html=True)
+            
+            st.markdown("---")
+            
+            # Download button
             st.download_button(
-                label="Download PDF Report",
+                label="📥 Download PDF Report Card",
                 data=pdf_buffer,
                 file_name=f"{student['NAME OF STUDENTS']}_Report_{term}_{year}.pdf",
-                mime="application/pdf"
+                mime="application/pdf",
+                type="primary",
+                use_container_width=True
             )
 
-            pdf_display = f'<iframe src="data:application/pdf;base64,{base64.b64encode(pdf_buffer.read()).decode()}" width="100%" height="800" type="application/pdf"></iframe>'
-            st.markdown(pdf_display, unsafe_allow_html=True)
-
-
 def show_class_analysis(df, grade, subject_cols):
-    st.header("Class Analysis")
+    st.header("📊 Class Analysis")
+
+    if df.empty:
+        st.warning("No data available yet")
+        return
+    
+    # ============================================
+    # STREAM FILTER
+    # ============================================
+    
+    st.markdown("### 🎯 Select Class/Stream")
+    
+    # Get available streams
+    available_streams = sorted(df['STRM'].unique().tolist())
+    
+    # Create filter options
+    filter_options = [f"{grade} (All Streams)"]
+    for stream in available_streams:
+        stream_name = "Heroes" if stream == "H" else "Champions"
+        filter_options.append(f"{grade} - {stream_name} ({stream})")
+    
+    selected_filter = st.selectbox(
+        "Select class/stream to analyze:",
+        filter_options,
+        key="class_analysis_filter"
+    )
+    
+    # Filter dataframe based on selection
+    if "All Streams" in selected_filter:
+        filtered_df = df.copy()
+        display_name = f"{grade} (All Streams)"
+    else:
+        # Extract stream from selection
+        stream = selected_filter.split("(")[-1].replace(")", "")
+        filtered_df = df[df['STRM'] == stream].copy()
+        stream_name = "Heroes" if stream == "H" else "Champions"
+        display_name = f"{grade} - {stream_name}"
+    
+    st.info(f"📊 Analyzing: **{display_name}** | Students: **{len(filtered_df)}**")
+    st.markdown("---")
+    
+    # ============================================
+    # CLASS METRICS
+    # ============================================
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Class Average", f"{df['TOTAL'].mean():.1f}")
+        st.metric("Class Average", f"{filtered_df['TOTAL'].mean():.1f}")
     with col2:
-        st.metric("Median Score", f"{df['TOTAL'].median():.1f}")
+        st.metric("Median Score", f"{filtered_df['TOTAL'].median():.1f}")
     with col3:
-        st.metric("Standard Deviation", f"{df['TOTAL'].std():.1f}")
+        st.metric("Standard Deviation", f"{filtered_df['TOTAL'].std():.1f}")
     with col4:
-        male_avg = df[df['GENDER'].str.upper() == 'M']['TOTAL'].mean()
-        female_avg = df[df['GENDER'].str.upper() == 'F']['TOTAL'].mean()
+        male_avg = filtered_df[filtered_df['GENDER'].str.upper() == 'M']['TOTAL'].mean()
+        female_avg = filtered_df[filtered_df['GENDER'].str.upper() == 'F']['TOTAL'].mean()
         st.metric("Gender Gap", f"{abs(male_avg - female_avg):.1f}")
 
     st.markdown("---")
 
-    st.subheader("Performance Level Distribution")
-    df['PERF_LEVEL'] = df['AVERAGE'].apply(get_performance_level)
-    perf_counts = df['PERF_LEVEL'].value_counts()
-
+    # ============================================
+    # CBC PERFORMANCE LEVEL DISTRIBUTION (8 levels)
+    # ============================================
+    
+    st.subheader(" Performance Level Distribution")
+    
+    # Count students by P.LEVEL (8-level CBC system)
+    perf_counts = filtered_df['P.LEVEL'].value_counts()
+    
     col1, col2 = st.columns(2)
+    
     with col1:
-        fig = px.bar(x=perf_counts.index, y=perf_counts.values,
-                     labels={'x': 'Performance Level', 'y': 'Number of Students'},
-                     title="Students by Performance Level",
-                     color=perf_counts.index,
-                     color_discrete_map={'EE': '#00cc00', 'ME': '#3399ff',
-                                        'AE': '#ffcc00', 'BE': '#ff6666'})
+        # Create ordered list of all 8 levels
+        all_levels = ['EE1', 'EE2', 'ME1', 'ME2', 'AE1', 'AE2', 'BE1', 'BE2']
+        level_counts = [perf_counts.get(level, 0) for level in all_levels]
+        
+        # Color mapping for 8 levels
+        color_map = {
+            'EE1': '#006400', 'EE2': '#00cc00',  # Dark green, Light green
+            'ME1': '#0066cc', 'ME2': '#3399ff',  # Dark blue, Light blue
+            'AE1': '#cc8800', 'AE2': '#ffcc00',  # Dark orange, Light orange
+            'BE1': '#cc0000', 'BE2': '#ff6666'   # Dark red, Light red
+        }
+        
+        fig = px.bar(
+            x=all_levels, 
+            y=level_counts,
+            labels={'x': 'Performance Level', 'y': 'Number of Students'},
+            title="Students by Performance Level (CBC 8-Level System)",
+            color=all_levels,
+            color_discrete_map=color_map
+        )
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
+        # Create detailed performance table
         perf_summary = []
-        for level in ['EE', 'ME', 'AE', 'BE']:
+        for level in all_levels:
             count = perf_counts.get(level, 0)
-            percentage = (count / len(df)) * 100 if len(df) > 0 else 0
+            percentage = (count / len(filtered_df)) * 100 if len(filtered_df) > 0 else 0
+            
+            # Get description
+            descriptions = {
+                'EE1': 'Exceeding Expectation 1',
+                'EE2': 'Exceeding Expectation 2',
+                'ME1': 'Meeting Expectation 1',
+                'ME2': 'Meeting Expectation 2',
+                'AE1': 'Approaching Expectation 1',
+                'AE2': 'Approaching Expectation 2',
+                'BE1': 'Below Expectation 1',
+                'BE2': 'Below Expectation 2'
+            }
+            
+            # Get points
+            points_map = {
+                'EE1': 8, 'EE2': 7, 'ME1': 6, 'ME2': 5,
+                'AE1': 4, 'AE2': 3, 'BE1': 2, 'BE2': 1
+            }
+            
             perf_summary.append({
                 'Level': level,
-                'Description': get_performance_label(level),
-                'Count': count,
+                'Description': descriptions[level],
+                'Points': points_map[level],
+                'Count': int(count),
                 'Percentage': f"{percentage:.1f}%"
             })
+        
         perf_df = pd.DataFrame(perf_summary)
         st.dataframe(perf_df, use_container_width=True, hide_index=True)
 
     st.markdown("---")
+    
+    # ============================================
+    # SUBJECT-WISE ANALYSIS
+    # ============================================
+    
     st.subheader("Subject-wise Class Average")
-    subject_avgs = df[subject_cols].mean().sort_values(ascending=False)
+    subject_avgs = filtered_df[subject_cols].mean().sort_values(ascending=False)
     fig = px.bar(x=subject_avgs.index, y=subject_avgs.values,
                  labels={'x': 'Subject', 'y': 'Average Score'},
                  title="Class Performance by Subject")
     fig.update_traces(marker_color='lightgreen')
     st.plotly_chart(fig, use_container_width=True)
 
+    # ============================================
+    # TOP AND BOTTOM PERFORMERS
+    # ============================================
+    
     col1, col2 = st.columns(2)
 
     with col1:
         st.subheader("🏆 Top 10 Students")
-        top_10 = df.nsmallest(10, 'RANK')[['RANK', 'NAME OF STUDENTS', 'GENDER', 'STRM', 'TOTAL', 'AVERAGE', 'AV/LVL']]
+        top_10 = filtered_df.nsmallest(10, 'RANK')[['RANK', 'NAME OF STUDENTS', 'GENDER', 'STRM', 'TOTAL', 'AVERAGE', 'P.LEVEL', 'POINTS']]
         st.dataframe(top_10, use_container_width=True, hide_index=True)
 
     with col2:
-        st.subheader("Bottom 10 Students")
-        bottom_10 = df.nlargest(10, 'RANK')[['RANK', 'NAME OF STUDENTS', 'GENDER', 'STRM', 'TOTAL', 'AVERAGE', 'AV/LVL']]
+        st.subheader("📉 Bottom 10 Students")
+        bottom_10 = filtered_df.nlargest(10, 'RANK')[['RANK', 'NAME OF STUDENTS', 'GENDER', 'STRM', 'TOTAL', 'AVERAGE', 'P.LEVEL', 'POINTS']]
         st.dataframe(bottom_10, use_container_width=True, hide_index=True)
 
     st.markdown("---")
+    
+    # ============================================
+    # SCORE DISTRIBUTION
+    # ============================================
+    
     st.subheader("Total Score Distribution")
-    fig = px.histogram(df, x='TOTAL', nbins=20, color=df['GENDER'].str.upper(),
+    fig = px.histogram(filtered_df, x='TOTAL', nbins=20, color=filtered_df['GENDER'].str.upper(),
                       labels={'TOTAL': 'Total Score', 'count': 'Number of Students'},
                       title="Distribution of Total Scores by Gender",
                       color_discrete_map={'M': 'lightblue', 'F': 'lightpink'})
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("---")
+    
+    # ============================================
+    # PDF GENERATION (Stream-specific or All)
+    # ============================================
+    
     st.subheader("📄 Generate Class Performance List (PDF)")
-    with st.expander("🔧 Class List Configuration", expanded=True):
+    
+    # Determine what to show in PDF title
+    if "All Streams" in selected_filter:
+        pdf_display_name = grade
+    else:
+        stream = selected_filter.split("(")[-1].replace(")", "")
+        stream_name = "Heroes" if stream == "H" else "Champions"
+        pdf_display_name = f"{grade} - {stream_name}"
+    
+    with st.expander("🔧 Class List Configuration", expanded=False):
         col1, col2, col3 = st.columns(3)
         with col1:
-            school_name_cl = st.text_input("School Name", "ABC SCHOOL", key="cl_school")
-            grade_cl = st.text_input("Grade/Class", grade, key="cl_grade")
+            school_name_cl = st.text_input("School Name", "SINDO COMPREHENSIVE SCHOOL", key="cl_school")
+            grade_cl = st.text_input("Grade/Class", pdf_display_name, key="cl_grade")
         with col2:
             term_cl = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"], key="cl_term")
             year_cl = st.number_input("Year", min_value=2020, max_value=2030, value=2024, key="cl_year")
@@ -673,26 +2132,56 @@ def show_class_analysis(df, grade, subject_cols):
                                         key="cl_exam")
             class_teacher_cl = st.text_input("Class Teacher Name", "Mr./Mrs. Teacher", key="cl_teacher")
 
-    if st.button("Generate Class List PDF", type="primary"):
-        with st.spinner("Generating class list PDF..."):
-            pdf_buffer = create_class_list_pdf(df, school_name_cl, grade_cl, term_cl,
+    if st.button("Generate Class List PDF", type="primary", key="generate_class_pdf"):
+        with st.spinner("Generating professional class list..."):
+            # Use filtered_df for PDF generation
+            pdf_buffer = create_class_list_pdf(filtered_df, school_name_cl, grade_cl, term_cl,
                                               year_cl, exam_type_cl, class_teacher_cl, subject_cols)
 
-            st.success("Done! Class list generated successfully!")
-
-            st.download_button(
-                label="Download Class List PDF",
-                data=pdf_buffer,
-                file_name=f"Class_List_{grade_cl}_{term_cl}_{year_cl}.pdf",
-                mime="application/pdf"
-            )
-
-            pdf_display = f'<iframe src="data:application/pdf;base64,{base64.b64encode(pdf_buffer.read()).decode()}" width="100%" height="800" type="application/pdf"></iframe>'
+            st.success("✅ Class list generated successfully!")
+            
+            # Preview section
+            st.markdown("---")
+            st.subheader("📄 Class List Preview")
+            st.info(f"Preview for: **{pdf_display_name}** | Students: **{len(filtered_df)}** (Landscape orientation)")
+            
+            # Convert PDF to base64 for preview
+            pdf_bytes = pdf_buffer.read()
+            base64_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
+            pdf_buffer.seek(0)  # Reset buffer for download
+            
+            # Display PDF in iframe
+            pdf_display = f'''
+                <iframe 
+                    src="data:application/pdf;base64,{base64_pdf}" 
+                    width="100%" 
+                    height="800px" 
+                    type="application/pdf"
+                    style="border: 1px solid #ddd; border-radius: 4px;">
+                </iframe>
+            '''
             st.markdown(pdf_display, unsafe_allow_html=True)
+            
+            st.markdown("---")
+            
+            # Download button with stream-specific filename
+            filename_safe = pdf_display_name.replace(" ", "_").replace("-", "")
+            st.download_button(
+                label=f"📥 Download {pdf_display_name} Class List PDF",
+                data=pdf_buffer,
+                file_name=f"Class_List_{filename_safe}_{term_cl}_{year_cl}.pdf",
+                mime="application/pdf",
+                type="primary",
+                use_container_width=True
+            )
 
 
 def show_subject_analysis(df, grade, subject_cols):
-    st.header(" Subject Analysis")
+    st.header("📚 Subject Analysis")
+
+    if df.empty:
+        st.warning("No data available yet")
+        return
 
     subject_avgs = df[subject_cols].mean().sort_values(ascending=False)
 
@@ -791,7 +2280,11 @@ def show_subject_analysis(df, grade, subject_cols):
 
 
 def show_stream_comparison(df, grade, subject_cols):
-    st.header("Stream Comparison")
+    st.header("🏫 Stream Comparison")
+
+    if df.empty:
+        st.warning("No data available yet")
+        return
 
     stream_avg = df.groupby('STRM')['TOTAL'].mean().sort_values(ascending=False)
 
@@ -865,7 +2358,12 @@ def show_stream_comparison(df, grade, subject_cols):
 
 
 def show_gender_analysis(df, subject_cols, grade):
-    st.header("Gender Analysis")
+    st.header("⚥ Gender Analysis")
+    
+    if df.empty:
+        st.warning("No data available yet")
+        return
+    
     male_df = df[df['GENDER'].str.upper() == 'M']
     female_df = df[df['GENDER'].str.upper() == 'F']
 
@@ -939,12 +2437,11 @@ def show_gender_analysis(df, subject_cols, grade):
         top_females = female_df.nlargest(10, 'TOTAL')[['RANK', 'NAME OF STUDENTS', 'STRM', 'TOTAL']]
         st.dataframe(top_females, use_container_width=True, hide_index=True)
 
-
 # ---------------------------
-# Main
+# Main App
 # ---------------------------
 def main():
-    # your original CSS / style (restored)
+    # Custom CSS
     st.markdown("""
     <style>
         .main { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
@@ -955,10 +2452,10 @@ def main():
         .stButton>button { background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; padding: 0.75rem 2rem; font-weight: 600; }
         [data-testid="stSidebar"] { background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%); }
         [data-testid="stSidebar"] .stMarkdown { color: white !important; }
-        [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, [data-testid="stSidebar"] h4 { color: white !important; }
     </style>
     """, unsafe_allow_html=True)
 
+    # Header
     col1, col2, col3 = st.columns([1, 3, 1])
     with col1:
         st.write("")
@@ -971,90 +2468,138 @@ def main():
         st.write("")
     st.markdown("---")
 
-    # load data
-    load_all_grade_data()
-    available_grades = list(GRADES.keys())
+    # Initialize session state
+    if 'logged_in' not in st.session_state:
+        st.session_state.logged_in = False
+
+    # Check login status
+    if not st.session_state.logged_in:
+        show_login()
+        return
 
     # Sidebar
-    st.sidebar.markdown("## 🎓 LumetraScholar")
-    st.sidebar.markdown("*by Magollo M. Reagan @Lumetra Analytics*")
+    st.sidebar.markdown(f"## 👤 {st.session_state.user_name}")
+    st.sidebar.markdown(f"*Role: {st.session_state.user_role.title()}*")
     st.sidebar.markdown("---")
 
-    selected_grade = st.sidebar.selectbox(
-        "Select Grade",
-        options=["-- Select Grade --"] + available_grades,
-        key="selected_grade_box"
-    )
+    # Navigation based on role
+    if st.session_state.user_role == 'admin':
+        st.sidebar.header("🎯 Admin Menu")
+        page = st.sidebar.radio(
+            "",
+            ["Admin Dashboard", "Manage Students", "Manage Teachers", "Marks Entry Progress",
+             "View Analytics"],
+            label_visibility="collapsed"
+        )
+    else:  # teacher
+        st.sidebar.header("👨‍🏫 Teacher Menu")
+        page = st.sidebar.radio(
+            "",
+            ["Teacher Dashboard", "Enter Marks", "My Progress"],
+            label_visibility="collapsed"
+        )
 
     st.sidebar.markdown("---")
-    st.sidebar.header(" Navigation")
-    page = st.sidebar.radio(
-        "",
-        ["Home", "Dashboard", "Student Reports", "Class Analysis",
-         "Subject Analysis", "Stream Comparison", "Gender Analysis"],
-        label_visibility="collapsed"
-    )
+    
+    if st.sidebar.button("🚪 Logout", use_container_width=True):
+        st.session_state.logged_in = False
+        st.session_state.username = None
+        st.session_state.user_role = None
+        st.session_state.user_name = None
+        st.session_state.user_data = None
+        st.rerun()
+
+    # Route pages based on role and selection
+    if st.session_state.user_role == 'admin':
+        if page == "Admin Dashboard":
+            show_admin_dashboard()
+        elif page == "Manage Students":
+            show_manage_students()
+        elif page == "Manage Teachers":
+            show_manage_teachers()
+        elif page == "Marks Entry Progress":
+            show_marks_entry_progress()
+        elif page == "View Analytics":
+            # Analytics selector
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                grade = st.selectbox("Select Grade", list(GRADES.keys()), key="analytics_grade")
+            with col2:
+                term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"], key="analytics_term")
+            with col3:
+                year = st.number_input("Year", min_value=2020, max_value=2030, value=2024, key="analytics_year")
+            
+            exam_type = st.selectbox("Examination Type",
+                                    ["Opener Examinations", "Mid-Term Examinations", "End Term Examinations"],
+                                    key="analytics_exam_type")
+            
+            subject_cols = GRADES[grade]
+            df = prepare_grade_data(grade, term, year, exam_type)
+            
+            if not df.empty:
+                analysis_page = st.selectbox("Select Analysis",
+                                            ["Dashboard", "Student Reports", "Class Analysis", 
+                                             "Subject Analysis", "Stream Comparison", "Gender Analysis"],
+                                            key="analytics_page")
+                
+                if analysis_page == "Dashboard":
+                    show_dashboard(df, grade, subject_cols)
+                elif analysis_page == "Student Reports":
+                    show_student_reports(df, grade, subject_cols)
+                elif analysis_page == "Class Analysis":
+                    show_class_analysis(df, grade, subject_cols)
+                elif analysis_page == "Subject Analysis":
+                    show_subject_analysis(df, grade, subject_cols)
+                elif analysis_page == "Stream Comparison":
+                    show_stream_comparison(df, grade, subject_cols)
+                elif analysis_page == "Gender Analysis":
+                    show_gender_analysis(df, subject_cols, grade)
+            else:
+                st.info("📊 No data available for the selected parameters")
+                st.markdown("---")
+                st.markdown("### 🚀 Getting Started")
+                st.markdown("""
+                To view analytics, you need to:
+                
+                1. **Add Students** (Manage Students page)
+                   - Add students for the grade you want to analyze
+                   
+                2. **Add Teachers** (Manage Teachers page)  
+                   - Add teachers and assign them subjects
+                   
+                3. **Enter Marks** (Teachers can enter marks, or Admin can use sample data scripts)
+                   - Teachers: Login and use "Enter Marks" page
+                   - Admin: Run sample data generators (e.g., `generate_grade5_data.py`)
+                
+                4. **Select the correct parameters** above:
+                   - Grade, Term, Year, and Examination Type must match your entered data
+                
+                **Quick Start:** Run a sample data generator script to populate the system with test data!
+                """)
+                
+                # Show helpful info about sample data
+                st.markdown("---")
+                st.markdown("### 📁 Sample Data Generators Available")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.code("python generate_grade5_data.py", language="bash")
+                    st.caption("Creates 20 Grade 5 students with marks")
+                with col2:
+                    st.code("python generate_grade7_sample_data.py", language="bash")
+                    st.caption("Creates 40 Grade 7 students with marks")
+    
+    else:  # teacher
+        if page == "Teacher Dashboard":
+            show_teacher_dashboard()
+        elif page == "Enter Marks":
+            show_enter_marks()
+        elif page == "My Progress":
+            show_teacher_progress()
 
     st.sidebar.markdown("---")
-    st.sidebar.markdown("**LumetraScholar v1.0**")
-    
-    # If no grade selected → home
-    if selected_grade == "-- Select Grade --":
-        show_home_page()
-        return
-
-    subject_cols = GRADES[selected_grade]
-
-    # Allow upload override (session only)
-    st.sidebar.markdown("**Upload CSV for this grade (optional)**")
-    uploaded = st.sidebar.file_uploader("Upload CSV", type=["csv"], key=f"uploader_{selected_grade}")
-    if uploaded:
-        try:
-            df_up = pd.read_csv(uploaded)
-            st.session_state[f"uploaded_{selected_grade}"] = df_up
-            st.sidebar.success("Upload loaded for this session")
-        except Exception as e:
-            st.sidebar.error(f"Upload failed: {e}")
-    
-    
-    # Get df (uploaded override or auto-load)
-    df = get_grade_df(selected_grade)
-
-    # If empty, show message
-    if df.empty:
-        st.warning(f"No data available for {selected_grade}. Upload CSV in the sidebar to use this grade.")
-        return
-
-    # Validate subject columns
-    missing = [c for c in subject_cols if c not in df.columns]
-    if missing:
-        st.error(f"Missing columns for {selected_grade}: {missing}")
-        return
-
-    # Prepare data (compute in-memory)
-    try:
-        df = prepare_grade_data(df, subject_cols)
-    except Exception as e:
-        st.error(f"Data preparation failed: {e}")
-        return
-
-    # route pages
-    if page == "Home":
-        show_home_page()
-    elif page == "Dashboard":
-        show_dashboard(df, selected_grade, subject_cols)
-    elif page == "Student Reports":
-        show_student_reports(df, selected_grade, subject_cols)
-    elif page == "Class Analysis":
-        show_class_analysis(df, selected_grade, subject_cols)
-    elif page == "Subject Analysis":
-        show_subject_analysis(df, selected_grade, subject_cols)
-    elif page == "Stream Comparison":
-        show_stream_comparison(df, selected_grade, subject_cols)
-    elif page == "Gender Analysis":
-        show_gender_analysis(df, subject_cols, selected_grade)
+    st.sidebar.markdown("**LumetraScholar v2.0**")
+    st.sidebar.markdown("*by Lumetra Analytics*")
 
 
 if __name__ == "__main__":
     main()
-
