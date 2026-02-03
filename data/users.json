@@ -1,0 +1,769 @@
+{
+  "lumetra": {
+    "password": "@michreano",
+    "role": "admin",
+    "name": "System Administrator"
+  },
+  "rhoda": {
+    "password": "admin@lmtr#91x",
+    "role": "admin",
+    "name": "MD. RHODA V.A"
+  },
+  "stepheneopinde": {
+    "password": "admin#core@45q",
+    "role": "admin",
+    "name": "MR. STEPHENE OPINDE"
+  },
+  "elkinsabok": {
+    "password": "admin!root72",
+    "role": "admin",
+    "name": "MR. ELKINS ABOK"
+  },
+  "philipokwach": {
+    "password": "admin!secure#8",
+    "role": "admin",
+    "name": "MR. PHILIP OKWACH"
+  },
+  "opindestephene": {
+    "password": "teach#a91xp",
+    "role": "teacher",
+    "name": "MR. STEPHENE OPINDE",
+    "subjects": [
+      "SCI",
+      "SST"
+    ],
+    "grades": [
+      "Grade 6",
+      "Grade 4"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 4",
+        "subject": "SST",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 4",
+        "subject": "SST",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "SCI",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "SCI",
+        "stream": "C"
+      }
+    ]
+  },
+  "obwochajames": {
+    "password": "tchr@82lmq",
+    "role": "teacher",
+    "name": "MR.JAMES OBWOCHA",
+    "subjects": [
+      "AGR/N",
+      "MAT"
+    ],
+    "grades": [
+      "Grade 6",
+      "Grade 8",
+      "Grade 9"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 6",
+        "subject": "MAT",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "MAT",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "AGR/N",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "AGR/N",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "AGR/N",
+        "stream": "H"
+      }
+    ]
+  },
+  "matindesusan": {
+    "password": "edu!p7kx42",
+    "role": "teacher",
+    "name": "MD. SUSAN MATINDE",
+    "subjects": [
+      "KIS",
+      "SCI"
+    ],
+    "grades": [
+      "Grade 4",
+      "Grade 5"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 4",
+        "subject": "KIS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 4",
+        "subject": "KIS",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 5",
+        "subject": "SCI",
+        "stream": "H"
+      }
+    ]
+  },
+  "abokelkins": {
+    "password": "class#8zp1",
+    "role": "teacher",
+    "name": "MR.ELKINS ABOK",
+    "subjects": [
+      "SST",
+      "PRET"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 9"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 8",
+        "subject": "PRET",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "PRET",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "PRET",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "PRET",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "SST",
+        "stream": "H"
+      }
+    ]
+  },
+  "abongowycliffe": {
+    "password": "teach$n93a",
+    "role": "teacher",
+    "name": "MR. WYCLIFFE ABONGO",
+    "subjects": [
+      "INT/SCI",
+      "MAT"
+    ],
+    "grades": [
+      "Grade 7",
+      "Grade 8",
+      "Grade 9"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 9",
+        "subject": "MAT",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "MAT",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "MAT",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "INT/SCI",
+        "stream": "C"
+      }
+    ]
+  },
+  "sharone": {
+    "password": "subj@k72m",
+    "role": "teacher",
+    "name": "MD. SHARONE SHARONE",
+    "subjects": [
+      "KIS",
+      "C/ARTS"
+    ],
+    "grades": [
+      "Grade 6",
+      "Grade 5"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 5",
+        "subject": "KIS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 5",
+        "subject": "C/ARTS",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "KIS",
+        "stream": "C"
+      }
+    ]
+  },
+  "ojwanglorine": {
+    "password": "mark!p41q",
+    "role": "teacher",
+    "name": "MD. LORINE OJWANG",
+    "subjects": [
+      "C/ARTS",
+      "ENG"
+    ],
+    "grades": [
+      "Grade 6",
+      "Grade 4",
+      "Grade 5"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 5",
+        "subject": "ENG",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 5",
+        "subject": "ENG",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "ENG",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 4",
+        "subject": "C/ARTS",
+        "stream": "C"
+      }
+    ]
+  },
+  "adoyojenter": {
+    "password": "learn#x82t",
+    "role": "teacher",
+    "name": "MD. JENTER ADOYO",
+    "subjects": [
+      "KIS",
+      "MAT"
+    ],
+    "grades": [
+      "Grade 7",
+      "Grade 5"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 7",
+        "subject": "KIS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "KIS",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 5",
+        "subject": "MAT",
+        "stream": "H"
+      }
+    ]
+  },
+  "monicajune": {
+    "password": "grade@91lp",
+    "role": "teacher",
+    "name": "MD. JUNE MONICA",
+    "subjects": [
+      "C/ARTS"
+    ],
+    "grades": [
+      "Grade 6",
+      "Grade 9",
+      "Grade 4",
+      "Grade 5"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 5",
+        "subject": "C/ARTS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "C/ARTS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "C/ARTS",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 4",
+        "subject": "C/ARTS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "C/ARTS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "C/ARTS",
+        "stream": "C"
+      }
+    ]
+  },
+  "okumudorcas": {
+    "password": "score!t7m2",
+    "role": "teacher",
+    "name": "MD. DORCAS OKUMU",
+    "subjects": [
+      "SCI",
+      "MAT"
+    ],
+    "grades": [
+      "Grade 4"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 4",
+        "subject": "MAT",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 4",
+        "subject": "MAT",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 4",
+        "subject": "SCI",
+        "stream": "H"
+      }
+    ]
+  },
+  "magolloreagan": {
+    "password": "edu#q58xa",
+    "role": "teacher",
+    "name": "MR. MAGOLLO REAGAN",
+    "subjects": [
+      "ENG",
+      "C/ARTS"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 7",
+      "Grade 4"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 4",
+        "subject": "ENG",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 4",
+        "subject": "ENG",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "C/ARTS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "C/ARTS",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "C/ARTS",
+        "stream": "C"
+      }
+    ]
+  },
+  "mutungabella": {
+    "password": "teach@z29p",
+    "role": "teacher",
+    "name": "MD. BELLA MUTUNGA",
+    "subjects": [
+      "KIS",
+      "CRE"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 7",
+      "Grade 9"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 8",
+        "subject": "KIS",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "CRE",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "CRE",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "KIS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "KIS",
+        "stream": "C"
+      }
+    ]
+  },
+  "yowerikaguta": {
+    "password": "marks$4ln",
+    "role": "teacher",
+    "name": "MD. KAGUTA YOWERI",
+    "subjects": [
+      "KIS",
+      "MAT",
+      "SST"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 7",
+      "Grade 6"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 7",
+        "subject": "MAT",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "SST",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "SST",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "SST",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 6",
+        "subject": "SST",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "KIS",
+        "stream": "H"
+      }
+    ]
+  },
+  "atienobrender": {
+    "password": "class@p73x",
+    "role": "teacher",
+    "name": "MD. BRENDER ATIENO",
+    "subjects": [
+      "ENG"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 6"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 6",
+        "subject": "ENG",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "ENG",
+        "stream": "C"
+      }
+    ]
+  },
+  "salimberyl": {
+    "password": "input!92ka",
+    "role": "teacher",
+    "name": "MD. BERYL SALIM",
+    "subjects": [
+      "CRE",
+      "AGR/N",
+      "PRET"
+    ],
+    "grades": [
+      "Grade 9",
+      "Grade 7"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 7",
+        "subject": "AGR/N",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "AGR/N",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "PRET",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "PRET",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "CRE",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "CRE",
+        "stream": "C"
+      }
+    ]
+  },
+  "yogohillary": {
+    "password": "subj#l58q",
+    "role": "teacher",
+    "name": "MR. HILLARY YOGO",
+    "subjects": [
+      "C/ARTS",
+      "AGR/N",
+      "INT/SCI"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 9",
+      "Grade 7"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 9",
+        "subject": "AGR/N",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "C/ARTS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "INT/SCI",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "INT/SCI",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "INT/SCI",
+        "stream": "H"
+      }
+    ]
+  },
+  "okwachphilip": {
+    "password": "tchr@m71p",
+    "role": "teacher",
+    "name": "MR. PHILIP OKWACH",
+    "subjects": [
+      "SST",
+      "ENG"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 5",
+      "Grade 9"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 9",
+        "subject": "ENG",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "ENG",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "ENG",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 5",
+        "subject": "SST",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 5",
+        "subject": "SST",
+        "stream": "C"
+      }
+    ]
+  },
+  "achiengmercy": {
+    "password": "edu$q93x",
+    "role": "teacher",
+    "name": "MD. MERCY ACHIENG",
+    "subjects": [
+      "ENG",
+      "INT/SCI"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 7"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 7",
+        "subject": "ENG",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 7",
+        "subject": "ENG",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "INT/SCI",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "INT/SCI",
+        "stream": "C"
+      }
+    ]
+  },
+  "arikokilly": {
+    "password": "score#p62a",
+    "role": "teacher",
+    "name": "MR. KILLY ARIKO",
+    "subjects": [
+      "SST",
+      "MAT"
+    ],
+    "grades": [
+      "Grade 8",
+      "Grade 9"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 9",
+        "subject": "MAT",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "MAT",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 8",
+        "subject": "SST",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "SST",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 9",
+        "subject": "SST",
+        "stream": "C"
+      }
+    ]
+  },
+  "otiwajudith": {
+    "password": "teach!l84q",
+    "role": "teacher",
+    "name": "MD.JUDITH OTIWA",
+    "subjects": [
+      "SCI",
+      "KIS",
+      "MAT"
+    ],
+    "grades": [
+      "Grade 4",
+      "Grade 5",
+      "Grade 6"
+    ],
+    "assignments": [
+      {
+        "grade": "Grade 6",
+        "subject": "KIS",
+        "stream": "H"
+      },
+      {
+        "grade": "Grade 5",
+        "subject": "MAT",
+        "stream": "C"
+      },
+      {
+        "grade": "Grade 4",
+        "subject": "SCI",
+        "stream": "C"
+      }
+    ]
+  }
+}

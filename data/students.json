@@ -1,0 +1,5448 @@
+{
+  "140": {
+    "name": "IAN OMONDI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T15:55:56.456177"
+  },
+  "141": {
+    "name": "ROMANCE OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T15:56:33.075928"
+  },
+  "142": {
+    "name": "RONALD ANNAN",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T15:56:54.748477"
+  },
+  "143": {
+    "name": "ISACK OTIENO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T15:57:12.330960"
+  },
+  "144": {
+    "name": "JOPA OTIENO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T15:57:30.406813"
+  },
+  "145": {
+    "name": "ELIZABETH AWINO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T15:58:03.134929"
+  },
+  "146": {
+    "name": "FREDRICK OMONDI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T15:58:24.199339"
+  },
+  "147": {
+    "name": "PHILAVY AKINYI",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T15:58:46.710671"
+  },
+  "148": {
+    "name": "ELIDA ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T15:59:08.088181"
+  },
+  "149": {
+    "name": "BRUCE ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T15:59:32.367122"
+  },
+  "150": {
+    "name": "ELVIS OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T15:59:59.656371"
+  },
+  "151": {
+    "name": "SHEINAZ ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:00:25.023510"
+  },
+  "152": {
+    "name": "FIDEL CASTRO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:00:41.781886"
+  },
+  "153": {
+    "name": "FELIX OMONDI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:00:58.847831"
+  },
+  "154": {
+    "name": "BRIAN ELISHA",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:01:14.677673"
+  },
+  "155": {
+    "name": "FRANKLINE EDDY OMONDI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:01:33.654600"
+  },
+  "156": {
+    "name": "TOM JUNIOR",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:01:49.667225"
+  },
+  "157": {
+    "name": "CLINTON OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:02:06.384093"
+  },
+  "158": {
+    "name": "EBIPHONE MOSETI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:02:28.876318"
+  },
+  "159": {
+    "name": "KENNETH OTIATO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:02:44.293825"
+  },
+  "160": {
+    "name": "JACKLINE ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:03:14.754425"
+  },
+  "161": {
+    "name": "VITALIS YOGO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:03:35.543983"
+  },
+  "162": {
+    "name": "KEVIN ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:03:53.217064"
+  },
+  "163": {
+    "name": "LUKAS OMONDI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:04:10.420408"
+  },
+  "164": {
+    "name": "JACKTON ONYANGO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:04:34.790310"
+  },
+  "165": {
+    "name": "BRITON OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:04:57.179335"
+  },
+  "166": {
+    "name": "DENIS ODIWUOR",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:05:17.172205"
+  },
+  "167": {
+    "name": "DERICK OMONDI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:05:32.802254"
+  },
+  "168": {
+    "name": "DAVID STANLEY",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:05:50.702381"
+  },
+  "169": {
+    "name": "PETER ONYANGO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:06:26.605711"
+  },
+  "170": {
+    "name": "CALTON OKOTH",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:06:42.265518"
+  },
+  "171": {
+    "name": "CLIFF OTIENO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:07:00.604674"
+  },
+  "172": {
+    "name": "CHRISTIAN OKOTH",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:07:21.470301"
+  },
+  "173": {
+    "name": "ALEX WEKESA",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:07:36.722656"
+  },
+  "174": {
+    "name": "BRIGHTON ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:07:54.823646"
+  },
+  "175": {
+    "name": "FIDEL JUNIOR",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:08:09.301834"
+  },
+  "176": {
+    "name": "EMMANUEL KOFFI ANNAN",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:08:35.368609"
+  },
+  "177": {
+    "name": "RUDEN DAMAS",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:08:58.291819"
+  },
+  "178": {
+    "name": "IYAN CARLOS",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:09:19.028779"
+  },
+  "179": {
+    "name": "LAVIN ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:09:42.252472"
+  },
+  "180": {
+    "name": "LETISHIA MAKARIAS",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:10:04.496762"
+  },
+  "181": {
+    "name": "RIAN TALIA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:10:22.128427"
+  },
+  "182": {
+    "name": "VIVIAN AOKO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:10:45.285711"
+  },
+  "183": {
+    "name": "VIVIAN ANYANGO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:11:27.811779"
+  },
+  "184": {
+    "name": "WAREN HENRY",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:11:49.902895"
+  },
+  "185": {
+    "name": "DAVINE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:12:04.782899"
+  },
+  "186": {
+    "name": "VIVIAN AKINYI",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:12:28.216246"
+  },
+  "187": {
+    "name": "ISAAC OKOMBO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:12:47.573077"
+  },
+  "188": {
+    "name": "JUDITH AOKO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:13:04.154096"
+  },
+  "189": {
+    "name": "SUSAN ROBBY",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:13:25.299289"
+  },
+  "190": {
+    "name": "EPHY ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:13:48.845855"
+  },
+  "191": {
+    "name": "PAMELLA ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:14:19.586134"
+  },
+  "192": {
+    "name": "JANET ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:14:41.235806"
+  },
+  "193": {
+    "name": "SHEILA ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:14:58.766380"
+  },
+  "194": {
+    "name": "ARSHAVIIN OTIENO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:15:22.749911"
+  },
+  "195": {
+    "name": "VIVIAN ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:15:48.869675"
+  },
+  "196": {
+    "name": "DOROTHY ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:16:09.510962"
+  },
+  "197": {
+    "name": "MELISHER ZEMDA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:16:29.557425"
+  },
+  "198": {
+    "name": "VELMA SAOLME",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:16:52.633397"
+  },
+  "199": {
+    "name": "EVANCE OTIENO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:17:14.381500"
+  },
+  "200": {
+    "name": "TONY OMONDI OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:17:44.327525"
+  },
+  "201": {
+    "name": "RYAN OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:18:02.877746"
+  },
+  "202": {
+    "name": "EMMANUEL OKINYI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:18:20.814026"
+  },
+  "203": {
+    "name": "JOY PRETTY",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:18:37.610831"
+  },
+  "204": {
+    "name": "ELIZABETH ANYANGO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:18:58.967633"
+  },
+  "205": {
+    "name": "SHERYL AKINYI AAGO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:19:24.388308"
+  },
+  "206": {
+    "name": "RUTH AUMA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:19:38.300966"
+  },
+  "207": {
+    "name": "BYRON DAVID AKOTH",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:20:02.363312"
+  },
+  "208": {
+    "name": "BILLY GASTONE",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:20:20.291151"
+  },
+  "209": {
+    "name": "MARY ATIENO ARSON",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:20:46.663031"
+  },
+  "210": {
+    "name": "ROSE ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:21:06.566774"
+  },
+  "211": {
+    "name": "MERCY ROSE",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:21:21.409835"
+  },
+  "212": {
+    "name": "STEVE AUSTINE",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:21:41.973769"
+  },
+  "213": {
+    "name": "IDAH AWUOR",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:21:58.718790"
+  },
+  "214": {
+    "name": "GIDEON PETER",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:22:14.935209"
+  },
+  "215": {
+    "name": "SHEILA AWUOR",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:22:38.013479"
+  },
+  "216": {
+    "name": "SILAS BAHATI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:22:58.798625"
+  },
+  "217": {
+    "name": "MARY ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:23:23.227314"
+  },
+  "218": {
+    "name": "ALFRED OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:23:43.335122"
+  },
+  "219": {
+    "name": "CHRISTINE AWUOR",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:24:13.125466"
+  },
+  "220": {
+    "name": "PHELIX OCHIENG ONYANGO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:24:34.638358"
+  },
+  "221": {
+    "name": "AMPLIANTO AQUENAS ONYANGO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:25:11.761551"
+  },
+  "222": {
+    "name": "PHILLY PHIONA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:25:33.448490"
+  },
+  "223": {
+    "name": "DAN OJIJO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:25:51.937447"
+  },
+  "224": {
+    "name": "RUTH ANYANGO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:26:12.816329"
+  },
+  "225": {
+    "name": "ALPHONCE OTIENO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:26:34.893604"
+  },
+  "226": {
+    "name": "BEN JOSEPH",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:26:54.007143"
+  },
+  "227": {
+    "name": "JULIET AUMA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:27:10.000492"
+  },
+  "228": {
+    "name": "ELIZABETH ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:27:31.399886"
+  },
+  "229": {
+    "name": "DIANA AWINO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:27:45.762568"
+  },
+  "230": {
+    "name": "NANCY AKOTH",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:28:01.271387"
+  },
+  "231": {
+    "name": "GIFTED MINYEKA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:28:21.299166"
+  },
+  "232": {
+    "name": "QUEENTER ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:29:24.183294"
+  },
+  "233": {
+    "name": "LIZZY ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:29:48.319870"
+  },
+  "234": {
+    "name": "BONFACE STANLEY",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:30:12.247404"
+  },
+  "235": {
+    "name": "SHALOM DEBRA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:30:28.923676"
+  },
+  "236": {
+    "name": "SHERYL AKINYI",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:30:47.404412"
+  },
+  "237": {
+    "name": "SAMWEL OWINO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:31:05.118812"
+  },
+  "238": {
+    "name": "DEBRA AKINYI",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:31:34.576140"
+  },
+  "239": {
+    "name": "HANNINGTONE OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:32:01.400781"
+  },
+  "240": {
+    "name": "STECY ANYANGO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:32:20.002348"
+  },
+  "241": {
+    "name": "BARACK OBAMA",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:32:47.294813"
+  },
+  "242": {
+    "name": "JOVIAL AKOTH",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:33:09.809075"
+  },
+  "243": {
+    "name": "FIDEL ELIPHAZ",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:33:45.115780"
+  },
+  "244": {
+    "name": "SHINDY SHALMA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:34:14.184232"
+  },
+  "245": {
+    "name": "TAMIRA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:34:30.034929"
+  },
+  "246": {
+    "name": "BENJAMIN EMMANUEL",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:34:50.846577"
+  },
+  "247": {
+    "name": "RYAN OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:35:12.398094"
+  },
+  "248": {
+    "name": "MONICA NGENDO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:35:37.659449"
+  },
+  "249": {
+    "name": "LORNA AWUOR",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:35:54.784670"
+  },
+  "250": {
+    "name": "AURELIA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:36:14.211646"
+  },
+  "251": {
+    "name": "SCOVIA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:36:32.046847"
+  },
+  "252": {
+    "name": "LAWI OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:36:48.674824"
+  },
+  "253": {
+    "name": "ROONEY ONYANGO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:37:09.538681"
+  },
+  "254": {
+    "name": "IRINE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:37:33.941929"
+  },
+  "255": {
+    "name": "PRETY SHERYL",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:37:51.407397"
+  },
+  "256": {
+    "name": "OMONDI SILAS",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:38:14.704105"
+  },
+  "257": {
+    "name": "BRIGHTON OMONDI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:38:36.637514"
+  },
+  "258": {
+    "name": "IDAH ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:39:02.411939"
+  },
+  "259": {
+    "name": "HELIDA GESARE ONYANGO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:39:25.315431"
+  },
+  "260": {
+    "name": "RONEL MESSI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:39:54.768152"
+  },
+  "261": {
+    "name": "SHANTEL CORAZON",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:40:14.758585"
+  },
+  "262": {
+    "name": "AGNES ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:40:34.721528"
+  },
+  "263": {
+    "name": "GEYLORD OPIYO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:40:56.205643"
+  },
+  "264": {
+    "name": "VICTOR ODONGO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:41:21.249138"
+  },
+  "265": {
+    "name": "FELIX OUMA",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:41:35.874825"
+  },
+  "266": {
+    "name": "JOHN OPHESTER",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:41:52.709858"
+  },
+  "267": {
+    "name": "SNIDER KABALIKA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:42:11.738025"
+  },
+  "268": {
+    "name": "TERRY AKINYI",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:42:26.869529"
+  },
+  "269": {
+    "name": "BRIGHTON OCHIENG",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:42:50.180831"
+  },
+  "270": {
+    "name": "CHRISTINE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:43:09.722150"
+  },
+  "271": {
+    "name": "BRIGHTON OTIENO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:43:29.943553"
+  },
+  "272": {
+    "name": "FRANK LAMPARD",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:43:48.225154"
+  },
+  "273": {
+    "name": "THOMAS ONYANGO",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:44:04.005585"
+  },
+  "274": {
+    "name": "MATABEL ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:44:20.488119"
+  },
+  "275": {
+    "name": "SAMANTHA ANYANGO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:44:38.066833"
+  },
+  "276": {
+    "name": "STACY VERONICA",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:44:59.396198"
+  },
+  "441": {
+    "name": "SHYAN ATIENO",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:45:29.163820"
+  },
+  "442": {
+    "name": "JOSEPH OUMA",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:45:43.920609"
+  },
+  "443": {
+    "name": "PHENNY AKINYI",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:45:59.289541"
+  },
+  "444": {
+    "name": "VINOLSHA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:46:18.296624"
+  },
+  "445": {
+    "name": "JOSEPH OTIENO MOI",
+    "gender": "M",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:46:49.836463"
+  },
+  "446": {
+    "name": "MITCHEL AWUOR",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "C",
+    "created_at": "2026-02-01T16:47:05.773524"
+  },
+  "447": {
+    "name": "EUCABETH MAGOMA NGARE",
+    "gender": "F",
+    "grade": "Grade 9",
+    "stream": "H",
+    "created_at": "2026-02-01T16:47:31.703085"
+  },
+  "281": {
+    "name": "MARY ANGEL",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:22:01.291526"
+  },
+  "282": {
+    "name": "GIFT DALMAS",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:23:39.616323"
+  },
+  "283": {
+    "name": "ROSE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:23:52.876891"
+  },
+  "284": {
+    "name": "PASCALY APIYO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:24:13.465238"
+  },
+  "285": {
+    "name": "SAMANTHA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:24:29.215237"
+  },
+  "286": {
+    "name": "ANGEL AMANI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:24:48.759132"
+  },
+  "287": {
+    "name": "PAMELA ATIENO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:25:05.184378"
+  },
+  "288": {
+    "name": "BRITNEY ANNE",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:25:22.437499"
+  },
+  "289": {
+    "name": "DEFRO MARION",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:25:37.363582"
+  },
+  "290": {
+    "name": "RUSHEL ELIOT",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:25:56.692692"
+  },
+  "291": {
+    "name": "MITCHEL AOKO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:26:21.465758"
+  },
+  "292": {
+    "name": "VERONICA AWUOR",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:26:40.441454"
+  },
+  "293": {
+    "name": "BABRA AKOTH",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:26:57.503234"
+  },
+  "294": {
+    "name": "ZAINAB ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:27:13.995262"
+  },
+  "295": {
+    "name": "TREAZER ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:27:35.600378"
+  },
+  "296": {
+    "name": "CATE WINSLATE",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:28:03.309411"
+  },
+  "297": {
+    "name": "LAVENDER ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:28:25.720723"
+  },
+  "298": {
+    "name": "MILLICENT ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:28:46.162913"
+  },
+  "299": {
+    "name": "CELESTINE BAHATI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:29:03.677488"
+  },
+  "300": {
+    "name": "ARSHLEY ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:29:26.764505"
+  },
+  "301": {
+    "name": "MACKLINE AKINYI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:29:46.040166"
+  },
+  "302": {
+    "name": "TREAZER ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:30:09.085993"
+  },
+  "303": {
+    "name": "CATHERINE AKINYI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:30:29.243068"
+  },
+  "304": {
+    "name": "JEMILA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:30:57.030095"
+  },
+  "305": {
+    "name": "EUNICE AKINYI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:31:19.647165"
+  },
+  "306": {
+    "name": "DORCAS ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:31:41.890966"
+  },
+  "307": {
+    "name": "JOYJAEL AWUOR",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:32:11.787263"
+  },
+  "308": {
+    "name": "BIANCA AKINYI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:32:31.867515"
+  },
+  "309": {
+    "name": "STACY AWUOR",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:32:52.138743"
+  },
+  "310": {
+    "name": "TRIZIAN FAITH",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:33:07.577279"
+  },
+  "311": {
+    "name": "ASHLEY LOVINA",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:33:30.630932"
+  },
+  "312": {
+    "name": "FLAVIAN ROSE",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:33:47.239899"
+  },
+  "313": {
+    "name": "PETRO OMURUSA",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:34:09.561191"
+  },
+  "314": {
+    "name": "RICHARD OMONDI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:34:27.846741"
+  },
+  "315": {
+    "name": "MORGAN RICH",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:34:43.551541"
+  },
+  "316": {
+    "name": "RIEN MARK",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:34:57.364179"
+  },
+  "317": {
+    "name": "JARED OOKO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:35:13.279778"
+  },
+  "318": {
+    "name": "BONFACE OCHIENG",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:35:38.201083"
+  },
+  "319": {
+    "name": "RAY SHELDON",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:35:54.050366"
+  },
+  "320": {
+    "name": "HILLARY CLINTON",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:36:17.192078"
+  },
+  "321": {
+    "name": "RODNEY SUNDY",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:36:48.603996"
+  },
+  "322": {
+    "name": "MARTIN OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:37:06.386940"
+  },
+  "323": {
+    "name": "ISAAC NEWTON",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:37:23.937144"
+  },
+  "324": {
+    "name": "CALVINCE ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:37:45.672221"
+  },
+  "325": {
+    "name": "EVANCE CHARLES",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:38:40.348489"
+  },
+  "326": {
+    "name": "DERICK GENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:38:58.681711"
+  },
+  "327": {
+    "name": "STEVE OCHIENG",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:39:20.906456"
+  },
+  "328": {
+    "name": "MAXWEL ONYANGO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:39:47.025647"
+  },
+  "329": {
+    "name": "MICHAEL OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:40:06.477891"
+  },
+  "330": {
+    "name": "VALKARION ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:40:34.841284"
+  },
+  "331": {
+    "name": "BRADOX OMONDI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:40:55.105633"
+  },
+  "332": {
+    "name": "VICTOR OKETCH",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:41:13.801633"
+  },
+  "333": {
+    "name": "JERY BRIGHTON",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:41:32.332746"
+  },
+  "334": {
+    "name": "ROLEX OCHIENG",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:41:54.014158"
+  },
+  "335": {
+    "name": "ABRAHAM OKINYI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:42:16.979202"
+  },
+  "336": {
+    "name": "GLEN COTAS",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:42:32.784004"
+  },
+  "337": {
+    "name": "ABRAHAM OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:43:41.875778"
+  },
+  "338": {
+    "name": "CHELSEACHRIS OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:44:23.264097"
+  },
+  "339": {
+    "name": "SHANON ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:44:41.926683"
+  },
+  "340": {
+    "name": "SCOVIA AKINYI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:44:59.492432"
+  },
+  "341": {
+    "name": "ASHLEY MOVINE",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:45:22.944026"
+  },
+  "342": {
+    "name": "PRECIOUS TALIA",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:45:42.578154"
+  },
+  "343": {
+    "name": "MICAH OKOTH",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:46:08.818391"
+  },
+  "344": {
+    "name": "MICAH OKOTH",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:46:30.120720"
+  },
+  "345": {
+    "name": "SHELBY CAPY",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:46:49.796601"
+  },
+  "346": {
+    "name": "ELIJAH OLOO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:47:11.905044"
+  },
+  "347": {
+    "name": "TREVIS OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:47:32.295304"
+  },
+  "348": {
+    "name": "JUSTIN JOHN",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:48:54.894989"
+  },
+  "349": {
+    "name": "HENRY OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:49:38.470812"
+  },
+  "350": {
+    "name": "FIDEL BRIAN",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:50:00.495622"
+  },
+  "351": {
+    "name": "LUIZ JOSEPH",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T01:58:29.116040"
+  },
+  "352": {
+    "name": "MORENO OCAMPO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T01:58:53.519058"
+  },
+  "353": {
+    "name": "ENOCK MISEWE",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T01:59:27.160713"
+  },
+  "354": {
+    "name": "MARY BIANCA",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T01:59:46.558249"
+  },
+  "355": {
+    "name": "MITCHEL ANYANGO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:00:05.920969"
+  },
+  "356": {
+    "name": "EVERLINE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:00:26.966483"
+  },
+  "357": {
+    "name": "LUCY ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:00:49.775103"
+  },
+  "358": {
+    "name": "VIOLET AKOTH",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:01:07.004019"
+  },
+  "359": {
+    "name": "LIZZY PURITY",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:01:27.967979"
+  },
+  "360": {
+    "name": "DOTTIE PHOSTINE",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:01:44.534039"
+  },
+  "361": {
+    "name": "VIOLET KADADI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:02:04.311605"
+  },
+  "362": {
+    "name": "BRAXTONE ANDREW",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:02:22.897012"
+  },
+  "363": {
+    "name": "ELVIS OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:02:41.522274"
+  },
+  "364": {
+    "name": "FRANCIS YONGO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:02:59.265486"
+  },
+  "365": {
+    "name": "ARSHAVIN OWINO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:03:19.147665"
+  },
+  "366": {
+    "name": "RYAN OTAYE",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:03:35.531821"
+  },
+  "367": {
+    "name": "VICTOR OPIYO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:03:49.958895"
+  },
+  "368": {
+    "name": "STEVE HAM",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:04:18.142836"
+  },
+  "369": {
+    "name": "DENZEL ODIWUOR",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:04:35.041881"
+  },
+  "370": {
+    "name": "BRIGHTON OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:04:56.331121"
+  },
+  "371": {
+    "name": "BRIAN ADAMS",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:05:23.248657"
+  },
+  "372": {
+    "name": "MAXWEL ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:05:42.020774"
+  },
+  "373": {
+    "name": "ABDULAHI KARIOKI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:06:01.866406"
+  },
+  "374": {
+    "name": "GEORGE BRAVIN",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:06:25.527366"
+  },
+  "375": {
+    "name": "LUI MORENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:06:45.463727"
+  },
+  "376": {
+    "name": "HESBON OCHIENG",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:07:10.921628"
+  },
+  "377": {
+    "name": "VICTOR OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:07:28.272037"
+  },
+  "378": {
+    "name": "CALEB BRIGHTON",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:07:49.535719"
+  },
+  "379": {
+    "name": "BRIAN OMONDI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:08:05.767456"
+  },
+  "380": {
+    "name": "ALPHINE OMONDI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:08:25.612136"
+  },
+  "381": {
+    "name": "JOSEPH CHIAJI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:08:44.239403"
+  },
+  "382": {
+    "name": "NATOSE WERE",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:09:02.941112"
+  },
+  "383": {
+    "name": "ELIJAH OUMA",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:09:20.491178"
+  },
+  "384": {
+    "name": "CLIFFORD DROGBA",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:09:46.795417"
+  },
+  "385": {
+    "name": "GRAVIN DECAPRIO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:10:05.177645"
+  },
+  "386": {
+    "name": "FEDEL CASTRO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:10:24.560526"
+  },
+  "387": {
+    "name": "ERICK ONYANGO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:10:42.184374"
+  },
+  "388": {
+    "name": "TRAVIS HILLARY",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:10:59.634186"
+  },
+  "389": {
+    "name": "BONNIE OWEN",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:11:15.357113"
+  },
+  "390": {
+    "name": "MARK WILLIS",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:11:37.604524"
+  },
+  "391": {
+    "name": "FRANCIS ALOO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:11:53.063935"
+  },
+  "392": {
+    "name": "JARED ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:12:09.083141"
+  },
+  "393": {
+    "name": "GRACE ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:12:25.072771"
+  },
+  "394": {
+    "name": "ASHA JOAN",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:12:53.371724"
+  },
+  "395": {
+    "name": "DEISHA ADASHA",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:13:33.003671"
+  },
+  "396": {
+    "name": "JOYCE ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:13:50.767282"
+  },
+  "397": {
+    "name": "PURITY MTONDI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:14:13.875401"
+  },
+  "398": {
+    "name": "VICTORIA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:14:42.710567"
+  },
+  "399": {
+    "name": "DAISY ANET",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:15:05.932885"
+  },
+  "400": {
+    "name": "EUNICE KERUBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:15:40.071983"
+  },
+  "401": {
+    "name": "BRIGHT MORAA",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:15:56.129659"
+  },
+  "402": {
+    "name": "VIDAH ATIENO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:16:12.731941"
+  },
+  "403": {
+    "name": "SYLVIA DANIEL",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:16:36.713162"
+  },
+  "404": {
+    "name": "NECY ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:16:52.255511"
+  },
+  "405": {
+    "name": "STACY OLIVIA",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:17:13.131516"
+  },
+  "406": {
+    "name": "VALENCIA AMONDI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:17:42.626670"
+  },
+  "407": {
+    "name": "BRENDER FASSY",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:18:01.251429"
+  },
+  "408": {
+    "name": "SARAH MARY",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:18:25.889898"
+  },
+  "409": {
+    "name": "LAVENDER PENDO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:18:43.852119"
+  },
+  "410": {
+    "name": "MELVIN AKINYI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:19:03.867480"
+  },
+  "411": {
+    "name": "WINNIE VALLARY",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:19:32.405900"
+  },
+  "412": {
+    "name": "MERCELINE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:19:54.886310"
+  },
+  "413": {
+    "name": "GLORIA MERCY",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:20:12.910399"
+  },
+  "414": {
+    "name": "MARY AUMA",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:20:30.109832"
+  },
+  "415": {
+    "name": "ELIZABETH AWUOR",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:20:58.801488"
+  },
+  "416": {
+    "name": "DAVINE AWUOR",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:21:14.137716"
+  },
+  "417": {
+    "name": "BEVERLY AKINYI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:21:31.131256"
+  },
+  "418": {
+    "name": "BABRA SHANIZE",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:22:00.302493"
+  },
+  "419": {
+    "name": "SALINE ATIENO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:22:32.694970"
+  },
+  "420": {
+    "name": "UFENCIAS ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T02:23:05.319249"
+  },
+  "421": {
+    "name": "DAVID ONYANGO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T02:23:28.133884"
+  },
+  "422": {
+    "name": "PRINCES ADHIMBO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T02:23:56.654389"
+  },
+  "423": {
+    "name": "JAVAN OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:24:25.662253"
+  },
+  "424": {
+    "name": "THALHA RAJAB",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:26:02.567140"
+  },
+  "425": {
+    "name": "CELESTINE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T02:26:26.341875"
+  },
+  "426": {
+    "name": "LOVINLOIS ATIENO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T02:26:57.391779"
+  },
+  "427": {
+    "name": "DAVID OMONDI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T09:04:52.129742"
+  },
+  "428": {
+    "name": "COLLINCE ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T09:05:22.213398"
+  },
+  "429": {
+    "name": "RANDY JOHN",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T09:05:47.135078"
+  },
+  "430": {
+    "name": "LOVERA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T09:06:19.627407"
+  },
+  "431": {
+    "name": "ALFRED ONYANGO ALILA",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T09:06:55.677345"
+  },
+  "432": {
+    "name": "VALLARY ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T09:07:18.992101"
+  },
+  "433": {
+    "name": "MELDA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T09:07:36.311030"
+  },
+  "434": {
+    "name": "DIANA AKINYI",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T09:08:31.714504"
+  },
+  "435": {
+    "name": "EMMANUEL CHAMAKH",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T09:08:54.756400"
+  },
+  "436": {
+    "name": "CHRISTINE AWINO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T09:09:17.619250"
+  },
+  "437": {
+    "name": "BRETBARRY NDANYI",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T09:09:44.976952"
+  },
+  "438": {
+    "name": "MERCY ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T09:10:06.230293"
+  },
+  "439": {
+    "name": "SAMSON OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "C",
+    "created_at": "2032-12-08T09:10:25.285457"
+  },
+  "440": {
+    "name": "LAWRENCE OTIENO",
+    "gender": "M",
+    "grade": "Grade 8",
+    "stream": "H",
+    "created_at": "2032-12-08T09:10:52.151252"
+  },
+  "500": {
+    "name": "JULIET ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:13:50.869226"
+  },
+  "501": {
+    "name": "JULIET SANDRA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:14:07.409972"
+  },
+  "502": {
+    "name": "RAHEL ATIENO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:14:25.184144"
+  },
+  "503": {
+    "name": "CELINE JANE",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:14:43.616879"
+  },
+  "504": {
+    "name": "FAIZA AKOTH",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:14:58.443440"
+  },
+  "505": {
+    "name": "FRENZY GLORIA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:15:19.994334"
+  },
+  "506": {
+    "name": "CHARITY ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:15:48.584984"
+  },
+  "507": {
+    "name": "SHANTEL VALENTINE",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:16:14.550987"
+  },
+  "508": {
+    "name": "AQUILATE MORAA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:16:33.359698"
+  },
+  "509": {
+    "name": "TIPHANY ATIENO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:16:54.283411"
+  },
+  "510": {
+    "name": "MALIA AWUOR",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:17:15.781129"
+  },
+  "511": {
+    "name": "MARY AKINYI",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:17:33.487852"
+  },
+  "512": {
+    "name": "LEVI SLEVIAN",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:18:01.691554"
+  },
+  "513": {
+    "name": "SCOVIA AUMA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:18:20.631892"
+  },
+  "514": {
+    "name": "SILPER AKOTH",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:19:07.269453"
+  },
+  "515": {
+    "name": "MARION LUCY",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:19:37.538160"
+  },
+  "516": {
+    "name": "LILIAN AKOTH",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:20:31.765008"
+  },
+  "517": {
+    "name": "DOLPHINE AKINYI",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:20:54.088142"
+  },
+  "518": {
+    "name": "MILDRED ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:21:07.436306"
+  },
+  "519": {
+    "name": "BRENDER KENZY",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:21:27.904165"
+  },
+  "520": {
+    "name": "MITCHEL AWUOR",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:21:41.225615"
+  },
+  "521": {
+    "name": "STACY AKOTH",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:21:54.846049"
+  },
+  "522": {
+    "name": "WENDY STACY",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:22:50.539555"
+  },
+  "523": {
+    "name": "MARYANNE AKINYI",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:23:09.390064"
+  },
+  "524": {
+    "name": "IRINE TALIA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:23:24.683820"
+  },
+  "525": {
+    "name": "EPHY ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:23:40.116026"
+  },
+  "526": {
+    "name": "TRIZER FAIZA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:23:58.861022"
+  },
+  "527": {
+    "name": "VELMA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:24:18.166472"
+  },
+  "528": {
+    "name": "QUINTER ATIENO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:24:39.036311"
+  },
+  "529": {
+    "name": "LINET AKOTH",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:24:53.880112"
+  },
+  "530": {
+    "name": "EVERLINE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:25:16.868705"
+  },
+  "531": {
+    "name": "EMILLYYANNA MARINA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:25:51.430789"
+  },
+  "532": {
+    "name": "JOHN TERRY",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:26:19.724610"
+  },
+  "533": {
+    "name": "RUTO OCHIENG",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:26:39.559709"
+  },
+  "534": {
+    "name": "HAPPY WARREN",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:26:53.516325"
+  },
+  "535": {
+    "name": "LEY GENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:27:14.988447"
+  },
+  "536": {
+    "name": "WILLIS OKINYI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:27:30.896857"
+  },
+  "537": {
+    "name": "CALVINCE OMONDI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:27:50.447390"
+  },
+  "538": {
+    "name": "STANLEY FREDRICK",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:28:18.053545"
+  },
+  "539": {
+    "name": "GEORGE GRILDER",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:28:49.774854"
+  },
+  "540": {
+    "name": "BAVON ONYANGO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:29:04.510935"
+  },
+  "541": {
+    "name": "WILSTON ONDICHO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:29:22.827602"
+  },
+  "542": {
+    "name": "MAURICE AKETCH",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:29:46.852198"
+  },
+  "543": {
+    "name": "FIDEL ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:30:07.160638"
+  },
+  "544": {
+    "name": "BYRON OKINYI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:30:25.079643"
+  },
+  "545": {
+    "name": "VINCENT OCHIENG",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:30:46.241827"
+  },
+  "546": {
+    "name": "VINCENT OMONDI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:31:50.980582"
+  },
+  "547": {
+    "name": "JOSHUA OTIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:32:56.565260"
+  },
+  "548": {
+    "name": "FELIX KASUKU",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:33:24.651319"
+  },
+  "549": {
+    "name": "FELTON ROLLEX",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:33:40.294325"
+  },
+  "550": {
+    "name": "BRIGHTON ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:33:58.258551"
+  },
+  "551": {
+    "name": "DAVID LUIZ",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:34:14.758048"
+  },
+  "552": {
+    "name": "RYAN GIGS",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:34:29.599781"
+  },
+  "553": {
+    "name": "ELISHA ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:34:48.021299"
+  },
+  "554": {
+    "name": "BRIGHTON OTIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:35:09.428555"
+  },
+  "555": {
+    "name": "KENNEDY OUMA",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:35:28.596915"
+  },
+  "556": {
+    "name": "ISAACK OTIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:35:50.455237"
+  },
+  "557": {
+    "name": "LINET ATIENO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:36:30.377129"
+  },
+  "558": {
+    "name": "NANCY ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:36:45.825120"
+  },
+  "559": {
+    "name": "AZENATH ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:37:23.652271"
+  },
+  "560": {
+    "name": "MEVIAH AKEYO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:37:45.755270"
+  },
+  "561": {
+    "name": "LAVINE AWUOR",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:38:01.243101"
+  },
+  "562": {
+    "name": "APHLINE JUMA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:38:18.867865"
+  },
+  "563": {
+    "name": "HARRIET RUTH",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:38:33.184250"
+  },
+  "564": {
+    "name": "FLORENCE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:38:51.030277"
+  },
+  "565": {
+    "name": "VELLA FAITH",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:39:06.082698"
+  },
+  "566": {
+    "name": "CATHERINE ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:39:22.917139"
+  },
+  "567": {
+    "name": "EMMACULATE AKINYI",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:39:40.821087"
+  },
+  "568": {
+    "name": "MITCHEL ADOYO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:39:58.229110"
+  },
+  "569": {
+    "name": "SHERYL BERYL",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:40:17.216210"
+  },
+  "570": {
+    "name": "AISHA APONDI",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:40:40.360369"
+  },
+  "571": {
+    "name": "BLESSING DANIELA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:40:57.858921"
+  },
+  "572": {
+    "name": "ESTHER ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:41:21.594857"
+  },
+  "573": {
+    "name": "LILIAN ATIENO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:41:44.697999"
+  },
+  "574": {
+    "name": "AISHA JUMA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:41:58.686080"
+  },
+  "575": {
+    "name": "MITCHEL  NIGHT",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:42:21.473433"
+  },
+  "576": {
+    "name": "SHARON ANYANGO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:42:41.667356"
+  },
+  "577": {
+    "name": "SHIRLEY TERRY",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:43:03.364504"
+  },
+  "578": {
+    "name": "VALLARY ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:43:29.323086"
+  },
+  "579": {
+    "name": "SHANTEL SHIVAL",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:43:47.555961"
+  },
+  "580": {
+    "name": "STASHA SHAZA",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:44:18.078486"
+  },
+  "581": {
+    "name": "FRANK HAMISON",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:44:42.110220"
+  },
+  "582": {
+    "name": "SYLVANUS OKINYI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:44:58.088597"
+  },
+  "583": {
+    "name": "JOHN BAHATI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:45:22.833512"
+  },
+  "584": {
+    "name": "VICTOR OMONDI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:45:38.326529"
+  },
+  "585": {
+    "name": "MICHAEL ESSIEN",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:45:54.117260"
+  },
+  "586": {
+    "name": "ANDREW ACHONGI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:46:20.791133"
+  },
+  "587": {
+    "name": "FABREGAS OCHIENG",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:46:44.008456"
+  },
+  "588": {
+    "name": "FIDEL OTIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:47:02.320021"
+  },
+  "589": {
+    "name": "EMMANUEL ONYANGO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:47:26.302174"
+  },
+  "590": {
+    "name": "RAMSEY DENIS",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:47:53.817290"
+  },
+  "591": {
+    "name": "BRAXTON OMONDI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:48:13.113105"
+  },
+  "592": {
+    "name": "SAMWEL OKOTH",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:48:27.260891"
+  },
+  "593": {
+    "name": "DAVID MOURICE",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:48:57.021458"
+  },
+  "594": {
+    "name": "RYAN GIGS OSINGO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:49:13.825577"
+  },
+  "595": {
+    "name": "GORDON OCHIENG",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:49:28.897115"
+  },
+  "596": {
+    "name": "EUGINE OCHIENG",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:49:46.073986"
+  },
+  "597": {
+    "name": "DENISH OMWARE",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:50:05.755494"
+  },
+  "598": {
+    "name": "GIFT WILKINS",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:50:39.358006"
+  },
+  "599": {
+    "name": "CLEVERLY CHEMUTAI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:51:46.666579"
+  },
+  "600": {
+    "name": "CALTEX SALIVANT",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:52:08.942966"
+  },
+  "601": {
+    "name": "PETERSON OKETCH",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:52:24.790604"
+  },
+  "602": {
+    "name": "JUSTUS SIMBA",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:52:39.117638"
+  },
+  "603": {
+    "name": "BRIAN STALONE",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:52:51.318732"
+  },
+  "604": {
+    "name": "RICHARD OKUMU",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:53:07.372884"
+  },
+  "605": {
+    "name": "ALFRED ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:53:34.425433"
+  },
+  "606": {
+    "name": "BRIAN OKOTH OMONDI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:53:53.871955"
+  },
+  "607": {
+    "name": "FELIX OKINYI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:54:44.376982"
+  },
+  "608": {
+    "name": "KEVIN OMONDI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:54:59.942769"
+  },
+  "609": {
+    "name": "LAMECK ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:55:19.736357"
+  },
+  "610": {
+    "name": "CHRIS MARTIN",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:55:33.068139"
+  },
+  "611": {
+    "name": "PASCAL ODONGO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:55:47.759972"
+  },
+  "612": {
+    "name": "ELISHA BLESSING MUGA",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:56:07.469332"
+  },
+  "613": {
+    "name": "CHRISTOPHER OTIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:56:34.037965"
+  },
+  "614": {
+    "name": "JAMES OCHIENG",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:56:51.844284"
+  },
+  "615": {
+    "name": "RAMSEY DENIS",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:57:07.361485"
+  },
+  "616": {
+    "name": "BENARD OTIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:57:28.449072"
+  },
+  "617": {
+    "name": "JUNIOR MISCO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:57:48.622679"
+  },
+  "618": {
+    "name": "RANDY GIFT OCHIENG",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:58:07.846663"
+  },
+  "619": {
+    "name": "SHELTON OCAMPO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:58:32.660888"
+  },
+  "620": {
+    "name": "PINTO OKINYI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:58:51.758249"
+  },
+  "621": {
+    "name": "WAYNE ISHMAEL",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:59:12.011508"
+  },
+  "622": {
+    "name": "VELTRINE ATIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T09:59:33.606204"
+  },
+  "623": {
+    "name": "MAXWEL OTIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T09:59:53.251541"
+  },
+  "624": {
+    "name": "DERICK BRIGHTON",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:00:11.171141"
+  },
+  "625": {
+    "name": "MARYANNE ANYANGO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:00:33.952285"
+  },
+  "626": {
+    "name": "YVONNE EDITH",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:01:00.534960"
+  },
+  "627": {
+    "name": "MELVIN JULIET",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:01:30.535835"
+  },
+  "628": {
+    "name": "JOHN JUNIOR",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:01:50.637376"
+  },
+  "629": {
+    "name": "STANLEY ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:02:11.504877"
+  },
+  "630": {
+    "name": "TRACY ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:02:29.257674"
+  },
+  "631": {
+    "name": "CHRISTINE ATIENO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:02:47.335281"
+  },
+  "632": {
+    "name": "NEVELI ATIENO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:03:05.025698"
+  },
+  "633": {
+    "name": "ESAU ODONGO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:03:24.662375"
+  },
+  "634": {
+    "name": "JACOB OPIYO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:03:43.523691"
+  },
+  "635": {
+    "name": "BARON NYAMBOKO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:04:01.043447"
+  },
+  "636": {
+    "name": "HEMSTON EMMANUEL",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:04:31.329227"
+  },
+  "637": {
+    "name": "SHERYL AWUOR",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:04:48.475735"
+  },
+  "638": {
+    "name": "SCOVIA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:05:09.838269"
+  },
+  "639": {
+    "name": "MARTIN JIGS",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:05:30.450676"
+  },
+  "640": {
+    "name": "SHERYL ACHIENG",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:06:00.739790"
+  },
+  "641": {
+    "name": "MARYANNE ATIENO",
+    "gender": "F",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:06:17.339445"
+  },
+  "642": {
+    "name": "FELIX OUMA",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:06:34.288397"
+  },
+  "643": {
+    "name": "SAMWEL VILLA",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "C",
+    "created_at": "2032-12-08T10:06:50.993360"
+  },
+  "644": {
+    "name": "GEORGE OTIENO",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:07:18.862859"
+  },
+  "645": {
+    "name": "VALLARY AMONDI",
+    "gender": "M",
+    "grade": "Grade 7",
+    "stream": "H",
+    "created_at": "2032-12-08T10:07:33.385585"
+  },
+  "VC-H": {
+    "name": "VIN CHARLTONE",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:09:30.875072"
+  },
+  "RB-H": {
+    "name": "RAMSEY BRANDONE",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:09:56.550864"
+  },
+  "FO-H": {
+    "name": "FREDRICK ONYANGO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:10:17.785687"
+  },
+  "JTO-H": {
+    "name": "JOHN TERRY OMONDI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:10:32.436338"
+  },
+  "BT-H": {
+    "name": "BYRON TRAVIS",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:10:50.491536"
+  },
+  "EO-H": {
+    "name": "EVANCE OTIENO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:11:06.808581"
+  },
+  "PO-H": {
+    "name": "PAUL OTIENO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:11:18.316646"
+  },
+  "JA-H": {
+    "name": "JULIUS ABOK",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:11:33.522425"
+  },
+  "BO-H": {
+    "name": "BRIAN OMONDI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:11:47.539484"
+  },
+  "VO-H": {
+    "name": "VICTOR OKOTH",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:12:06.064394"
+  },
+  "PD-H": {
+    "name": "PRINCE DAVID",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:12:22.479497"
+  },
+  "EO-H1": {
+    "name": "EUGINE OCHIENG",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:12:41.183601"
+  },
+  "TO-H": {
+    "name": "TOBIAS OTIENO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:13:17.614731"
+  },
+  "TD-H": {
+    "name": "TROVIAN DERICKS",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:13:35.726731"
+  },
+  "AO-H": {
+    "name": "AYUB OCHIENG",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:13:48.476091"
+  },
+  "AH-H": {
+    "name": "ABDULAHI HASSAN",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:14:04.124546"
+  },
+  "PO-H1": {
+    "name": "PETER OJANGO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:14:30.730424"
+  },
+  "BO-H1": {
+    "name": "BAHATI OMONDI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:14:53.090321"
+  },
+  "AO-H1": {
+    "name": "ARSIISIA OCHIENG",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:15:23.079652"
+  },
+  "DA-H": {
+    "name": "DENISH ALLAN",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:15:39.662363"
+  },
+  "KI-H": {
+    "name": "KILION IMBUGWA",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:15:54.232568"
+  },
+  "WK-H": {
+    "name": "WESLEY KEIIY",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:17:31.503659"
+  },
+  "DO-H": {
+    "name": "DYREN OMONDI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:17:51.114092"
+  },
+  "CA-H": {
+    "name": "COLLINCE AMOS",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:18:05.917499"
+  },
+  "BO-H2": {
+    "name": "BOB OMONDI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:18:18.023048"
+  },
+  "BG-H": {
+    "name": "BENFOSTER GOVI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:18:52.543706"
+  },
+  "AO-H2": {
+    "name": "ALPHONCE OKOTH",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:19:07.120162"
+  },
+  "MS-H": {
+    "name": "MARTIN STEVIN",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:19:50.169553"
+  },
+  "RR-H": {
+    "name": "ROONEY ROLEX",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:20:05.114321"
+  },
+  "VO-H1": {
+    "name": "VINCENT OCHIENG",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:20:27.163423"
+  },
+  "MO-H": {
+    "name": "MAURICE OCHIENG",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:20:44.509599"
+  },
+  "WA-H": {
+    "name": "WAYNE ADRIAN",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:21:00.781574"
+  },
+  "JF-H": {
+    "name": "JIM FRANK",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:21:16.185187"
+  },
+  "JO-H": {
+    "name": "JAVANS OMONDI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:21:28.376384"
+  },
+  "JO-H1": {
+    "name": "JAVAN OTIENO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:21:41.761608"
+  },
+  "BW-H": {
+    "name": "BRAVERLY WHITNEY",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:22:23.952201"
+  },
+  "AA-H": {
+    "name": "ALICE ATIENO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:22:36.286253"
+  },
+  "VA-H": {
+    "name": "VENHA AWINO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:22:54.697613"
+  },
+  "AA-H1": {
+    "name": "ANNE AWINO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:23:10.713075"
+  },
+  "CD-H": {
+    "name": "CADENCE DELANY",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:23:29.725615"
+  },
+  "HL-H": {
+    "name": "HYLINE LOPEZ",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:23:46.105350"
+  },
+  "ED-H": {
+    "name": "EMMACULATE DESMA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:24:03.567638"
+  },
+  "WA-H1": {
+    "name": "WINNY ACHIENG",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:24:17.937155"
+  },
+  "SA-H": {
+    "name": "SUSAN AKINYI",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:24:56.649991"
+  },
+  "VI-H": {
+    "name": "VIVIAN INNOCENT",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:25:11.180145"
+  },
+  "FJ-H": {
+    "name": "FIDERIAN JOY",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:25:31.810383"
+  },
+  "AA-H2": {
+    "name": "ASHLEY ATIENO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:25:52.948634"
+  },
+  "TC-H": {
+    "name": "TALIA CAROL",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:26:09.531118"
+  },
+  "CA-H1": {
+    "name": "CYNTHIA ATIENO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:26:24.376974"
+  },
+  "ABN-H": {
+    "name": "ANN BARON NAISIRE",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:26:50.066338"
+  },
+  "KP-H": {
+    "name": "KATHY PLISTER",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:27:04.497443"
+  },
+  "MA-H": {
+    "name": "MARCREEN AUMA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:27:22.444705"
+  },
+  "MC-H": {
+    "name": "MARY CADRA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:27:32.221782"
+  },
+  "SA-H1": {
+    "name": "SHARON ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:28:11.802720"
+  },
+  "EA-H": {
+    "name": "EMMACULATE ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:28:26.050204"
+  },
+  "FH-H": {
+    "name": "FAY HARMONIES",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:28:42.297166"
+  },
+  "JL-H": {
+    "name": "JOY LIDIA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:28:59.846832"
+  },
+  "VA-H1": {
+    "name": "VIOLA AWUOR",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:29:11.823705"
+  },
+  "VA-H2": {
+    "name": "VALENTINE ATIENO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:29:29.484696"
+  },
+  "SA-H2": {
+    "name": "SHERYL ATIENO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:29:41.336840"
+  },
+  "MA-H1": {
+    "name": "MELDA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:29:52.940271"
+  },
+  "JA-H1": {
+    "name": "JACKLINE ATIENO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:30:09.478083"
+  },
+  "IA-H": {
+    "name": "IDAH AKOTH",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:30:23.606281"
+  },
+  "MAA-H": {
+    "name": "MARY ANNE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:30:39.872189"
+  },
+  "MA-H2": {
+    "name": "MOVINTER AUMA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:30:54.011100"
+  },
+  "GA-H": {
+    "name": "GRACE AWINO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "H",
+    "created_at": "2032-12-08T10:31:10.189916"
+  },
+  "NAA-C": {
+    "name": "NATASHA ANNE AKINYI",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:32:17.441944"
+  },
+  "IGA-C": {
+    "name": "IVVONE GLORIA ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:32:48.745787"
+  },
+  "EA-C": {
+    "name": "EMMACULATE AKOTH",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:33:04.057614"
+  },
+  "HJ-C": {
+    "name": "HELLEN JOY",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:33:13.450432"
+  },
+  "DA-C": {
+    "name": "DEBRA AKINYI",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:33:31.818559"
+  },
+  "OC-C": {
+    "name": "OLPHA CHRISTINE",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:33:50.483826"
+  },
+  "BA-C": {
+    "name": "BRIVIAN ACHIENG",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:34:09.811799"
+  },
+  "TA-C": {
+    "name": "TRIZA AKOTH",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:34:19.332194"
+  },
+  "MN-C": {
+    "name": "MARION NADIA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:34:32.846769"
+  },
+  "WA-C": {
+    "name": "WINNY ATIENO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:34:45.070556"
+  },
+  "WA-C1": {
+    "name": "WENDY AKINYI",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:34:57.198553"
+  },
+  "FA-C": {
+    "name": "FAITH ATIENO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:36:02.128316"
+  },
+  "VA-C": {
+    "name": "VELMA AKINYI",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:36:27.492930"
+  },
+  "TB-C": {
+    "name": "TRIZA BIONCE",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:36:41.496549"
+  },
+  "CA-C": {
+    "name": "CHRISTINE APIYO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:37:18.287997"
+  },
+  "SA-C": {
+    "name": "SHARON ANYANGO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:37:48.748392"
+  },
+  "ME-C": {
+    "name": "MAURINE ESTHER",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:38:04.403632"
+  },
+  "SA-C1": {
+    "name": "SCOVIA ACHIENG",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:38:18.273260"
+  },
+  "WP-C": {
+    "name": "WENDY PURITY",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:38:33.156077"
+  },
+  "LA-C": {
+    "name": "LINET ACHIENG",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:38:47.799714"
+  },
+  "FA-C1": {
+    "name": "FLORENCE AUMA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:39:03.166746"
+  },
+  "EM-C": {
+    "name": "ESTHER MUTHUI",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:39:13.292715"
+  },
+  "SC-C": {
+    "name": "SHEILA CELESTINE",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:39:30.383873"
+  },
+  "SA-C2": {
+    "name": "SHARON ACHIENG",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:39:42.453410"
+  },
+  "SA-C3": {
+    "name": "SCOVIA AUMA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:39:53.050849"
+  },
+  "BG-C": {
+    "name": "BENITTA GATTI",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:40:10.862241"
+  },
+  "JN-C": {
+    "name": "JENEVIV NAGY",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:40:25.825862"
+  },
+  "BC-C": {
+    "name": "BRENDA CIARA",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:40:41.519402"
+  },
+  "AA-C": {
+    "name": "ANN ANYANGO",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:41:25.874799"
+  },
+  "KK-C": {
+    "name": "KETTY KELLY",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:41:36.012522"
+  },
+  "CA-C1": {
+    "name": "CAREN ACHIENG",
+    "gender": "F",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2032-12-08T10:41:51.859982"
+  },
+  "HAA-H": {
+    "name": "HUSNA AKOTH ADAM",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:43:17.658740"
+  },
+  "FMF-H": {
+    "name": "FAITH MORAL FRANK",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:43:41.816173"
+  },
+  "MLO-H": {
+    "name": "MONICA LEWISKY OCHIENG",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:44:02.614242"
+  },
+  "VWW-H": {
+    "name": "VASHTY WEBY WEKESA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:44:24.042512"
+  },
+  "SAO-H": {
+    "name": "SHARON ACHIENG OTIENO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:44:51.787201"
+  },
+  "SPJ-H": {
+    "name": "SHANEEZ PAMELA JUMA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:45:09.676051"
+  },
+  "WAN-H": {
+    "name": "WENDY ASHA NICK",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:45:29.609476"
+  },
+  "MAO-H": {
+    "name": "MERCY AWUOR OTIENO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:45:49.354983"
+  },
+  "SBO-H": {
+    "name": "STACIA BRIGHT ODHIAMBO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:46:09.521311"
+  },
+  "AAO-H": {
+    "name": "ASHLEY AKINYI OUMA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:46:22.719479"
+  },
+  "RVO-H": {
+    "name": "ROSE VILLIAN OKELO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:46:45.079542"
+  },
+  "RAO-H": {
+    "name": "REHEMA ACHIENG ONGURU",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:47:08.733017"
+  },
+  "MAO-H1": {
+    "name": "MOLINTER AWUOR OCHIENG",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:47:30.402356"
+  },
+  "AAO-H1": {
+    "name": "ASHLEY ACHIENG OCHIENG",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:48:00.011111"
+  },
+  "VAO-H": {
+    "name": "VIVIAN AWUOR OTHIAMBO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:48:41.647542"
+  },
+  "CAO-H": {
+    "name": "CAROLINE AKINYI OKUMBE",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:48:59.627525"
+  },
+  "IAO-H": {
+    "name": "IVY AKINYI ODIWUOR",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:49:22.021624"
+  },
+  "ASO-H": {
+    "name": "ASHLEY SHARON OWANO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:49:40.982185"
+  },
+  "ENW-H": {
+    "name": "ESTHER NAFULA WEKESA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:49:58.897902"
+  },
+  "ELB-H": {
+    "name": "ELMA LAVENA BYRON",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:50:19.510119"
+  },
+  "MDO-H": {
+    "name": "MILLY DORINE ODIMA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:50:49.431172"
+  },
+  "FAO-H": {
+    "name": "FAITH ATIENO OCHIENG",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:51:10.702970"
+  },
+  "DAA-H": {
+    "name": "DION AALINE ATIENO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:51:25.927956"
+  },
+  "VKJ-H": {
+    "name": "VIVIAN KEMTO JOHN",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T10:51:46.891423"
+  },
+  "GOO-H": {
+    "name": "GABRIEL OUMA OYOO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:51:25.473866"
+  },
+  "JOO-H": {
+    "name": "JOSHUA OCHIENG OTIENO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:51:48.213978"
+  },
+  "BCO-H": {
+    "name": "BRADLEY CARLOS  OGWENO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:52:07.085898"
+  },
+  "EOD-H": {
+    "name": "ERICK OMONDI DACHO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:52:27.473442"
+  },
+  "AOO-H": {
+    "name": "ADRIAN OWUOR ODERO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:52:51.042913"
+  },
+  "LOO-H": {
+    "name": "LAWRENCE OCHIENG OTIENO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:54:08.955927"
+  },
+  "JOM-H": {
+    "name": "JOHN ONDERI MOMANYI",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:54:34.767631"
+  },
+  "DKO-H": {
+    "name": "DRAZIL KAMAU ONYANGO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:54:58.179573"
+  },
+  "DOO-H": {
+    "name": "DEVIS OMONDI OCHIENG",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:55:23.194959"
+  },
+  "COO-H": {
+    "name": "CALVINCE OTIENO ONYANGO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:55:49.897989"
+  },
+  "RAO-H1": {
+    "name": "RODNEY ALBERT ODOYO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:56:11.850673"
+  },
+  "PJO-H": {
+    "name": "PAUL JARED OGWENO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:56:55.555285"
+  },
+  "BOK-H": {
+    "name": "BRIGHTON OOKO KEN",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:57:10.138577"
+  },
+  "HCK-H": {
+    "name": "HILLARY CLINTON KENNEDY",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:57:31.724736"
+  },
+  "EOP-H": {
+    "name": "ENOCK OCHIENG PETER",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:57:52.287386"
+  },
+  "EOO-H": {
+    "name": "EVANCE OTIENO OCHIENG",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:58:10.200072"
+  },
+  "KOO-H": {
+    "name": "KEVIN OMONDI OCHIENG",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:58:42.966170"
+  },
+  "TOO-H": {
+    "name": "TOMISA OTIENO OCHIENG",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2032-12-08T13:59:04.767833"
+  },
+  "BCO-H1": {
+    "name": "BRIGHTON CASTRO OKOTH",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:02:16.989599"
+  },
+  "DCO-H": {
+    "name": "DAVID CAMPBELL ODUNDO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:02:53.834103"
+  },
+  "OSA-H": {
+    "name": "OMAR SHAKOR ASHAMAR",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:03:19.253213"
+  },
+  "FOO-H": {
+    "name": "FELIX OTIENO OYOO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:03:33.743995"
+  },
+  "BOO-H": {
+    "name": "BARNABAS OTIENO ONYANGO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:03:52.122855"
+  },
+  "BOK-H1": {
+    "name": "BILLY OLIVEA KASORO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:04:07.568240"
+  },
+  "COO-H1": {
+    "name": "CHRISPINE OTIENO OCHIENG",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:04:29.307093"
+  },
+  "JBG-H": {
+    "name": "JOHN BRANDON GIGS",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:04:48.177931"
+  },
+  "JOO-H1": {
+    "name": "JOHN OTIENO OCHIENG",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:05:08.694804"
+  },
+  "SOC-H": {
+    "name": "SAVIOUR OCHIENG CALVINCE",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:05:30.867995"
+  },
+  "SOO-H": {
+    "name": "STEVE OKINYI ODENY",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:05:51.719864"
+  },
+  "BOO-H1": {
+    "name": "BRIAN OTIENO ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:06:08.594332"
+  },
+  "SBO-H1": {
+    "name": "STANLEY BRADLEY OKEYO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:06:26.361516"
+  },
+  "SOJ-H": {
+    "name": "STANLEY ODHIAMBO JOHN",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:06:53.549215"
+  },
+  "FOS-H": {
+    "name": "FELIX OCHIENG SAMSON",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:07:13.049929"
+  },
+  "CNM-H": {
+    "name": "CLIMANTE NYAKEYA MOSETI",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:07:31.855385"
+  },
+  "GAO-H": {
+    "name": "GRIFINCE ADON OKWACH",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:07:50.354209"
+  },
+  "ROO-H": {
+    "name": "ROLEX OTIENO OLUOCH",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "H",
+    "created_at": "2026-02-02T09:08:06.949257"
+  },
+  "JO-C": {
+    "name": "JOANS OTIENO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:09:27.824519"
+  },
+  "CV-C": {
+    "name": "CHRISTON VILLA",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:09:41.677145"
+  },
+  "JM-C": {
+    "name": "JUNIOR MIGAWI",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:09:57.468969"
+  },
+  "SO-C": {
+    "name": "SIMON ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:10:10.935954"
+  },
+  "AO-C": {
+    "name": "ALVIA OTIENO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:10:26.199700"
+  },
+  "GO-C": {
+    "name": "GODFRY ODIIRA",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:10:45.731296"
+  },
+  "NA-C": {
+    "name": "NEHEMIA AMOS",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:10:58.102399"
+  },
+  "FB-C": {
+    "name": "FRED BAHATI",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:11:08.839923"
+  },
+  "FM-C": {
+    "name": "FABREGAS MANDELA",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:11:28.842235"
+  },
+  "FM-C1": {
+    "name": "FABREGAS MANDELA",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:11:48.275019"
+  },
+  "EO-C": {
+    "name": "ELVIS OKINYI",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:13:04.870167"
+  },
+  "IB-C": {
+    "name": "IDON BRADOX",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:13:40.894643"
+  },
+  "CG-C": {
+    "name": "CHARLTONE GEORGE",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:14:04.678175"
+  },
+  "MA-C": {
+    "name": "MAURICE ALBERT",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:14:16.691682"
+  },
+  "EE-C": {
+    "name": "ELLY ENOCK",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:14:27.620753"
+  },
+  "BO-C": {
+    "name": "BENARD ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:14:39.078117"
+  },
+  "MO-C": {
+    "name": "MAXWEL OTIENO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:14:53.066204"
+  },
+  "UA-C": {
+    "name": "UZIA ALVAN",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:15:09.389304"
+  },
+  "AZ-C": {
+    "name": "ANOLD ZIARA",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:15:22.186534"
+  },
+  "CO-C": {
+    "name": "COLLINS OTIENO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:15:36.733325"
+  },
+  "JD-C": {
+    "name": "JULIAN DEVISO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:15:50.105261"
+  },
+  "GO-C1": {
+    "name": "GEORGE OWIGO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:16:04.764321"
+  },
+  "BP-C": {
+    "name": "BRADOX PAUL",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:16:18.116675"
+  },
+  "JO-C1": {
+    "name": "JOSEPH OCHIENG",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:16:31.346236"
+  },
+  "FC-C": {
+    "name": "FIDEL CASTRO",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:16:43.541892"
+  },
+  "IO-C": {
+    "name": "INNOCENT OCHIENG",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:16:57.975884"
+  },
+  "RA-C": {
+    "name": "ROLLINS ALEX",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:17:11.421316"
+  },
+  "SS-C": {
+    "name": "SHAKIL SHABIR",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:17:23.383067"
+  },
+  "TO-C": {
+    "name": "TILLEN OMONDI",
+    "gender": "M",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:17:47.180077"
+  },
+  "MB-C": {
+    "name": "MARION BITI",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:19:58.558915"
+  },
+  "MM-C": {
+    "name": "MARION MARY",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:20:08.532911"
+  },
+  "MA-C1": {
+    "name": "MELVIN ANITA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:20:21.478093"
+  },
+  "SA-C4": {
+    "name": "STEPHY ATIENO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:20:36.338321"
+  },
+  "VA-C1": {
+    "name": "VALENINE AKINYI",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:20:52.296433"
+  },
+  "KK-C1": {
+    "name": "KNIGHT KERUBO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:21:05.387379"
+  },
+  "RA-C1": {
+    "name": "REHEMA ALUOCH",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:21:17.658139"
+  },
+  "DB-C": {
+    "name": "DAISY BOSIBORI",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:22:22.840698"
+  },
+  "LA-C1": {
+    "name": "LUCY AWUOR",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:22:40.043439"
+  },
+  "PM-C": {
+    "name": "PRINCESS MELVIN",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:22:55.379079"
+  },
+  "VA-C2": {
+    "name": "VENA AKINYI",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:23:05.875137"
+  },
+  "VN-C": {
+    "name": "VIDA NICOLE",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:23:17.375848"
+  },
+  "WA-C2": {
+    "name": "WENDY AKOTH",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:23:28.355061"
+  },
+  "NM-C": {
+    "name": "NAZELINE MONTE",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:23:42.275805"
+  },
+  "VN-C1": {
+    "name": "VICKRIN NYANCHOKA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:24:09.035994"
+  },
+  "FA-C2": {
+    "name": "FLOVIAN AKINYI",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:24:29.742477"
+  },
+  "MA-C2": {
+    "name": "MARGARET ATIENO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:24:41.322053"
+  },
+  "MA-C3": {
+    "name": "MILLICENT ANYANGO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:25:19.064213"
+  },
+  "CT-C": {
+    "name": "CADRA TIFANY",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:25:44.424843"
+  },
+  "EA-C1": {
+    "name": "EDNA AKINYI",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:25:56.447361"
+  },
+  "SA-C5": {
+    "name": "SILVIA AKINYI",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:26:07.338650"
+  },
+  "LB-C": {
+    "name": "LETICIA BRANDY",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:26:25.612720"
+  },
+  "BT-C": {
+    "name": "BRILIAN TAMARA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:26:44.461017"
+  },
+  "LA-C2": {
+    "name": "LAVENDA ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:26:57.991947"
+  },
+  "TJ-C": {
+    "name": "TRIZA JUDITH",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:27:19.295790"
+  },
+  "CT-C1": {
+    "name": "CLARA TIFANI",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:27:38.799710"
+  },
+  "JF-C": {
+    "name": "JOY FEMIA",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:27:53.154732"
+  },
+  "CA-C2": {
+    "name": "CHRISTINE ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:28:09.767225"
+  },
+  "SM-C": {
+    "name": "SCANDY MARGARET",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:28:38.990423"
+  },
+  "LA-C3": {
+    "name": "LIVIDA AKOTH",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:28:50.510827"
+  },
+  "MK-C": {
+    "name": "MARY KERUBO",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:29:01.547891"
+  },
+  "BA-C1": {
+    "name": "BRAZILIA AWUOR",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:29:18.119468"
+  },
+  "JA-C": {
+    "name": "JOYCE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:29:45.606427"
+  },
+  "KK-C2": {
+    "name": "KEILER KIZZ",
+    "gender": "F",
+    "grade": "Grade 5",
+    "stream": "C",
+    "created_at": "2026-02-02T09:29:57.902690"
+  },
+  "BR-H": {
+    "name": "BENOL RODGERS",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:32:32.362883"
+  },
+  "AOO-H1": {
+    "name": "ALPHONCE OWINO OTIENO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:32:51.294342"
+  },
+  "MBK-H": {
+    "name": "MESSY BOSETI KIZITO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:33:09.762192"
+  },
+  "DA-H1": {
+    "name": "DAVID ADHIAMBO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:33:24.860006"
+  },
+  "EO-H2": {
+    "name": "ELVIS OPEMBE",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:33:38.320827"
+  },
+  "EO-H3": {
+    "name": "EMMANUEL ODUOR",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:33:51.800120"
+  },
+  "CB-H": {
+    "name": "CLINTON BLESSING",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:34:06.206360"
+  },
+  "JJ-H": {
+    "name": "JOHN JUNIOR",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:34:53.038737"
+  },
+  "WC-H": {
+    "name": "WAISWA CHRISTOPHER",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:35:15.499535"
+  },
+  "GL-H": {
+    "name": "GERALD LENOX",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:35:32.374152"
+  },
+  "FO-H1": {
+    "name": "FREDY OYUGI",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:35:45.902308"
+  },
+  "GO-H": {
+    "name": "GRAVINS ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:36:24.179695"
+  },
+  "SO-H": {
+    "name": "STARNLY OTIENO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:36:47.938813"
+  },
+  "PA-H": {
+    "name": "PHELIX AMONDI",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:37:06.059020"
+  },
+  "JB-H": {
+    "name": "JUSTIN BRAVIN",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:37:19.484162"
+  },
+  "GO-H1": {
+    "name": "GRIGORY OMONDI",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:37:31.948886"
+  },
+  "WO-H": {
+    "name": "WICKLIF OKOTH",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:37:42.735467"
+  },
+  "DT-H": {
+    "name": "DAVID THOMAS",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:37:52.716058"
+  },
+  "BOO-H2": {
+    "name": "BRADOX OTIENO OCHIENG",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:38:06.514709"
+  },
+  "HG-H": {
+    "name": "HELLEN GLORIA",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:38:39.323957"
+  },
+  "CT-H": {
+    "name": "CYNTHIA TRIZAR",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:38:52.226814"
+  },
+  "ML-H": {
+    "name": "MELVIN LOIS",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:39:04.021330"
+  },
+  "SM-H": {
+    "name": "SHANIZE MAURINE",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:39:19.497651"
+  },
+  "KA-H": {
+    "name": "KIMBERLY ACHIENG",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:39:32.362040"
+  },
+  "VA-H3": {
+    "name": "VUMILIA ANYANGO",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:39:50.457439"
+  },
+  "JA-H2": {
+    "name": "JACINTHA ATIENO",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:40:17.028703"
+  },
+  "JA-H3": {
+    "name": "JACKLYN AKINGI",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:40:43.709934"
+  },
+  "SO-H1": {
+    "name": "SCOVIA OCHIENG",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:41:01.458211"
+  },
+  "WW-H": {
+    "name": "WINNIE WHITHNEY",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:41:20.417729"
+  },
+  "PS-H": {
+    "name": "PAMELLA SHARON",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:41:38.265098"
+  },
+  "RA-H": {
+    "name": "ROSE AKOTH",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:41:47.556653"
+  },
+  "RB-H1": {
+    "name": "RENNY BLENDY",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:41:59.739561"
+  },
+  "NEW-H": {
+    "name": "NIGHT EURELYA WALTER",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:42:30.077736"
+  },
+  "EA-H1": {
+    "name": "EMMACULATE AWUOR",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:43:02.259436"
+  },
+  "CAW-H": {
+    "name": "CYNTHIA AUMA WALTER",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:43:20.538208"
+  },
+  "RA-H1": {
+    "name": "ROSELYN AKOTH",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:43:37.252867"
+  },
+  "CAO-H1": {
+    "name": "CYNTHIA AUMA OCHIENG",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:43:59.602462"
+  },
+  "TMN-H": {
+    "name": "TEPPY MALIA NATASHA",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:44:19.715096"
+  },
+  "VEO-H": {
+    "name": "VALLEN EVE OCHIENG",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:44:34.477199"
+  },
+  "RM-H": {
+    "name": "REBBY MAULINE",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:44:47.408859"
+  },
+  "DA-H2": {
+    "name": "DOROTHY AKOTH",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:45:01.872403"
+  },
+  "AA-H3": {
+    "name": "ANGELINE ACHIENG",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:45:17.813229"
+  },
+  "CA-H2": {
+    "name": "CECILIA ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:45:32.573489"
+  },
+  "PJ-H": {
+    "name": "PRETTY JOY",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "H",
+    "created_at": "2026-02-02T09:45:45.856140"
+  },
+  "BRJ-C": {
+    "name": "BEN ROBEN JUMA",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:39:22.867282"
+  },
+  "RC-C": {
+    "name": "ROLEX CLINTON",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:39:38.003168"
+  },
+  "RF-C": {
+    "name": "RIMON FABIAN",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:39:50.127434"
+  },
+  "CM-C": {
+    "name": "CHRIS MARTIN",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:40:23.840021"
+  },
+  "BO-C1": {
+    "name": "BARRACK ODONGO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:40:37.670860"
+  },
+  "JO-C2": {
+    "name": "JAMES ODHIAMBO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:40:50.242946"
+  },
+  "NO-C": {
+    "name": "NOWA OUKO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:41:03.980888"
+  },
+  "TM-C": {
+    "name": "THOMAS MBOYA",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:41:14.941279"
+  },
+  "DR-C": {
+    "name": "DIEX ROLVINSAK",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:41:59.294409"
+  },
+  "MK-C1": {
+    "name": "MIKE KENADI",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:42:08.923203"
+  },
+  "SB-C": {
+    "name": "SANNDY BRAVIN",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:42:24.171458"
+  },
+  "SW-C": {
+    "name": "SIMION WEKESA",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:42:55.879460"
+  },
+  "DR-C1": {
+    "name": "DENZEL RAMS",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:43:09.534482"
+  },
+  "AO-C1": {
+    "name": "ASON OTIENO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:43:31.480917"
+  },
+  "EM-C1": {
+    "name": "EDWINE MOSES",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:43:47.464454"
+  },
+  "BO-C2": {
+    "name": "BLESSINGTOPE OPIYO",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:44:08.429652"
+  },
+  "JS-C": {
+    "name": "JAVAN STANLEY",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:44:23.926321"
+  },
+  "SO-C1": {
+    "name": "STANLEY OCHIENG",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:44:36.099032"
+  },
+  "GO-C2": {
+    "name": "GILLBERT OCHOLA",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:44:51.406698"
+  },
+  "JO-C3": {
+    "name": "JOPHI OCHIENG",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:45:05.264643"
+  },
+  "BJ-C": {
+    "name": "BRIGHTONE JUNIOR",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:45:26.957308"
+  },
+  "DO-C": {
+    "name": "DANIEL OUMA",
+    "gender": "M",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:45:40.305039"
+  },
+  "SA-C6": {
+    "name": "STACY AKINYI",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:46:05.122238"
+  },
+  "LF-C": {
+    "name": "LUCY FANCY",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:46:16.111072"
+  },
+  "SB-C1": {
+    "name": "SHELLO BRIGHT",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:46:28.611130"
+  },
+  "EA-C2": {
+    "name": "EUPHENIA AWUOR",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:46:51.321870"
+  },
+  "EA-C3": {
+    "name": "ESTHER ACHIENG",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:47:12.340867"
+  },
+  "ND-C": {
+    "name": "NASTER DIANA",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:47:26.324589"
+  },
+  "CA-C3": {
+    "name": "CYNTHIA AWUOR",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:47:53.219640"
+  },
+  "LN-C": {
+    "name": "LIZON NATALIA",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:48:12.765787"
+  },
+  "SN-C": {
+    "name": "SOFINA NEHEMA",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:48:28.719699"
+  },
+  "FT-C": {
+    "name": "FENZA TEZIL",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:48:48.561585"
+  },
+  "GA-C": {
+    "name": "GLORIA AUMA",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:49:03.062302"
+  },
+  "NC-C": {
+    "name": "NICOLE CHRISTINE",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:49:25.275624"
+  },
+  "ST-C": {
+    "name": "SHANTEL TRACY",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:49:36.492733"
+  },
+  "FA-C3": {
+    "name": "FIDELINE ADHIAMBO",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:50:05.715711"
+  },
+  "EN-C": {
+    "name": "EVA NACY",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:50:19.501088"
+  },
+  "SA-C7": {
+    "name": "SHALLY ANYANGO",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:50:36.879340"
+  },
+  "NA-C1": {
+    "name": "NELLY ATIENO",
+    "gender": "F",
+    "grade": "Grade 4",
+    "stream": "C",
+    "created_at": "2026-02-02T12:50:48.555586"
+  },
+  "JF-C1": {
+    "name": "JUNIOR FRANKLINE",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:18:11.980320"
+  },
+  "SO-C2": {
+    "name": "SAMMY OCHIENG",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:18:26.808982"
+  },
+  "JJ-C": {
+    "name": "JOHN JUNIOR",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:18:38.948302"
+  },
+  "GP-C": {
+    "name": "GILBERT PETER",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:18:50.924440"
+  },
+  "MK-C2": {
+    "name": "MARIO KATANA",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:19:05.133588"
+  },
+  "FO-C": {
+    "name": "FELIX OCHIENG",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:19:17.532112"
+  },
+  "BO-C3": {
+    "name": "BRIGHTON OMONDI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:19:30.155270"
+  },
+  "RJ-C": {
+    "name": "RIAN JAMES",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:19:42.751523"
+  },
+  "EO-C1": {
+    "name": "EUGIENE OYOO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:19:58.473012"
+  },
+  "KO-C": {
+    "name": "KENNEDY ODONGO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:20:10.262288"
+  },
+  "DO-C1": {
+    "name": "DOMNIC OSOSI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:20:25.783949"
+  },
+  "BO-C4": {
+    "name": "BRIGHTON OTIENO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:20:42.913280"
+  },
+  "JO-C4": {
+    "name": "JOHN OTIENO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:20:56.653913"
+  },
+  "JO-C5": {
+    "name": "JAVANS OJUOK",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:21:11.632415"
+  },
+  "JA-C1": {
+    "name": "JEAN ABANGA",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:21:25.886903"
+  },
+  "WO-C": {
+    "name": "WICKLIFE ONYANGO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:21:45.221022"
+  },
+  "AO-C2": {
+    "name": "ANDREW OBONGO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:22:03.280637"
+  },
+  "CJ-C": {
+    "name": "CLINTON JUNIOR",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:22:16.217751"
+  },
+  "PS-C": {
+    "name": "PAUL SHANEL",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:22:29.708318"
+  },
+  "DO-C2": {
+    "name": "DICKENS OMONDI",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:22:42.122287"
+  },
+  "TM-C1": {
+    "name": "TIMOTHY MEDO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:22:53.827722"
+  },
+  "BO-C5": {
+    "name": "BRIAN OYANO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:23:07.057655"
+  },
+  "BJ-C1": {
+    "name": "BRIGHTON JUNIOR",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:23:21.213762"
+  },
+  "LO-C": {
+    "name": "LOREN OTIENO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:23:35.031042"
+  },
+  "BO-C6": {
+    "name": "BRIAN OTIENO",
+    "gender": "M",
+    "grade": "Grade 6",
+    "stream": "C",
+    "created_at": "2026-02-03T04:23:48.240513"
+  }
+}
