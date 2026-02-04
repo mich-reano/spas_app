@@ -242,7 +242,7 @@ st.markdown("""
 
 st.markdown("""
 <div class="header-container">
-    <div class="logo">📊 Lumetra Analytics</div>
+    <div class="logo">Lumetra Analytics</div>
     <div class="tagline">EDUCATIONAL EXCELLENCE THROUGH DATA-DRIVEN INSIGHTS</div>
 </div>
 """, unsafe_allow_html=True)
@@ -426,7 +426,7 @@ with col1:
     <div class="contact-item">
         <div class="contact-icon">📧</div>
         <div class="contact-label">Email Us</div>
-        <div class="contact-value">info@lumetra<br>analytics.com</div>
+        <div class="contact-value">michaelreagan94@gmail.com</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -435,7 +435,7 @@ with col2:
     <div class="contact-item">
         <div class="contact-icon">📱</div>
         <div class="contact-label">Call/WhatsApp</div>
-        <div class="contact-value">+254 700<br>000 000</div>
+        <div class="contact-value">+254 741<br>908 009</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -462,7 +462,7 @@ st.markdown("<div style='text-align: center; margin: 2.5rem 0;'>", unsafe_allow_
 if st.button("✉️ Send Us an Email", key="email_button", use_container_width=False):
     st.markdown("""
     <script>
-        window.location.href = "mailto:info@lumetraanalytics.com?subject=Inquiry%20about%20LumetraScholar&body=Hello%20Lumetra%20Analytics%20Team,%0D%0A%0D%0AI%20am%20interested%20in%20learning%20more%20about%20your%20school%20management%20solutions.%0D%0A%0D%0ASchool%20Name:%20%0D%0AContact%20Person:%20%0D%0APhone%20Number:%20%0D%0ANumber%20of%20Students:%20%0D%0A%0D%0APlease%20contact%20me%20to%20discuss%20further.%0D%0A%0D%0AThank%20you!";
+        window.location.href = "mailto:michaelreagan94@gmail.com?subject=Inquiry%20about%20LumetraScholar&body=Hello%20Lumetra%20Analytics%20Team,%0D%0A%0D%0AI%20am%20interested%20in%20learning%20more%20about%20your%20school%20management%20solutions.%0D%0A%0D%0ASchool%20Name:%20%0D%0AContact%20Person:%20%0D%0APhone%20Number:%20%0D%0ANumber%20of%20Students:%20%0D%0A%0D%0APlease%20contact%20me%20to%20discuss%20further.%0D%0A%0D%0AThank%20you!";
     </script>
     """, unsafe_allow_html=True)
     st.info("Opening your email client...")
@@ -551,8 +551,8 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.markdown("""
 <div style='background: #1a3a5c; color: white; padding: 2rem; text-align: center; margin-top: 3rem; border-radius: 20px;'>
     <div style='display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap;'>
-        <a href='mailto:info@lumetraanalytics.com' style='color: white; text-decoration: none; opacity: 0.8;'>Email</a>
-        <a href='tel:+254700000000' style='color: white; text-decoration: none; opacity: 0.8;'>Call Us</a>
+        <a href='mailto:michaelreagan94@gmail.com' style='color: white; text-decoration: none; opacity: 0.8;'>Email</a>
+        <a href='tel:+254741908009' style='color: white; text-decoration: none; opacity: 0.8;'>Call Us</a>
         <span style='color: white; opacity: 0.8;'>Features</span>
         <span style='color: white; opacity: 0.8;'>Services</span>
     </div>
