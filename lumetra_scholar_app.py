@@ -301,7 +301,7 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="logo">📊 Lumetra Analytics</div>
+            <div class="logo"> Lumetra Analytics</div>
             <div class="logo-subtitle">EDUCATIONAL EXCELLENCE THROUGH DATA-DRIVEN INSIGHTS</div>
         </div>
 
@@ -311,7 +311,7 @@
             <p class="intro">
                 We specialize in CBC-compliant school management systems and educational technology solutions. 
                 Our flagship product, <strong>LumetraScholar</strong>, helps schools streamline operations, 
-                track student performance, and generate professional reports with ease.
+                track student performance, and generate professional reports with ease, among others.
             </p>
 
             <!-- Services -->
@@ -429,7 +429,7 @@
                         <div class="contact-icon">📧</div>
                         <div class="contact-label">Email Us</div>
                         <div class="contact-value">
-                            <a href="mailto:info@lumetraanalytics.com">info@lumetraanalytics.com</a>
+                            <a href="mailto:michaelreagan94@gmail.com">michaelreagan94@gmail.com</a>
                         </div>
                     </div>
 
@@ -437,7 +437,7 @@
                         <div class="contact-icon">📱</div>
                         <div class="contact-label">Call/WhatsApp</div>
                         <div class="contact-value">
-                            <a href="tel:+254700000000">+254 700 000 000</a>
+                            <a href="tel:+254741908009">+254 741 908 009</a>
                         </div>
                     </div>
 
@@ -458,7 +458,7 @@
                     </div>
                 </div>
 
-                <a href="mailto:info@lumetraanalytics.com?subject=Inquiry%20about%20LumetraScholar&body=Hello%20Lumetra%20Analytics%20Team,%0D%0A%0D%0AI%20am%20interested%20in%20learning%20more%20about%20your%20school%20management%20solutions.%0D%0A%0D%0ASchool%20Name:%20%0D%0AContact%20Person:%20%0D%0APhone%20Number:%20%0D%0ANumber%20of%20Students:%20%0D%0A%0D%0APlease%20contact%20me%20to%20discuss%20further.%0D%0A%0D%0AThank%20you!" class="cta-button">
+                <a href="mailto:michaelreagan94@gmail.com?subject=Inquiry%20about%20LumetraScholar&body=Hello%20Lumetra%20Analytics%20Team,%0D%0A%0D%0AI%20am%20interested%20in%20learning%20more%20about%20your%20school%20management%20solutions.%0D%0A%0D%0ASchool%20Name:%20%0D%0AContact%20Person:%20%0D%0APhone%20Number:%20%0D%0ANumber%20of%20Students:%20%0D%0A%0D%0APlease%20contact%20me%20to%20discuss%20further.%0D%0A%0D%0AThank%20you!" class="cta-button">
                     ✉️ Send Us an Email
                 </a>
 
@@ -483,8 +483,8 @@
         <!-- Footer -->
         <div class="footer">
             <div class="footer-links">
-                <a href="mailto:info@lumetraanalytics.com">Email</a>
-                <a href="tel:+254700000000">Call Us</a>
+                <a href="mailto:michaelreagan94@gmail.com">Email</a>
+                <a href="tel:+254741908009">Call Us</a>
                 <a href="#features">Features</a>
                 <a href="#services">Services</a>
             </div>
@@ -496,3 +496,4 @@
     </div>
 </body>
 </html>
+
