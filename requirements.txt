@@ -21,3 +21,6 @@ six
 
 # Pillow for image handling in PDFs (reportlab dependency)
 Pillow
+
+# supabase database
+psycopg2-binary
