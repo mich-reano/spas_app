@@ -462,7 +462,7 @@
   "yowerikaguta": {
     "password": "marks$4ln",
     "role": "teacher",
-    "name": "MD. KAGUTA YOWERI",
+    "name": "MR. KAGUTA YOWERI",
     "subjects": [
       "KIS",
       "MAT",
@@ -766,4 +766,5 @@
       }
     ]
   }
+
 }
