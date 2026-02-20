@@ -204,6 +204,45 @@ def delete_teacher(username):
 
 
 # ---------------------------
+# Admin User Management
+# ---------------------------
+def add_admin(username, password, name):
+    """Add a new admin user."""
+    existing = execute_query(
+        "SELECT username FROM users WHERE username=%s", (username,), fetch='one'
+    )
+    if existing:
+        return False, "Username already exists"
+    execute_query(
+        "INSERT INTO users (username, password, role, name) VALUES (%s,%s,%s,%s)",
+        (username, password, 'admin', name)
+    )
+    return True, f"Admin '{name}' (@{username}) added successfully"
+
+
+def delete_admin(username):
+    """Delete an admin user (cannot delete yourself)."""
+    row = execute_query("SELECT * FROM users WHERE username=%s", (username,), fetch='one')
+    if not row:
+        return False, "User not found"
+    if row['role'] != 'admin':
+        return False, "User is not an admin"
+    if st.session_state.get('username') == username:
+        return False, "You cannot delete your own account"
+    # Prevent deleting last admin
+    count_row = execute_query(
+        "SELECT COUNT(*) AS cnt FROM users WHERE role='admin'", fetch='one'
+    )
+    if count_row and count_row['cnt'] <= 1:
+        return False, "Cannot delete the last admin account"
+    name = row['name']
+    execute_query("DELETE FROM users WHERE username=%s", (username,))
+    return True, f"Admin '{name}' (@{username}) deleted successfully"
+
+
+
+
+# ---------------------------
 # Student Management
 # ---------------------------
 def load_students(grade_filter=None, stream_filter=None):
@@ -301,9 +340,18 @@ def upsert_marks_bulk(records, teacher_username):
     """
     Upsert a list of marks.
     records: list of (adm_no, grade, term, year, exam_type, subject, score)
+
+    Score = 0 is treated as "not entered" (blank/missing):
+      - If a non-zero record already exists in the DB, it is LEFT UNCHANGED
+        when the teacher submits 0 (prevents accidental erasure).
+      - If no record exists yet, a 0 is simply not written.
+    Only scores > 0 are upserted as valid marks.
     """
     for rec in records:
         adm_no, grade, term, year, exam_type, subject, score = rec
+        if float(score) == 0:
+            # Skip: 0 means "not yet entered"; preserve any existing valid score
+            continue
         execute_query(
             """
             INSERT INTO marks (adm_no, grade, term, year, exam_type, subject, score, entered_by, entered_at)
@@ -314,6 +362,192 @@ def upsert_marks_bulk(records, teacher_username):
             (adm_no, grade, term, year, exam_type, subject, score, teacher_username, datetime.now())
         )
 
+
+
+# ---------------------------
+# Marks Entry Progress Helper
+# ---------------------------
+def get_marks_entry_progress(grade, term, year, exam_type):
+    """
+    Return per-teacher progress for a given exam.
+    A score of 0 is treated as NOT entered (blank/missing).
+    Only scores > 0 count as valid entries.
+
+    Returns a list of dicts:
+    {
+        username, name,
+        assignments: [{grade, subject, stream, total_students,
+                        entered, missing, pct,
+                        missing_students: [{adm_no, name}]}]
+        overall_total, overall_entered, overall_missing, overall_pct
+    }
+    """
+    users = load_users()
+    teachers = {u: d for u, d in users.items() if d['role'] == 'teacher'
+                and any(a['grade'] == grade
+                        for a in get_teacher_assignments(u))}
+
+    # Pull all marks for this exam in one query — score > 0 only
+    rows = execute_query(
+        """SELECT adm_no, subject, score
+           FROM marks
+           WHERE grade=%s AND term=%s AND year=%s AND exam_type=%s
+             AND score > 0""",
+        (grade, term, year, exam_type), fetch='all'
+    ) or []
+
+    entered_set = {}          # {(adm_no, subject): score}
+    for r in rows:
+        entered_set[(r['adm_no'], r['subject'])] = float(r['score'])
+
+    results = []
+    for uname, udata in teachers.items():
+        assignments = [a for a in get_teacher_assignments(uname)
+                       if a['grade'] == grade]
+        if not assignments:
+            continue
+
+        teacher_total = 0
+        teacher_entered = 0
+        assignment_detail = []
+
+        for a in assignments:
+            students = load_students(
+                grade_filter=grade,
+                stream_filter=a.get('stream')
+            )
+            total = len(students)
+            entered_here = sum(
+                1 for adm in students
+                if (adm, a['subject']) in entered_set
+            )
+            missing_students = [
+                {"adm_no": adm, "name": sdata['name']}
+                for adm, sdata in students.items()
+                if (adm, a['subject']) not in entered_set
+            ]
+            pct = (entered_here / total * 100) if total > 0 else 0
+
+            assignment_detail.append({
+                "grade": a['grade'],
+                "subject": a['subject'],
+                "stream": a.get('stream') or '—',
+                "total_students": total,
+                "entered": entered_here,
+                "missing": total - entered_here,
+                "pct": pct,
+                "missing_students": missing_students,
+            })
+            teacher_total += total
+            teacher_entered += entered_here
+
+        overall_pct = (teacher_entered / teacher_total * 100) if teacher_total > 0 else 0
+        results.append({
+            "username": uname,
+            "name": udata['name'],
+            "assignments": assignment_detail,
+            "overall_total": teacher_total,
+            "overall_entered": teacher_entered,
+            "overall_missing": teacher_total - teacher_entered,
+            "overall_pct": overall_pct,
+        })
+
+    # Sort: incomplete first, then by name
+    results.sort(key=lambda x: (x['overall_pct'] == 100, x['name']))
+    return results
+
+
+# ---------------------------
+# Marks Entry Progress Helper
+# ---------------------------
+def get_marks_entry_progress(grade, term, year, exam_type):
+    """
+    Return per-teacher progress for a given exam.
+    A score of 0 is treated as NOT entered (blank/missing).
+    Only scores > 0 count as valid entries.
+
+    Returns a list of dicts:
+    {
+        username, name,
+        assignments: [{grade, subject, stream, total_students,
+                        entered, missing, pct,
+                        missing_students: [{adm_no, name}]}]
+        overall_total, overall_entered, overall_missing, overall_pct
+    }
+    """
+    users = load_users()
+    teachers = {u: d for u, d in users.items() if d['role'] == 'teacher'
+                and any(a['grade'] == grade
+                        for a in get_teacher_assignments(u))}
+
+    # Pull all marks for this exam in one query — score > 0 only
+    rows = execute_query(
+        """SELECT adm_no, subject, score
+           FROM marks
+           WHERE grade=%s AND term=%s AND year=%s AND exam_type=%s
+             AND score > 0""",
+        (grade, term, year, exam_type), fetch='all'
+    ) or []
+
+    entered_set = {}          # {(adm_no, subject): score}
+    for r in rows:
+        entered_set[(r['adm_no'], r['subject'])] = float(r['score'])
+
+    results = []
+    for uname, udata in teachers.items():
+        assignments = [a for a in get_teacher_assignments(uname)
+                       if a['grade'] == grade]
+        if not assignments:
+            continue
+
+        teacher_total = 0
+        teacher_entered = 0
+        assignment_detail = []
+
+        for a in assignments:
+            students = load_students(
+                grade_filter=grade,
+                stream_filter=a.get('stream')
+            )
+            total = len(students)
+            entered_here = sum(
+                1 for adm in students
+                if (adm, a['subject']) in entered_set
+            )
+            missing_students = [
+                {"adm_no": adm, "name": sdata['name']}
+                for adm, sdata in students.items()
+                if (adm, a['subject']) not in entered_set
+            ]
+            pct = (entered_here / total * 100) if total > 0 else 0
+
+            assignment_detail.append({
+                "grade": a['grade'],
+                "subject": a['subject'],
+                "stream": a.get('stream') or '—',
+                "total_students": total,
+                "entered": entered_here,
+                "missing": total - entered_here,
+                "pct": pct,
+                "missing_students": missing_students,
+            })
+            teacher_total += total
+            teacher_entered += entered_here
+
+        overall_pct = (teacher_entered / teacher_total * 100) if teacher_total > 0 else 0
+        results.append({
+            "username": uname,
+            "name": udata['name'],
+            "assignments": assignment_detail,
+            "overall_total": teacher_total,
+            "overall_entered": teacher_entered,
+            "overall_missing": teacher_total - teacher_entered,
+            "overall_pct": overall_pct,
+        })
+
+    # Sort: incomplete first, then by name
+    results.sort(key=lambda x: (x['overall_pct'] == 100, x['name']))
+    return results
 
 # ---------------------------
 # Performance Level Functions
@@ -904,35 +1138,90 @@ def show_manage_students():
         st.subheader("Edit Student")
         all_students = load_students()
         if all_students:
-            adm_select = st.selectbox("Select Student (ADM NO.)", list(all_students.keys()), key="edit_select")
+            # Build a readable label list for the selectbox
+            adm_labels = {
+                adm: f"{adm} — {d['name']} ({d['grade']}{'/' + d['stream'] if d.get('stream') else ''})"
+                for adm, d in all_students.items()
+            }
+            adm_select = st.selectbox(
+                "Select Student by ADM NO.",
+                list(adm_labels.keys()),
+                format_func=lambda k: adm_labels[k],
+                key="edit_select"
+            )
+
             if adm_select:
                 student = all_students[adm_select]
+
+                # ── Confirmation card (read-only) ──────────────────────────
+                st.markdown("#### 📋 Current Student Record")
+                st.info(
+                    f"**Name:** {student['name']}  |  "
+                    f"**Gender:** {student['gender']}  |  "
+                    f"**Grade:** {student['grade']}  |  "
+                    f"**Stream:** {student.get('stream') or '—'}  |  "
+                    f"**ADM NO.:** {adm_select}"
+                )
+                st.caption("Confirm this is the correct student before making changes below.")
+                st.markdown("---")
+
+                # ── Editable form ──────────────────────────────────────────
+                st.markdown("#### ✏️ Make Changes")
                 col1, col2 = st.columns(2)
                 with col1:
-                    edit_name = st.text_input("Student Name", value=student['name'], key="edit_name")
-                    edit_gender = st.selectbox("Gender", ["M", "F"],
-                                               index=0 if student['gender'] == 'M' else 1,
-                                               key="edit_gender")
+                    edit_name = st.text_input(
+                        "Student Name", value=student['name'], key="edit_name"
+                    )
+                    edit_gender = st.selectbox(
+                        "Gender", ["M", "F"],
+                        index=0 if student['gender'] == 'M' else 1,
+                        key="edit_gender"
+                    )
                 with col2:
-                    edit_grade = st.selectbox("Grade", list(GRADES.keys()),
-                                              index=list(GRADES.keys()).index(student['grade']),
-                                              key="edit_grade")
+                    edit_grade = st.selectbox(
+                        "Grade", list(GRADES.keys()),
+                        index=list(GRADES.keys()).index(student['grade']),
+                        key="edit_grade"
+                    )
                     if edit_grade not in NO_STREAM_GRADES:
                         current_stream = student.get('stream') or 'H'
-                        edit_stream = st.selectbox("Stream", ["H", "C"],
-                                                   format_func=lambda x: "Heroes (H)" if x == "H" else "Champions (C)",
-                                                   index=0 if current_stream == 'H' else 1,
-                                                   key="edit_stream")
+                        edit_stream = st.selectbox(
+                            "Stream", ["H", "C"],
+                            format_func=lambda x: "Heroes (H)" if x == "H" else "Champions (C)",
+                            index=0 if current_stream == 'H' else 1,
+                            key="edit_stream"
+                        )
                     else:
                         edit_stream = None
                         st.info("ℹ️ Grades 1–3 have no streams")
 
-                if st.button("Update Student", type="primary"):
+                # Show a diff preview so the admin sees exactly what changes
+                changes = []
+                if edit_name != student['name']:
+                    changes.append(f"**Name:** ~~{student['name']}~~ → {edit_name}")
+                if edit_gender != student['gender']:
+                    changes.append(f"**Gender:** ~~{student['gender']}~~ → {edit_gender}")
+                if edit_grade != student['grade']:
+                    changes.append(f"**Grade:** ~~{student['grade']}~~ → {edit_grade}")
+                cur_stream = student.get('stream') or '—'
+                new_stream_disp = edit_stream or '—'
+                if new_stream_disp != cur_stream:
+                    changes.append(f"**Stream:** ~~{cur_stream}~~ → {new_stream_disp}")
+
+                if changes:
+                    st.markdown("**Changes to be saved:**")
+                    for c in changes:
+                        st.markdown(f"  • {c}")
+                else:
+                    st.caption("No changes detected yet.")
+
+                if st.button("💾 Update Student", type="primary"):
                     execute_query(
                         "UPDATE students SET name=%s, gender=%s, grade=%s, stream=%s WHERE adm_no=%s",
                         (edit_name, edit_gender, edit_grade, edit_stream, adm_select)
                     )
-                    st.success("Student updated successfully!")
+                    st.success(f"✅ Student **{edit_name}** updated successfully!")
+                    st.rerun()
         else:
             st.info("No students to edit")
 
@@ -1116,6 +1405,425 @@ def show_manage_teachers():
                             st.error(message)
         else:
             st.info("No teachers to delete")
+
+
+
+
+def show_manage_admins():
+    st.header("🔑 Manage Admin Users")
+    st.markdown("*Add or remove admin accounts. You cannot delete your own account or the last remaining admin.*")
+    st.markdown("---")
+
+    tab1, tab2 = st.tabs(["➕ Add Admin", "🗑️ Remove Admin"])
+
+    with tab1:
+        st.subheader("Add New Admin")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            new_username = st.text_input("Username", key="admin_new_username")
+        with col2:
+            new_password = st.text_input("Password", type="password", key="admin_new_password")
+        with col3:
+            new_name = st.text_input("Full Name", key="admin_new_name")
+
+        st.caption("⚠️ Passwords are stored as plain text — advise new admins to use a unique password.")
+
+        if st.button("➕ Create Admin Account", type="primary", use_container_width=True):
+            if new_username and new_password and new_name:
+                success, message = add_admin(new_username, new_password, new_name)
+                if success:
+                    st.success(message)
+                    st.balloons()
+                else:
+                    st.error(message)
+            else:
+                st.warning("Please fill in all three fields.")
+
+    with tab2:
+        st.subheader("Remove Admin")
+        st.warning("⚠️ This action is permanent. You cannot remove yourself or the last admin.")
+
+        users = load_users()
+        admins = {u: d for u, d in users.items()
+                  if d['role'] == 'admin' and u != st.session_state.get('username')}
+
+        if not admins:
+            st.info("No other admin accounts to remove.")
+        else:
+            options = {f"{d['name']} (@{u})": u for u, d in admins.items()}
+            selected = st.selectbox("Select Admin to Remove", list(options.keys()),
+                                    key="del_admin_select")
+            if selected:
+                sel_uname = options[selected]
+                sel_data = admins[sel_uname]
+
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.info(f"**Name:** {sel_data['name']}")
+                with col2:
+                    st.info(f"**Username:** {sel_uname}")
+
+                confirm = st.checkbox(
+                    f"I confirm I want to permanently delete admin @{sel_uname}",
+                    key="del_admin_confirm"
+                )
+                if st.button("🗑️ Delete Admin", type="primary", disabled=not confirm,
+                             use_container_width=True):
+                    success, message = delete_admin(sel_uname)
+                    if success:
+                        st.success(message)
+                        st.rerun()
+                    else:
+                        st.error(message)
+
+        st.markdown("---")
+        st.subheader("Current Admin Accounts")
+        all_admins = {u: d for u, d in load_users().items() if d['role'] == 'admin'}
+        admin_rows = [
+            {"Username": u,
+             "Name": d['name'],
+             "You": "👈 (you)" if u == st.session_state.get('username') else ""}
+            for u, d in all_admins.items()
+        ]
+        import pandas as pd
+        st.dataframe(pd.DataFrame(admin_rows), use_container_width=True, hide_index=True)
+
+
+
+
+def show_marks_entry_progress():
+    st.header("📋 Marks Entry Progress")
+    st.markdown("*Track how far each teacher has gone with entering marks. Only scores > 0 count as entered — zeros are flagged as missing.*")
+    st.markdown("---")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        grade = st.selectbox("Grade", list(GRADES.keys()), key="mep_grade")
+    with col2:
+        term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"], key="mep_term")
+    with col3:
+        year = st.number_input("Year", min_value=2020, max_value=2030,
+                               value=datetime.now().year, key="mep_year")
+
+    exam_type = st.selectbox(
+        "Examination Type",
+        ["Opener Examinations", "Mid-Term Examinations", "End Term Examinations"],
+        key="mep_exam"
+    )
+
+    if st.button("🔍 Check Progress", type="primary", use_container_width=True):
+        with st.spinner("Calculating progress…"):
+            results = get_marks_entry_progress(grade, term, year, exam_type)
+
+        if not results:
+            st.warning("No teachers are assigned to this grade, or no students exist yet.")
+            return
+
+        st.markdown("---")
+
+        # ── Summary metrics ───────────────────────────────────────────────────
+        grand_total    = sum(r['overall_total']   for r in results)
+        grand_entered  = sum(r['overall_entered'] for r in results)
+        grand_missing  = sum(r['overall_missing'] for r in results)
+        grand_pct      = (grand_entered / grand_total * 100) if grand_total > 0 else 0
+        complete_count = sum(1 for r in results if r['overall_pct'] == 100)
+
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Total Entry Slots", grand_total)
+        with col2:
+            st.metric("✅ Entered (score > 0)", grand_entered)
+        with col3:
+            st.metric("⚠️ Missing / Zero", grand_missing)
+        with col4:
+            st.metric("Overall Progress", f"{grand_pct:.1f}%")
+
+        # Overall progress bar
+        bar_color = "green" if grand_pct == 100 else ("orange" if grand_pct >= 50 else "red")
+        st.progress(grand_pct / 100)
+
+        if complete_count == len(results):
+            st.success("🎉 All teachers have completed marks entry!")
+        else:
+            pending = len(results) - complete_count
+            st.info(f"⏳ {pending} teacher(s) still have pending entries.")
+
+        st.markdown("---")
+
+        # ── Per-teacher breakdown ─────────────────────────────────────────────
+        st.subheader("👨‍🏫 Per-Teacher Breakdown")
+
+        for r in results:
+            pct = r['overall_pct']
+            if pct == 100:
+                icon, status = "🟢", "Complete"
+            elif pct >= 75:
+                icon, status = "🟡", "Almost Done"
+            elif pct >= 25:
+                icon, status = "🟠", "In Progress"
+            else:
+                icon, status = "🔴", "Barely Started" if pct > 0 else "Not Started"
+
+            header_label = (
+                f"{icon} **{r['name']}** (@{r['username']})  —  "
+                f"{r['overall_entered']}/{r['overall_total']} entered  "
+                f"({pct:.1f}%)  [{status}]"
+            )
+
+            with st.expander(header_label, expanded=(pct < 100)):
+                st.progress(pct / 100)
+
+                # ── Per-assignment table ──────────────────────────────────────
+                import pandas as pd
+                assign_rows = []
+                for a in r['assignments']:
+                    a_pct = a['pct']
+                    if a_pct == 100:
+                        a_status = "✅ Complete"
+                    elif a_pct > 0:
+                        a_status = f"⏳ {a_pct:.0f}%"
+                    else:
+                        a_status = "❌ Not Started"
+
+                    assign_rows.append({
+                        "Subject": a['subject'],
+                        "Stream": a['stream'],
+                        "Students": a['total_students'],
+                        "Entered": a['entered'],
+                        "Missing": a['missing'],
+                        "Status": a_status,
+                    })
+
+                assign_df = pd.DataFrame(assign_rows)
+
+                # Color the Status column via styling
+                def color_status(val):
+                    if val.startswith("✅"):
+                        return "background-color: #d4edda; color: #155724;"
+                    elif val.startswith("❌"):
+                        return "background-color: #f8d7da; color: #721c24;"
+                    else:
+                        return "background-color: #fff3cd; color: #856404;"
+
+                styled = assign_df.style.applymap(color_status, subset=["Status"])
+                st.dataframe(styled, use_container_width=True, hide_index=True)
+
+                # ── Missing students drill-down ───────────────────────────────
+                missing_assignments = [a for a in r['assignments'] if a['missing'] > 0]
+                if missing_assignments:
+                    st.markdown("**⚠️ Missing / Zero-Score Students:**")
+                    for a in missing_assignments:
+                        if a['missing_students']:
+                            st.markdown(
+                                f"<div style='"
+                                f"background:#fff3cd;border-left:4px solid #ffc107;"
+                                f"padding:6px 10px;margin:6px 0;border-radius:4px;"
+                                f"font-weight:600;'>"
+                                f"Subject: {a['subject']} | Stream: {a['stream']} | "
+                                f"{a['missing']} student(s) missing"
+                                f"</div>",
+                                unsafe_allow_html=True
+                            )
+                            miss_df = pd.DataFrame(a['missing_students'])
+                            miss_df.columns = ["ADM NO.", "Student Name"]
+                            st.dataframe(miss_df, use_container_width=True, hide_index=True)
+                else:
+                    st.success("All students have valid scores for this teacher's subjects.")
+
+        st.markdown("---")
+
+        # ── Subject-level summary table ───────────────────────────────────────
+        st.subheader("📚 Subject-Level Summary")
+        subject_summary = {}
+        for r in results:
+            for a in r['assignments']:
+                key = f"{a['subject']} (Stream: {a['stream']})"
+                if key not in subject_summary:
+                    subject_summary[key] = {
+                        "Subject": a['subject'],
+                        "Stream": a['stream'],
+                        "Teacher": r['name'],
+                        "Total": a['total_students'],
+                        "Entered": a['entered'],
+                        "Missing": a['missing'],
+                        "Progress": f"{a['pct']:.1f}%",
+                    }
+
+        if subject_summary:
+            subj_df = pd.DataFrame(list(subject_summary.values()))
+            subj_df = subj_df.sort_values("Missing", ascending=False)
+            st.dataframe(subj_df, use_container_width=True, hide_index=True)
+
+
+
+
+def show_marks_entry_progress():
+    st.header("📋 Marks Entry Progress")
+    st.markdown("*Track how far each teacher has gone with entering marks. Only scores > 0 count as entered — zeros are flagged as missing.*")
+    st.markdown("---")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        grade = st.selectbox("Grade", list(GRADES.keys()), key="mep_grade")
+    with col2:
+        term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"], key="mep_term")
+    with col3:
+        year = st.number_input("Year", min_value=2020, max_value=2030,
+                               value=datetime.now().year, key="mep_year")
+
+    exam_type = st.selectbox(
+        "Examination Type",
+        ["Opener Examinations", "Mid-Term Examinations", "End Term Examinations"],
+        key="mep_exam"
+    )
+
+    if st.button("🔍 Check Progress", type="primary", use_container_width=True):
+        with st.spinner("Calculating progress…"):
+            results = get_marks_entry_progress(grade, term, year, exam_type)
+
+        if not results:
+            st.warning("No teachers are assigned to this grade, or no students exist yet.")
+            return
+
+        st.markdown("---")
+
+        # ── Summary metrics ───────────────────────────────────────────────────
+        grand_total    = sum(r['overall_total']   for r in results)
+        grand_entered  = sum(r['overall_entered'] for r in results)
+        grand_missing  = sum(r['overall_missing'] for r in results)
+        grand_pct      = (grand_entered / grand_total * 100) if grand_total > 0 else 0
+        complete_count = sum(1 for r in results if r['overall_pct'] == 100)
+
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Total Entry Slots", grand_total)
+        with col2:
+            st.metric("✅ Entered (score > 0)", grand_entered)
+        with col3:
+            st.metric("⚠️ Missing / Zero", grand_missing)
+        with col4:
+            st.metric("Overall Progress", f"{grand_pct:.1f}%")
+
+        # Overall progress bar
+        bar_color = "green" if grand_pct == 100 else ("orange" if grand_pct >= 50 else "red")
+        st.progress(grand_pct / 100)
+
+        if complete_count == len(results):
+            st.success("🎉 All teachers have completed marks entry!")
+        else:
+            pending = len(results) - complete_count
+            st.info(f"⏳ {pending} teacher(s) still have pending entries.")
+
+        st.markdown("---")
+
+        # ── Per-teacher breakdown ─────────────────────────────────────────────
+        st.subheader("👨‍🏫 Per-Teacher Breakdown")
+
+        for r in results:
+            pct = r['overall_pct']
+            if pct == 100:
+                icon, status = "🟢", "Complete"
+            elif pct >= 75:
+                icon, status = "🟡", "Almost Done"
+            elif pct >= 25:
+                icon, status = "🟠", "In Progress"
+            else:
+                icon, status = "🔴", "Barely Started" if pct > 0 else "Not Started"
+
+            header_label = (
+                f"{icon} **{r['name']}** (@{r['username']})  —  "
+                f"{r['overall_entered']}/{r['overall_total']} entered  "
+                f"({pct:.1f}%)  [{status}]"
+            )
+
+            with st.expander(header_label, expanded=(pct < 100)):
+                st.progress(pct / 100)
+
+                # ── Per-assignment table ──────────────────────────────────────
+                import pandas as pd
+                assign_rows = []
+                for a in r['assignments']:
+                    a_pct = a['pct']
+                    if a_pct == 100:
+                        a_status = "✅ Complete"
+                    elif a_pct > 0:
+                        a_status = f"⏳ {a_pct:.0f}%"
+                    else:
+                        a_status = "❌ Not Started"
+
+                    assign_rows.append({
+                        "Subject": a['subject'],
+                        "Stream": a['stream'],
+                        "Students": a['total_students'],
+                        "Entered": a['entered'],
+                        "Missing": a['missing'],
+                        "Status": a_status,
+                    })
+
+                assign_df = pd.DataFrame(assign_rows)
+
+                # Color the Status column via styling
+                def color_status(val):
+                    if val.startswith("✅"):
+                        return "background-color: #d4edda; color: #155724;"
+                    elif val.startswith("❌"):
+                        return "background-color: #f8d7da; color: #721c24;"
+                    else:
+                        return "background-color: #fff3cd; color: #856404;"
+
+                styled = assign_df.style.applymap(color_status, subset=["Status"])
+                st.dataframe(styled, use_container_width=True, hide_index=True)
+
+                # ── Missing students drill-down ───────────────────────────────
+                missing_assignments = [a for a in r['assignments'] if a['missing'] > 0]
+                if missing_assignments:
+                    st.markdown("**⚠️ Missing / Zero-Score Students:**")
+                    for a in missing_assignments:
+                        if a['missing_students']:
+                            st.markdown(
+                                "<div style='"
+                                "background:#fff3cd;"
+                                "border-left:4px solid #ffc107;"
+                                "padding:6px 12px;"
+                                "margin:6px 0;"
+                                "border-radius:4px;"
+                                "font-weight:600;'>"
+                                f"Subject: {a['subject']} &nbsp;|&nbsp; "
+                                f"Stream: {a['stream']} &nbsp;|&nbsp; "
+                                f"{a['missing']} student(s) missing"
+                                "</div>",
+                                unsafe_allow_html=True
+                            )
+                            miss_df = pd.DataFrame(a['missing_students'])
+                            miss_df.columns = ["ADM NO.", "Student Name"]
+                            st.dataframe(miss_df, use_container_width=True, hide_index=True)
+                else:
+                    st.success("All students have valid scores for this teacher's subjects.")
+
+        st.markdown("---")
+
+        # ── Subject-level summary table ───────────────────────────────────────
+        st.subheader("📚 Subject-Level Summary")
+        subject_summary = {}
+        for r in results:
+            for a in r['assignments']:
+                key = f"{a['subject']} (Stream: {a['stream']})"
+                if key not in subject_summary:
+                    subject_summary[key] = {
+                        "Subject": a['subject'],
+                        "Stream": a['stream'],
+                        "Teacher": r['name'],
+                        "Total": a['total_students'],
+                        "Entered": a['entered'],
+                        "Missing": a['missing'],
+                        "Progress": f"{a['pct']:.1f}%",
+                    }
+
+        if subject_summary:
+            subj_df = pd.DataFrame(list(subject_summary.values()))
+            subj_df = subj_df.sort_values("Missing", ascending=False)
+            st.dataframe(subj_df, use_container_width=True, hide_index=True)
+
 
 
 # ---------------------------
@@ -1865,7 +2573,8 @@ def main():
     if st.session_state.user_role == 'admin':
         st.sidebar.header("🎯 Admin Menu")
         page = st.sidebar.radio("", [
-            "Admin Dashboard", "Manage Students", "Manage Teachers", "View Analytics"
+            "Admin Dashboard", "Manage Students", "Manage Teachers", "Marks Entry Progress", "View Analytics",
+            "Manage Admins"
         ], label_visibility="collapsed")
     else:
         st.sidebar.header("👨‍🏫 Teacher Menu")
@@ -1887,6 +2596,10 @@ def main():
             show_manage_students()
         elif page == "Manage Teachers":
             show_manage_teachers()
+        elif page == "Manage Admins":
+            show_manage_admins()
+        elif page == "Marks Entry Progress":
+            show_marks_entry_progress()
         elif page == "View Analytics":
             col1, col2, col3 = st.columns(3)
             with col1:
