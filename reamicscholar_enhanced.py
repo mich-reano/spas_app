@@ -202,6 +202,50 @@ def delete_teacher(username):
     execute_query("DELETE FROM users WHERE username=%s", (username,))
     return True, f"Teacher {name} (@{username}) deleted successfully"
 
+def get_teacher_assignments_with_ids(username):
+    """Return list of dicts with id, grade, subject, stream."""
+    rows = execute_query(
+        "SELECT id, grade, subject, stream FROM teacher_assignments WHERE username=%s ORDER BY grade, subject",
+        (username,), fetch='all'
+    )
+    return [dict(r) for r in rows] if rows else []
+
+
+def add_teacher_assignment(username, grade, subject, stream):
+    """Add a single assignment to an existing teacher. Returns (ok, message)."""
+    existing = execute_query(
+        "SELECT id FROM teacher_assignments WHERE username=%s AND grade=%s AND subject=%s AND (stream=%s OR (stream IS NULL AND %s IS NULL))",
+        (username, grade, subject, stream, stream), fetch='one'
+    )
+    if existing:
+        return False, "Assignment already exists"
+    execute_query(
+        "INSERT INTO teacher_assignments (username, grade, subject, stream) VALUES (%s,%s,%s,%s)",
+        (username, grade, subject, stream)
+    )
+    return True, f"Added: {grade} → {subject} → {stream or 'No Stream'}"
+
+
+def remove_teacher_assignment(assignment_id):
+    """Delete one assignment row by its primary key id."""
+    row = execute_query(
+        "SELECT id FROM teacher_assignments WHERE id=%s", (assignment_id,), fetch='one'
+    )
+    if not row:
+        return False, "Assignment not found"
+    execute_query("DELETE FROM teacher_assignments WHERE id=%s", (assignment_id,))
+    return True, "Assignment removed"
+
+
+def update_teacher_name(username, new_name):
+    """Update a teacher's display name."""
+    if not new_name.strip():
+        return False, "Name cannot be blank"
+    execute_query(
+        "UPDATE users SET name=%s WHERE username=%s", (new_name.strip(), username)
+    )
+    return True, f"Name updated to '{new_name.strip()}'"
+
 
 # ---------------------------
 # Admin User Management
@@ -254,7 +298,11 @@ def load_students(grade_filter=None, stream_filter=None):
     if stream_filter:
         query += " AND stream=%s"
         params.append(stream_filter)
-    query += " ORDER BY name"
+    # Grade 7-9: admission numbers are integers -> numeric ascending sort
+    if grade_filter in ['Grade 7', 'Grade 8', 'Grade 9']:
+        query += " ORDER BY CAST(adm_no AS INTEGER) ASC"
+    else:
+        query += " ORDER BY name"
     rows = execute_query(query, params or None, fetch='all')
     return {r['adm_no']: dict(r) for r in rows} if rows else {}
 
@@ -549,6 +597,28 @@ def get_marks_entry_progress(grade, term, year, exam_type):
     results.sort(key=lambda x: (x['overall_pct'] == 100, x['name']))
     return results
 
+
+def get_subject_teachers(grade, stream=None):
+    """
+    Return {subject: teacher_name} for the given grade/stream.
+    If stream is None (Grades 1-3), match rows where stream IS NULL.
+    If a subject has no assigned teacher, value is 'Not Assigned'.
+    """
+    users = load_users()
+    teachers = {u: d for u, d in users.items() if d['role'] == 'teacher'}
+    mapping = {}
+    for uname, udata in teachers.items():
+        for a in get_teacher_assignments(uname):
+            if a['grade'] != grade:
+                continue
+            a_stream = a.get('stream')
+            # Match: same stream, OR no-stream grade, OR teacher covers both
+            if stream is None or a_stream is None or a_stream == stream:
+                subj = a['subject']
+                if subj not in mapping:
+                    mapping[subj] = udata['name']
+    return mapping
+
 # ---------------------------
 # Performance Level Functions
 # ---------------------------
@@ -671,6 +741,13 @@ def prepare_grade_data(grade, term, year, exam_type):
     df['POINTS'] = perf_data.apply(lambda x: x[1])
     df['AV/LVL'] = df['P.LEVEL']
     df['RANK'] = df['TOTAL'].rank(ascending=False, method='dense').astype(int)
+
+    # Sort: integer adm_no asc for Gr 7-9, alphabetical by name for others
+    if grade in ['Grade 7', 'Grade 8', 'Grade 9']:
+        df['_adm_int'] = pd.to_numeric(df['ADM NO.'], errors='coerce').fillna(0).astype(int)
+        df = df.sort_values('_adm_int').drop(columns=['_adm_int']).reset_index(drop=True)
+    else:
+        df = df.sort_values('NAME OF STUDENTS').reset_index(drop=True)
 
     return df
 
@@ -1271,7 +1348,7 @@ def show_manage_students():
 
 def show_manage_teachers():
     st.header("👨‍🏫 Manage Teachers")
-    tab1, tab2, tab3 = st.tabs(["➕ Add Teacher", "📋 View Teachers", "🗑️ Delete Teacher"])
+    tab1, tab2, tab3, tab4 = st.tabs(["➕ Add Teacher", "📋 View Teachers", "✏️ Edit Teacher", "🗑️ Delete Teacher"])
 
     with tab1:
         st.subheader("Add New Teacher")
@@ -1376,7 +1453,157 @@ def show_manage_teachers():
         else:
             st.info("No teachers registered yet")
 
+
     with tab3:
+        st.subheader("Edit Teacher Assignments")
+        st.markdown(
+            "Select a teacher to rename them or update their subject assignments. "
+            "Changes take effect immediately in the database."
+        )
+
+        users = load_users()
+        teachers = {u: d for u, d in users.items() if d['role'] == 'teacher'}
+
+        if not teachers:
+            st.info("No teachers registered yet.")
+        else:
+            t_options = {
+                f"{d['name']} (@{u})": u for u, d in sorted(
+                    teachers.items(), key=lambda x: x[1]['name']
+                )
+            }
+            selected_label = st.selectbox(
+                "Select Teacher", list(t_options.keys()), key="edit_teacher_select"
+            )
+            sel_uname = t_options[selected_label]
+            sel_data  = teachers[sel_uname]
+            assignments = get_teacher_assignments_with_ids(sel_uname)
+
+            # ── Confirmation card ────────────────────────────────────────────
+            st.markdown("#### Current Record")
+            st.info(
+                f"**Name:** {sel_data['name']}  |  "
+                f"**Username:** @{sel_uname}  |  "
+                f"**Assignments:** {len(assignments)}"
+            )
+
+            # ── Section A: Rename ────────────────────────────────────────────
+            st.markdown("---")
+            st.markdown("#### A. Rename Teacher")
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                new_name_val = st.text_input(
+                    "New Full Name", value=sel_data['name'],
+                    key=f"edit_tname_{sel_uname}"
+                )
+            with col2:
+                st.write("")
+                st.write("")
+                if st.button("💾 Save Name", key=f"save_tname_{sel_uname}",
+                             use_container_width=True):
+                    ok, msg = update_teacher_name(sel_uname, new_name_val)
+                    if ok:
+                        st.success(msg)
+                        st.rerun()
+                    else:
+                        st.error(msg)
+
+            # ── Section B: Remove assignments ────────────────────────────────
+            st.markdown("---")
+            st.markdown("#### B. Remove Assignments")
+
+            if not assignments:
+                st.info("This teacher has no assignments yet.")
+            else:
+                st.caption(
+                    "Check the box next to any assignment you want to remove, "
+                    "then click **Remove Selected**."
+                )
+                to_remove = []
+                for a in assignments:
+                    stream_lbl = (
+                        "Heroes (H)"    if a.get('stream') == "H" else
+                        "Champions (C)" if a.get('stream') == "C" else
+                        "No Stream"
+                    )
+                    col1, col2 = st.columns([5, 1])
+                    with col1:
+                        checked = st.checkbox(
+                            f"{a['grade']}  →  {a['subject']}  →  {stream_lbl}",
+                            key=f"rm_assign_{a['id']}"
+                        )
+                    with col2:
+                        st.write("")
+                    if checked:
+                        to_remove.append(a['id'])
+
+                if to_remove:
+                    if st.button(
+                        f"🗑️ Remove {len(to_remove)} Selected Assignment(s)",
+                        type="primary", key="remove_selected_assignments"
+                    ):
+                        for aid in to_remove:
+                            remove_teacher_assignment(aid)
+                        st.success(
+                            f"Removed {len(to_remove)} assignment(s) successfully."
+                        )
+                        st.rerun()
+
+            # ── Section C: Add new assignment ────────────────────────────────
+            st.markdown("---")
+            st.markdown("#### C. Add New Assignment")
+            col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
+            with col1:
+                add_grade = st.selectbox(
+                    "Grade", list(GRADES.keys()), key=f"edit_add_grade_{sel_uname}"
+                )
+            with col2:
+                add_subject = st.selectbox(
+                    "Subject", GRADES[add_grade], key=f"edit_add_subj_{sel_uname}"
+                )
+            with col3:
+                if add_grade in NO_STREAM_GRADES:
+                    st.info("No streams for this grade")
+                    add_stream = None
+                else:
+                    add_stream = st.selectbox(
+                        "Stream", ["H", "C", "BOTH"],
+                        format_func=lambda x: (
+                            "Heroes" if x == "H" else
+                            "Champions" if x == "C" else "Both Streams"
+                        ),
+                        key=f"edit_add_stream_{sel_uname}"
+                    )
+            with col4:
+                st.write("")
+                st.write("")
+                if st.button("➕ Add", type="primary",
+                             key=f"edit_add_btn_{sel_uname}",
+                             use_container_width=True):
+                    if add_grade in NO_STREAM_GRADES:
+                        ok, msg = add_teacher_assignment(
+                            sel_uname, add_grade, add_subject, None
+                        )
+                        if ok: st.success(msg)
+                        else:  st.warning(msg)
+                    elif add_stream == "BOTH":
+                        msgs = []
+                        for s in ["H", "C"]:
+                            ok, msg = add_teacher_assignment(
+                                sel_uname, add_grade, add_subject, s
+                            )
+                            msgs.append(msg)
+                        st.success("  |  ".join(msgs))
+                    else:
+                        ok, msg = add_teacher_assignment(
+                            sel_uname, add_grade, add_subject, add_stream
+                        )
+                        if ok: st.success(msg)
+                        else:  st.warning(msg)
+                    st.rerun()
+
+
+    with tab4:
         st.subheader("Delete Teacher")
         st.warning("⚠️ Deleting a teacher removes their account permanently.")
         users = load_users()
@@ -1937,7 +2164,13 @@ def show_enter_marks():
 
     # Build initial data for the editor
     rows = []
-    for adm_no, sdata in sorted(students.items(), key=lambda x: x[1]['name']):
+    # Sort: integer adm_no asc for Gr 7-9, name asc for others
+    if grade in ['Grade 7', 'Grade 8', 'Grade 9']:
+        sorted_students = sorted(students.items(),
+                                 key=lambda x: int(x[0]) if x[0].isdigit() else 0)
+    else:
+        sorted_students = sorted(students.items(), key=lambda x: x[1]['name'])
+    for adm_no, sdata in sorted_students:
         existing_score = None
         if adm_no in existing_marks and subject in existing_marks[adm_no]:
             existing_score = existing_marks[adm_no][subject]
@@ -2001,7 +2234,12 @@ def show_enter_marks():
     with st.expander("🔍 View Current Saved Marks", expanded=False):
         saved_marks = get_exam_marks(grade, term, year, exam_type)
         saved_rows = []
-        for adm_no, sdata in sorted(students.items(), key=lambda x: x[1]['name']):
+        if grade in ['Grade 7', 'Grade 8', 'Grade 9']:
+            sorted_saved = sorted(students.items(),
+                                  key=lambda x: int(x[0]) if x[0].isdigit() else 0)
+        else:
+            sorted_saved = sorted(students.items(), key=lambda x: x[1]['name'])
+        for adm_no, sdata in sorted_saved:
             sc = saved_marks.get(adm_no, {}).get(subject)
             saved_rows.append({
                 "ADM NO.": adm_no,
@@ -2288,6 +2526,248 @@ def show_class_analysis(df, grade, subject_cols):
         st.subheader("📉 Bottom 10 Students")
         bot_10 = filtered_df.nlargest(10, 'RANK')[['RANK', 'NAME OF STUDENTS', 'GENDER', 'STRM', 'TOTAL', 'AVERAGE', 'P.LEVEL', 'POINTS']]
         st.dataframe(bot_10, use_container_width=True, hide_index=True)
+
+
+
+    # -- Marks Confirmation Sheet (PDF, landscape) ---------------------------
+    st.markdown("---")
+    st.subheader("📥 Marks Confirmation Sheet")
+    st.markdown(
+        "Download a **PDF confirmation sheet** (A4 landscape) showing only "
+        "subject marks for each learner. Learners should verify their scores "
+        "and report discrepancies to the responsible subject teacher."
+    )
+
+    with st.expander("🔧 Confirmation Sheet Options", expanded=False):
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            cs_term = st.selectbox("Term", ["Term 1", "Term 2", "Term 3"],
+                                   key="cs_term")
+            cs_year = st.number_input("Year", min_value=2020, max_value=2030,
+                                      value=2024, key="cs_year")
+        with col2:
+            cs_exam = st.selectbox(
+                "Examination Type",
+                ["Opener Examinations", "Mid-Term Examinations",
+                 "End Term Examinations"],
+                key="cs_exam"
+            )
+        with col3:
+            cs_school = st.text_input("School Name",
+                                      "SINDO COMPREHENSIVE SCHOOL",
+                                      key="cs_school")
+
+    if st.button("📥 Generate Marks Confirmation PDF", type="primary",
+                 key="gen_confirm_sheet"):
+        import io
+        from reportlab.lib.pagesizes import A4, landscape
+        from reportlab.lib import colors
+        from reportlab.lib.units import cm
+        from reportlab.platypus import (SimpleDocTemplate, Table, TableStyle,
+                                        Paragraph, Spacer)
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+        from reportlab.lib.enums import TA_CENTER, TA_LEFT
+
+        PAGE = landscape(A4)
+        PAGE_W, PAGE_H = PAGE
+
+        styles    = getSampleStyleSheet()
+        title_sty = ParagraphStyle("CS_Title", parent=styles["Normal"],
+                                   fontSize=13, fontName="Helvetica-Bold",
+                                   alignment=TA_CENTER, spaceAfter=2)
+        sub_sty   = ParagraphStyle("CS_Sub", parent=styles["Normal"],
+                                   fontSize=9, fontName="Helvetica-Bold",
+                                   alignment=TA_CENTER, spaceAfter=2)
+        note_sty  = ParagraphStyle("CS_Note", parent=styles["Normal"],
+                                   fontSize=7.5, fontName="Helvetica-Oblique",
+                                   alignment=TA_CENTER, spaceAfter=6,
+                                   textColor=colors.HexColor("#555555"))
+
+        is_junior   = grade in ["Grade 7", "Grade 8", "Grade 9"]
+        is_no_stream = grade in ["Grade 1", "Grade 2", "Grade 3"]
+
+        # Decide which streams to render
+        if is_no_stream or "All Streams" in display_name:
+            streams_to_render = sorted(filtered_df["STRM"].unique().tolist())                                 if not is_no_stream else [None]
+        else:
+            # Single stream already filtered
+            s_val = display_name.split("(")[-1].replace(")", "").strip()                     if "(" in display_name else None
+            streams_to_render = [s_val]
+
+        buf = io.BytesIO()
+        doc = SimpleDocTemplate(
+            buf,
+            pagesize=PAGE,
+            leftMargin=1.5 * cm, rightMargin=1.5 * cm,
+            topMargin=1.5 * cm, bottomMargin=1.5 * cm,
+        )
+        story = []
+
+        DARK_BLUE = colors.HexColor("#1A3A5C")
+        LIGHT_BLUE = colors.HexColor("#D6E4F7")
+        ALT_ROW    = colors.HexColor("#EEF4FF")
+        ZERO_RED   = colors.HexColor("#FFD6D6")
+        HDR_WHITE  = colors.white
+
+        for s_idx, stream in enumerate(streams_to_render):
+            # ---- filter dataframe for this stream -------------------------
+            if stream is None:
+                sdf = filtered_df.copy()
+                s_label = display_name
+            else:
+                sdf = filtered_df[filtered_df["STRM"] == stream].copy()
+                s_name  = "Heroes" if stream == "H" else "Champions"
+                s_label = f"{grade} - {s_name} ({stream})"
+
+            if sdf.empty:
+                continue
+
+            # ---- sort ----------------------------------------------------
+            if is_junior:
+                sdf["_s"] = pd.to_numeric(
+                    sdf["ADM NO."], errors="coerce").fillna(0).astype(int)
+                sdf = sdf.sort_values("_s").drop(columns=["_s"])
+            else:
+                sdf = sdf.sort_values("NAME OF STUDENTS")
+            sdf = sdf.reset_index(drop=True)
+
+            # ---- subject->teacher map ------------------------------------
+            subj_teacher = get_subject_teachers(grade, stream)
+
+            # ---- header paragraphs ---------------------------------------
+            story.append(Paragraph(cs_school.upper(), title_sty))
+            story.append(Paragraph(
+                f"MARKS CONFIRMATION SHEET  •  {s_label}  •  "
+                f"{cs_term} {int(cs_year)}  •  {cs_exam}",
+                sub_sty
+            ))
+
+            # Build teacher-subject note lines
+            teacher_lines = []
+            for subj in subject_cols:
+                tname = subj_teacher.get(subj, "Not Assigned")
+                teacher_lines.append(f"{subj}: {tname}")
+            note_text = (
+                "Please verify your marks carefully. Report any discrepancy "
+                "to the respective subject teacher — "
+                + "  |  ".join(teacher_lines)
+            )
+            story.append(Paragraph(note_text, note_sty))
+            story.append(Spacer(1, 0.2 * cm))
+
+            # ---- build table data ----------------------------------------
+            if is_no_stream:
+                id_fields = ["ADM NO.", "NAME OF STUDENTS", "GENDER"]
+                id_hdrs   = ["ADM NO.", "Name", "Gender"]
+            else:
+                id_fields = ["ADM NO.", "NAME OF STUDENTS", "GENDER", "STRM"]
+                id_hdrs   = ["ADM NO.", "Name", "Gender", "Stream"]
+
+            header_row = id_hdrs + list(subject_cols)
+            table_data = [header_row]
+
+            for _, row in sdf.iterrows():
+                data_row = []
+                for f in id_fields:
+                    v = row.get(f, "")
+                    data_row.append(str(v) if v else "")
+                for subj in subject_cols:
+                    val = row.get(subj, 0)
+                    # Show blank instead of 0 for un-entered marks
+                    if val == 0 or val == 0.0:
+                        data_row.append("")
+                    else:
+                        data_row.append(f"{val:.0f}")
+                table_data.append(data_row)
+
+            # ---- column widths -------------------------------------------
+            avail_w = PAGE_W - 3 * cm   # total usable width
+            id_widths = {
+                "ADM NO.": 1.5 * cm,
+                "NAME OF STUDENTS": 5.0 * cm,
+                "GENDER": 1.2 * cm,
+                "STRM": 1.5 * cm,
+            }
+            id_w_total = sum(id_widths.get(f, 1.5 * cm) for f in id_fields)
+            subj_w = (avail_w - id_w_total) / max(len(subject_cols), 1)
+            subj_w = max(subj_w, 1.2 * cm)
+            col_widths = [id_widths.get(f, 1.5 * cm) for f in id_fields] +                          [subj_w] * len(subject_cols)
+
+            # ---- table style ---------------------------------------------
+            n_rows  = len(table_data)
+            n_cols  = len(header_row)
+            n_id    = len(id_fields)
+
+            t_style = [
+                # Header row
+                ("BACKGROUND",  (0, 0), (-1, 0), DARK_BLUE),
+                ("TEXTCOLOR",   (0, 0), (-1, 0), HDR_WHITE),
+                ("FONTNAME",    (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE",    (0, 0), (-1, 0), 7.5),
+                ("ALIGN",       (0, 0), (-1, 0), "CENTER"),
+                ("VALIGN",      (0, 0), (-1, 0), "MIDDLE"),
+                ("ROWBACKGROUND", (0, 0), (-1, 0), DARK_BLUE),
+                # Data rows
+                ("FONTNAME",    (0, 1), (-1, -1), "Helvetica"),
+                ("FONTSIZE",    (0, 1), (-1, -1), 7),
+                ("ALIGN",       (0, 1), (n_id - 1, -1), "LEFT"),
+                ("ALIGN",       (n_id, 1), (-1, -1), "CENTER"),
+                ("VALIGN",      (0, 1), (-1, -1), "MIDDLE"),
+                # Grid
+                ("GRID",        (0, 0), (-1, -1),
+                 0.35, colors.HexColor("#BBBBBB")),
+                ("ROWHEIGHT",   (0, 0), (-1, -1), 0.55 * cm),
+                # Name column left-align
+                ("ALIGN",       (1, 1), (1, -1), "LEFT"),
+            ]
+
+            # Alternating row colours + red for zero scores
+            for r in range(1, n_rows):
+                bg = ALT_ROW if r % 2 == 0 else colors.white
+                t_style.append(("BACKGROUND", (0, r), (n_id - 1, r), bg))
+                for c_off, subj in enumerate(subject_cols):
+                    col_idx = n_id + c_off
+                    val = sdf.iloc[r - 1].get(subj, 0)
+                    cell_bg = ZERO_RED if (val == 0 or val == 0.0) else bg
+                    t_style.append(("BACKGROUND", (col_idx, r),
+                                    (col_idx, r), cell_bg))
+
+            tbl = Table(table_data, colWidths=col_widths, repeatRows=1)
+            tbl.setStyle(TableStyle(t_style))
+            story.append(tbl)
+
+            # Page break between streams (but not after the last one)
+            if s_idx < len(streams_to_render) - 1:
+                from reportlab.platypus import PageBreak
+                story.append(PageBreak())
+
+        doc.build(story)
+        buf.seek(0)
+
+        fname_safe = display_name.replace(" ", "_").replace(
+            "-", "").replace("/", "")
+        filename = (f"MarksConfirmation_{fname_safe}_"
+                    f"{cs_term.replace(' ', '')}_{int(cs_year)}.pdf")
+
+        total_students = sum(
+            len(filtered_df[filtered_df["STRM"] == s])
+            if s else len(filtered_df)
+            for s in streams_to_render
+        )
+        st.success(
+            f"PDF ready  —  {total_students} student(s)  —  "
+            f"Blank cells = mark not yet entered."
+        )
+        st.download_button(
+            label=f"📥 Download Confirmation PDF — {display_name}",
+            data=buf,
+            file_name=filename,
+            mime="application/pdf",
+            type="primary",
+            use_container_width=True,
+        )
+
+
 
     st.markdown("---")
     st.subheader("📄 Generate Class Performance List PDF")
