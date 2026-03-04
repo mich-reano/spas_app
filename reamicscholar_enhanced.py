@@ -160,6 +160,19 @@ def authenticate_user(username, password):
     return dict(row) if row else None
 
 
+def _safe_adm_sort_key(adm_no):
+    """
+    Sort key for admission numbers that may be numeric or alphanumeric.
+    Pure-integer strings sort first (ascending by value).
+    Everything else sorts after them, lexicographically.
+    This prevents crashes when a Grade 7-9 class has mixed adm_no formats.
+    """
+    s = str(adm_no).strip()
+    try:
+        return (0, int(s), "")
+    except ValueError:
+        return (1, 0, s)
+
 def load_users():
     rows = execute_query("SELECT * FROM users", fetch='all')
     return {r['username']: dict(r) for r in rows} if rows else {}
@@ -300,7 +313,15 @@ def load_students(grade_filter=None, stream_filter=None):
         params.append(stream_filter)
     # Grade 7-9: admission numbers are integers -> numeric ascending sort
     if grade_filter in ['Grade 7', 'Grade 8', 'Grade 9']:
-        query += " ORDER BY CAST(adm_no AS INTEGER) ASC"
+        # Safe numeric sort: pure-integer adm_nos first (ascending),
+        # any non-numeric adm_nos sorted lexicographically at the end.
+        query += (
+            " ORDER BY "
+            "CASE WHEN adm_no ~ '^[0-9]+$' THEN 0 ELSE 1 END, "
+            "CASE WHEN adm_no ~ '^[0-9]+$' "
+            "     THEN adm_no::BIGINT ELSE 0 END ASC, "
+            "adm_no ASC"
+        )
     else:
         query += " ORDER BY name"
     rows = execute_query(query, params or None, fetch='all')
@@ -744,8 +765,19 @@ def prepare_grade_data(grade, term, year, exam_type):
 
     # Sort: integer adm_no asc for Gr 7-9, alphabetical by name for others
     if grade in ['Grade 7', 'Grade 8', 'Grade 9']:
-        df['_adm_int'] = pd.to_numeric(df['ADM NO.'], errors='coerce').fillna(0).astype(int)
-        df = df.sort_values('_adm_int').drop(columns=['_adm_int']).reset_index(drop=True)
+        # Safe sort: pure-integer adm_nos ascending, non-numeric at end.
+        df['_adm_num'] = pd.to_numeric(df['ADM NO.'], errors='coerce')
+        df['_adm_is_int'] = df['_adm_num'].notna().astype(int)   # 1=numeric, 0=not
+        # Sort by: numeric-first flag DESC (1 before 0), then numeric value, then string
+        df = (
+            df.sort_values(
+                ['_adm_is_int', '_adm_num', 'ADM NO.'],
+                ascending=[False, True, True],
+                na_position='last'
+            )
+            .drop(columns=['_adm_num', '_adm_is_int'])
+            .reset_index(drop=True)
+        )
     else:
         df = df.sort_values('NAME OF STUDENTS').reset_index(drop=True)
 
@@ -2167,7 +2199,7 @@ def show_enter_marks():
     # Sort: integer adm_no asc for Gr 7-9, name asc for others
     if grade in ['Grade 7', 'Grade 8', 'Grade 9']:
         sorted_students = sorted(students.items(),
-                                 key=lambda x: int(x[0]) if x[0].isdigit() else 0)
+                                 key=lambda x: _safe_adm_sort_key(x[0]))
     else:
         sorted_students = sorted(students.items(), key=lambda x: x[1]['name'])
     for adm_no, sdata in sorted_students:
@@ -2236,7 +2268,7 @@ def show_enter_marks():
         saved_rows = []
         if grade in ['Grade 7', 'Grade 8', 'Grade 9']:
             sorted_saved = sorted(students.items(),
-                                  key=lambda x: int(x[0]) if x[0].isdigit() else 0)
+                                  key=lambda x: _safe_adm_sort_key(x[0]))
         else:
             sorted_saved = sorted(students.items(), key=lambda x: x[1]['name'])
         for adm_no, sdata in sorted_saved:
@@ -2624,9 +2656,17 @@ def show_class_analysis(df, grade, subject_cols):
 
             # ---- sort ----------------------------------------------------
             if is_junior:
-                sdf["_s"] = pd.to_numeric(
-                    sdf["ADM NO."], errors="coerce").fillna(0).astype(int)
-                sdf = sdf.sort_values("_s").drop(columns=["_s"])
+                # Safe sort: numeric adm_nos first, non-numeric at end.
+                sdf["_adm_num"] = pd.to_numeric(sdf["ADM NO."], errors="coerce")
+                sdf["_adm_is_int"] = sdf["_adm_num"].notna().astype(int)
+                sdf = (
+                    sdf.sort_values(
+                        ["_adm_is_int", "_adm_num", "ADM NO."],
+                        ascending=[False, True, True],
+                        na_position="last"
+                    )
+                    .drop(columns=["_adm_num", "_adm_is_int"])
+                )
             else:
                 sdf = sdf.sort_values("NAME OF STUDENTS")
             sdf = sdf.reset_index(drop=True)
